@@ -122,7 +122,7 @@
                                                 <%
                                                     for (Destination d:
                                                          desList) {
-                                                        
+
                                                     %>
                                                 <option value="<%=d.getDiaDiem_ID()%>" ><%=d.getTenDiaDiem()%></option>
                                                 <%}%>
