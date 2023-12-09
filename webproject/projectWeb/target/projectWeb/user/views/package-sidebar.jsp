@@ -111,10 +111,10 @@
                                     </p>
                                 </div>
                                 <div class="package-card-body">
-                                    <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h3>
+                                    <h3 class="p-card-title"><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h3>
                                     <div class="p-card-bottom">
                                         <div class="book-btn">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                         </div>
                                         <div class="p-card-info">
                                             <span>Số còn nhận <span style="color: var(--c-primary);"><%=tour.getSoLuong()%></span></span>

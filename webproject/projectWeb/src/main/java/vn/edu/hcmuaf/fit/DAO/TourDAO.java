@@ -38,7 +38,7 @@ public class TourDAO {
     public List<Tour> getListTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =1")
+                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from `tour` INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =1")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -235,7 +235,7 @@ public class TourDAO {
 
 
 
-//    public static void main(String[] args) {
+    public static void main(String[] args) {
 //        Map<Integer,List<Tour>> map = new LinkedHashMap<Integer, List<Tour>>();
 //        map = getInstance().getMapVoucherTour();
 //
@@ -243,7 +243,10 @@ public class TourDAO {
 //        for (Integer i:
 //             set) {
 //            System.out.println(i + map.get(i).toString());
-//        }
-//    }
+
+        List<Tour> list = TourDAO.getInstance().getAllTour();
+
+       System.out.println(list);
+    }
 
 }

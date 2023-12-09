@@ -298,7 +298,7 @@
                               <td><%=listNewTour.get(i).getTour_id()%></td>
                               <td><%=listNewTour.get(i).getTourName()%></td>
                               <td><%=listNewTour.get(i).getSoLuong()%></td>
-                              <td><span class="badge bg-success"><%=listNewTour.get(i).getTrangThai()%></span></td>
+                              <td><span class="badge bg-success"><%=listNewTour.get(i).getTrangThai()==1?"Đang bán":listNewTour.get(i).getTrangThai()==0?"Tạm hết bán":"Sắp bán"%></span></td>
                               <td><%=giaVeString%>đ</td>
                               <td><%=listNewTour.get(i).getTour_category()%></td>
                           </tr>

@@ -31,9 +31,15 @@ public class TourService {
     /*
     Phương thức lấy dữ liệu các Tour từ cơ sở dữ liệu trả lại 1 List sản phẩm Tour
      */
+//    public List<Tour> getListTour(){
+//
+//        return TourDAO.getInstance().getListTour();
+//    }
+
+    //Test
     public List<Tour> getListTour(){
 
-        return TourDAO.getInstance().getListTour();
+        return TourDAO.getInstance().getAllTour();
     }
     public List<Tour> getAllTour(){return TourDAO.getInstance().getAllTour();}
     /*
@@ -46,6 +52,10 @@ public class TourService {
     public List<Tour> getListIncomingTour(){
         return TourDAO.getInstance().getListIncomingTour();
     }
+
+//    public List<Tour> getListIncomingTour(){
+//        return TourDAO.getInstance().getAllTour();
+//    }
 
     public List<Tour> getRandomListTour(){
         Random random = new Random();
