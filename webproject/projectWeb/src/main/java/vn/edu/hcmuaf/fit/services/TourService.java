@@ -58,12 +58,23 @@ public class TourService {
 //    }
 
     public List<Tour> getRandomListTour(){
+//        Random random = new Random();
+//        List<Tour> list = TourDAO.getInstance().getListTour();
+//        List<Tour> ranlist = new ArrayList<Tour>();
+//        for (int i = 0; i < 4; i++) {
+//            int j = random.nextInt(list.size());
+//            ranlist.add(list.get(j));
+//        }
+//
+//        return ranlist;
         Random random = new Random();
         List<Tour> list = TourDAO.getInstance().getListTour();
         List<Tour> ranlist = new ArrayList<Tour>();
-        for (int i = 0; i < 4; i++) {
-            int j = random.nextInt(list.size());
-            ranlist.add(list.get(j));
+        if (!list.isEmpty()) {
+            for (int i = 0; i < 4; i++) {
+                int j = random.nextInt(list.size());
+                ranlist.add(list.get(j));
+            }
         }
 
         return ranlist;

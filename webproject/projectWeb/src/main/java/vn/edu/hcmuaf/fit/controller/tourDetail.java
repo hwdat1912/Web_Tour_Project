@@ -28,7 +28,7 @@ public class tourDetail extends HttpServlet {
         TourPackage tp = TourDetailService.getInstance().getTourPackageDetail(tour_id);
         List<Tour> ranlist = TourService.getInstance().getRandomListTour();
         if (tp == null){
-            response.sendRedirect("/projectWeb_war/user/views/tour");
+            response.sendRedirect(request.getContextPath()+"/user/views/tour");
         }
         request.setAttribute("isLike",isLike);
         request.setAttribute("tourdetail",tp);
