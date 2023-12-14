@@ -38,7 +38,24 @@ public class TourDAO {
     public List<Tour> getListTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from `tour` INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =1")
+                h.createQuery("SELECT \n" +
+                                "    tour.TOUR_ID,\n" +
+                                "    tour.TourName,\n" +
+                                "    tour.TrangThai AS TourTrangThai,\n" +
+                                "    tour.NgayTao,\n" +
+                                "    tour.NgayKhoiHanh,\n" +
+                                "    tour.NgayKetThuc,\n" +
+                                "    tour.SoLuong,\n" +
+                                "    tour.ImageURL,\n" +
+                                "    tour.TOUR_CATEGORY,\n" +
+                                "    tour_type.GiaVe\n" +
+                                "FROM \n" +
+                                "    tour\n" +
+                                "INNER JOIN \n" +
+                                "    tour_type ON tour.TOUR_ID = tour_type.TOUR_ID\n" +
+                                "WHERE \n" +
+                                "    tour.TrangThai = 1\n" +
+                                "    AND tour_type.Type = 1;")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -48,7 +65,23 @@ public class TourDAO {
     public List<Tour> getAllTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 ")
+                h.createQuery("SELECT\n" +
+                                "    tour.TOUR_ID,\n" +
+                                "    tour.TourName,\n" +
+                                "    tour.TrangThai,\n" +
+                                "    tour.NgayTao,\n" +
+                                "    tour.NgayKhoiHanh,\n" +
+                                "    tour.NgayKetThuc,\n" +
+                                "    tour.SoLuong,\n" +
+                                "    tour.ImageURL,\n" +
+                                "    tour.TOUR_CATEGORY,\n" +
+                                "    tour_type.GiaVe\n" +
+                                "FROM\n" +
+                                "    tour\n" +
+                                "INNER JOIN\n" +
+                                "    tour_type ON tour.TOUR_ID = tour_type.TOUR_ID\n" +
+                                "WHERE\n" +
+                                "    tour_type.Type = 1;")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -61,7 +94,24 @@ public class TourDAO {
     public List<Tour> getSoldOutTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and SoLuong =0")
+                h.createQuery("SELECT\n" +
+                                "    tour.TOUR_ID,\n" +
+                                "    tour.TourName,\n" +
+                                "    tour.TrangThai,\n" +
+                                "    tour.NgayTao,\n" +
+                                "    tour.NgayKhoiHanh,\n" +
+                                "    tour.NgayKetThuc,\n" +
+                                "    tour.SoLuong,\n" +
+                                "    tour.ImageURL,\n" +
+                                "    tour.TOUR_CATEGORY,\n" +
+                                "    tour_type.GiaVe\n" +
+                                "FROM\n" +
+                                "    tour\n" +
+                                "INNER JOIN\n" +
+                                "    tour_type ON tour.TOUR_ID = tour_type.TOUR_ID\n" +
+                                "WHERE\n" +
+                                "    tour_type.Type = 1\n" +
+                                "    AND SoLuong = 0;")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -71,7 +121,24 @@ public class TourDAO {
     public List<Tour> getNewTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and  DATEDIFF(CURRENT_DATE,NgayTao) <=5 ")
+                h.createQuery("SELECT\n" +
+                                "    tour.TOUR_ID,\n" +
+                                "    TourName,\n" +
+                                "    TrangThai,\n" +
+                                "    NgayTao,\n" +
+                                "    NgayKhoiHanh,\n" +
+                                "    NgayKetThuc,\n" +
+                                "    SoLuong,\n" +
+                                "    ImageURL,\n" +
+                                "    TOUR_CATEGORY,\n" +
+                                "    tour_type.GiaVe\n" +
+                                "FROM\n" +
+                                "    tour\n" +
+                                "INNER JOIN\n" +
+                                "    tour_type ON tour.TOUR_ID = tour_type.TOUR_ID\n" +
+                                "WHERE\n" +
+                                "    tour_type.Type = 1\n" +
+                                "    AND DATEDIFF(CURRENT_DATE, NgayTao) <= 5;")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -81,7 +148,7 @@ public class TourDAO {
     public TourDetail getTourDetail(String tour_id){
 
         List<TourDetail> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select * from tour where tour.TOUR_ID = ? ")
+                h.createQuery("SELECT * FROM tour WHERE tour.TOUR_ID = ?;")
                         .bind(0, tour_id)
                         .mapToBean(TourDetail.class)
                         .stream()
@@ -98,9 +165,21 @@ public class TourDAO {
     public List<Tour> getListBySearchText(String textSearch){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe" +
-                                " from Tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
-                                "where tour_type.Type =1 and tour.TrangThai =1 and " +
+                h.createQuery("select " +
+                                "tour.TOUR_ID," +
+                                "TourName," +
+                                "TrangThai AS TourTrangThai," +
+                                "NgayTao," +
+                                "NgayKhoiHanh," +
+                                "NgayKetThuc," +
+                                "SoLuong," +
+                                "ImageURL," +
+                                "TOUR_CATEGORY," +
+                                "tour_type.GiaVe" +
+                                " from Tour " +
+                                "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                "where tour_type.Type =1 " +
+                                "and tour.TrangThai =1 and " +
                                 "TourName LIKE '%"+textSearch+"%' OR TourName LIKE '"+textSearch+"%' or TourName LIKE '%"+textSearch+"' or " +
                                 "TOUR_CATEGORY  LIKE '%"+textSearch+"%' or TOUR_CATEGORY  LIKE '"+textSearch+"%'or TOUR_CATEGORY  LIKE '%"+textSearch+"'")
                         .mapToBean(Tour.class)
@@ -126,9 +205,21 @@ public class TourDAO {
 
         String finalTextSearchquery = textSearchquery;
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe" +
-                                " from Tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
-                                "where tour_type.Type =1 and tour.TrangThai =1  " +
+                h.createQuery("select " +
+                                "tour.TOUR_ID," +
+                                "TourName," +
+                                "TrangThai AS TourTrangThai," +
+                                "NgayTao," +
+                                "NgayKhoiHanh," +
+                                "NgayKetThuc," +
+                                "SoLuong," +
+                                "ImageURL," +
+                                "TOUR_CATEGORY," +
+                                "tour_type.GiaVe" +
+                                " from Tour " +
+                                "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                "where tour_type.Type =1 " +
+                                "and tour.TrangThai =1  " +
                                 finalTextSearchquery + finalQuery
                             )
                         .mapToBean(Tour.class)
@@ -140,7 +231,21 @@ public class TourDAO {
     public List<Tour> getListPopularTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =1")
+                h.createQuery("select " +
+                                "tour.TOUR_ID," +
+                                "TourName," +
+                                "TrangThai AS TourTrangThai," +
+                                "NgayTao," +
+                                "NgayKhoiHanh," +
+                                "NgayKetThuc," +
+                                "SoLuong," +
+                                "ImageURL," +
+                                "TOUR_CATEGORY," +
+                                "tour_type.GiaVe " +
+                                "from tour " +
+                                "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                "where tour_type.Type =1 " +
+                                "and tour.TrangThai =1")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -152,7 +257,21 @@ public class TourDAO {
     public List<Tour> getListIncomingTour(){
 
         List<Tour> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID where tour_type.Type =1 and tour.TrangThai =2")
+                h.createQuery("select " +
+                                "tour.TOUR_ID," +
+                                "TourName," +
+                                "TrangThai AS TourTrangThai," +
+                                "NgayTao," +
+                                "NgayKhoiHanh," +
+                                "NgayKetThuc," +
+                                "SoLuong," +
+                                "ImageURL," +
+                                "TOUR_CATEGORY," +
+                                "tour_type.GiaVe " +
+                                "from tour " +
+                                "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                "where tour_type.Type =1 " +
+                                "and tour.TrangThai =2")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -167,8 +286,23 @@ public class TourDAO {
         for (Voucher v:
              listV) {
             List<Tour> list = JDBIConnector.get().withHandle(h ->
-                    h.createQuery("select tour.TOUR_ID,TourName,TrangThai,NgayTao,NgayKhoiHanh,NgayKetThuc,SoLuong,ImageURL,TOUR_CATEGORY,tour_type.GiaVe from tour INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
-                                    " where tour_type.Type =1 and tour.TrangThai =1 and TOUR_VOUCHER.VOUCHER_ID = ?")
+                    h.createQuery("select " +
+                                    "tour.TOUR_ID," +
+                                    "TourName," +
+                                    "TrangThai AS TourTrangThai," +
+                                    "NgayTao," +
+                                    "NgayKhoiHanh," +
+                                    "NgayKetThuc," +
+                                    "SoLuong," +
+                                    "ImageURL," +
+                                    "TOUR_CATEGORY," +
+                                    "tour_type.GiaVe " +
+                                    "from tour " +
+                                    "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
+                                    "inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
+                                    " where tour_type.Type =1 " +
+                                    "and tour.TrangThai =1 " +
+                                    "and TOUR_VOUCHER.VOUCHER_ID = ?")
                             .bind(0,v.getVOUCHER_ID())
                             .mapToBean(Tour.class)
                             .stream()

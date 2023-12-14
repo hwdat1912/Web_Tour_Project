@@ -23,14 +23,12 @@ public class TourDetailDAO {
 
     //non constructor
     private TourDetailDAO(){
-
     }
 
     public static TourDetailDAO getInstance(){
         if (instance == null) instance = new TourDetailDAO();
         return  instance;
     }
-
 
     public List<TourDetailDays> getListDay(String tour_id){
         List<TourDetailDays> list = JDBIConnector.get().withHandle(h ->
@@ -65,7 +63,6 @@ public class TourDetailDAO {
 
         return list ;
     }
-
 
     public List<TourGuide> getListGuide(String tour_id){
         List<TourGuide> list = JDBIConnector.get().withHandle(h ->
@@ -126,6 +123,7 @@ public class TourDetailDAO {
         return true;
 
     }
+
     public List<TourDetail> getListLikedTour(String user_id){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.USER_ID = ?")
@@ -136,6 +134,7 @@ public class TourDetailDAO {
         );
         return llt;
     }
+
     public boolean getLikedTourDetail(String user_id,String tourId){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
@@ -159,6 +158,7 @@ public class TourDetailDAO {
         );
         return llt;
     }
+
     public List<TourDetail> getListTourGuideCalendar(String guideId){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
                 handle.createQuery("select tour.* from tour inner join TOUR_GUIDE on TOUR_GUIDE.TOUR_ID = tour.TOUR_ID where NgayKhoiHanh > CURRENT_DATE and TOUR_GUIDE.USER_ID = ?")
@@ -404,6 +404,7 @@ public class TourDetailDAO {
         );
         return  true;
     }
+
     public boolean createTourDetailGuide(List<String> list, String id){
         for (String st:
              list) {
@@ -418,6 +419,7 @@ public class TourDetailDAO {
         }
         return true;
     }
+
     public boolean createTourDetailType(List<String[]> list, String id){
         for (String[] st:
                 list) {
@@ -433,6 +435,7 @@ public class TourDetailDAO {
         }
         return true;
     }
+
     public boolean createTourDetailDay(List<String[]> list, String id){
         for (String[] st:
                 list) {
