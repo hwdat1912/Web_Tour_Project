@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css//box.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <!-- or -->
@@ -62,6 +63,14 @@
                         <jsp:include page="./components/box-left.jsp">
                             <jsp:param name="isCurrent" value="managerKey"/>
                         </jsp:include>
+                        <%
+                            String success = (String) request.getAttribute("success");
+
+                            if(success != null){
+                                response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
+                            }
+
+                        %>
 
                         <div class="" style="margin-top: 20px;">
                             <div class="wrapper order" >
@@ -71,8 +80,15 @@
                                            <b>Quản lí Khóa</b>
                                         </ul>
                                     </div>
-                                    <div class="alert alert-success">
+                                    <div class="alert alert-success" style="display: none;">
                                         <strong>Success!</strong> Indicates a successful or positive action.
+                                    </div>
+
+                                    <%
+                                        String error = (String) request.getAttribute("error");
+                                    %>
+                                    <div class="alert alert-danger" style="<%=error ==null ? "display:none":""%>">
+                                        <strong>Lỗi!</strong> Có một public key đang được sử dụng không thể tạo mới
                                     </div>
 
                                     <div class="row">
@@ -84,14 +100,20 @@
                                                     <div class="row element-button" style="margin-left: 0px;">
                                                         <div class="col-sm-2 mb-3">
 
-                                                            <a class="btn btn-outline-primary btn-sm" href="<%=request.getContextPath()%>/user/views/CreateKey" title="Thêm"><i class="fas fa-plus"></i>
+                                                            <a class="btn btn-outline-primary btn-sm" href="<%=request.getContextPath()%>/user/views/CreateKey" onclick="thanks()" title="Thêm"><i class="fas fa-plus"></i>
                                                                 Tạo Key</a>
                                                         </div>
 
                                                         <div class="col-sm-2 mb-3">
 
-                                                            <a class="btn btn-outline-success btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i>
+                                                            <a class="btn btn-outline-success btn-sm" href="#my-dialog" title="Thêm"><i class="fas fa-plus"></i>
                                                                 Nhập Key</a>
+                                                        </div>
+
+                                                        <div class="col-sm-2 mb-3">
+
+                                                            <a class="btn btn-outline-info btn-sm" href="#dialog" title="Thêm"><i class="fas fa-plus"></i>
+                                                                Tạo Public Key Từ Private Key</a>
                                                         </div>
 
 
@@ -173,6 +195,54 @@
         </div>
     </div>
 
+
+
+    <div>
+        <div class="dialog overlay" id="my-dialog">
+            <a href="#" class="overlay-close"></a>
+
+            <div class="dialog-body">
+                <a class="dialog-close-btn" href="#">&times;</a>
+                <h3 class="title">Nhập Public Key</h3>
+                <div class="group-input">
+                    <label>Nhập Key:</label><input class="input-key" id="input-key" type="text" name="">
+
+                </div>
+                <div id="message">
+
+
+                </div>
+                <div class="container-button">
+                    <button class="btn btn-success" onclick="importKey()" style="margin-right: 10px;">Nhập key</button>
+                    <a class="btn btn-secondary" href="#" }>Trở về</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="dialog overlay" id="dialog">
+            <a href="#" class="overlay-close"></a>
+
+            <div class="dialog-body">
+                <a class="dialog-close-btn" href="#">&times;</a>
+                <h3 class="title">Tạo Public Key</h3>
+
+                <div class="group-input">
+                    <label>Chọn File Private Key:</label><input class="input-key" type="file" name="">
+                </div>
+                <div id="messgae-private">
+
+
+                </div>
+                <div class="container-button">
+                    <a class="btn btn-success" href="" style="margin-right: 10px;">Nhập key</a>
+                    <a class="btn btn-secondary" href="#">Trở về</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 </body>
@@ -219,7 +289,7 @@
 					<div class="toast__icon"><i class="ti-check icon-subccess"></i></div>
 					<div class="toast__body">
 						<h3 class="toast__title">Success</h3>
-						<p class="toast__msg">Xoá thành công</p>
+						<p class="toast__msg">Tạo thành công</p>
 					</div>
 					<div class="toast__close"><i class="ti-close"></i></div>
 				`;
@@ -228,7 +298,45 @@
                 main.removeChild(toast);
             }, 2000);
         }
+
+
+
     }
+    function importKey(){
+        var key = document.getElementById("input-key");
+
+        $.ajax({
+            url : "<%=request.getContextPath()+"/user/views/ImportKey"%>",
+            type:"POST",
+            data:{
+                key:key.value
+            },
+            success: function(data){
+                if(data == "success"){
+                    thanks();
+                }else {
+                    var message =  document.getElementById("message");
+                    message.innerText = "Key không đúng";
+                }
+                // toast();
+
+            }
+        });
+
+
+    }
+
+    function thanks() {
+        setTimeout(function () {
+            document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";
+        }, 500);
+    }
+</script>
+
+</script>
+<script>
+
+
 
 </script>
 </html>
