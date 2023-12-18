@@ -44,18 +44,21 @@ public class CreateKey extends HttpServlet {
 
             OutputStream outStream = new BufferedOutputStream(response.getOutputStream());
 
+            request.setAttribute("success","Thành Công");
             outStream.write(data);
             keyService.insertKey(user.getUser_Id(),rsaService.exportPublicKey(),KeyService.ENABLE);
             outStream.flush();
-            outStream.close();;
+            outStream.close();
+//            response.setHeader("Refresh", "0");
 
-            request.setAttribute("success","Thành Công");
-            request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
+
+//            request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
 
         }else {
 //            response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
             request.setAttribute("error","Lỗi có public key đang được sử dụng");
             request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
+
         }
 
 //        response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
