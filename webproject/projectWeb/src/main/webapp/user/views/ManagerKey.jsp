@@ -16,6 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="./assets/css//box.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css//toast.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
 
     <!-- or -->
@@ -99,9 +100,10 @@
 
                                                     <div class="row element-button" style="margin-left: 0px;">
                                                         <div class="col-sm-2 mb-3">
-
-                                                            <a class="btn btn-outline-primary btn-sm" href="<%=request.getContextPath()%>/user/views/CreateKey" onclick="thanks()" title="Thêm"><i class="fas fa-plus"></i>
-                                                                Tạo Key</a>
+                                                            <form action="<%=request.getContextPath()%>/user/views/CreateKey" method="post">
+                                                                <button class="btn btn-outline-primary btn-sm"  onclick="thanks()" title="Thêm"><i class="fas fa-plus"></i>
+                                                                Tạo Key</button>
+                                                            </form>
                                                         </div>
 
                                                         <div class="col-sm-2 mb-3">
@@ -189,11 +191,11 @@
         </main>
     </main>
 
-    <div>
+<%--    <div>--%>
         <div id="toast_message">
 
         </div>
-    </div>
+<%--    </div>--%>
 
 
 
@@ -286,12 +288,12 @@
             toast.classList.add('toast-item');
             toast.style.animation = ` fadeIn ease 0.3s,fadeOut linear 1s 2s forwards`;
             toast.innerHTML =`
-					<div class="toast__icon"><i class="ti-check icon-subccess"></i></div>
+					<div class="toast__icon"><i class="fa-solid fa-bug icon-error"></i></div>
 					<div class="toast__body">
-						<h3 class="toast__title">Success</h3>
-						<p class="toast__msg">Tạo thành công</p>
+						<h3 class="toast__title">Lỗi</h3>
+						<p class="toast__msg">Key không phù hợp hoặc có key đang sử dụng</p>
 					</div>
-					<div class="toast__close"><i class="ti-close"></i></div>
+					<div class="toast__close"><i class="fa-solid fa-xmark"></i></div>
 				`;
             main.appendChild(toast);
             setTimeout(() => {
@@ -302,6 +304,8 @@
 
 
     }
+
+
     function importKey(){
         var key = document.getElementById("input-key");
 
@@ -312,11 +316,15 @@
                 key:key.value
             },
             success: function(data){
-                if(data == "success"){
-                    thanks();
+                    console.log(data)
+
+                console.log(typeof  data)
+                console.log(data == 0)
+                if(data == 0) {
+                    toast();
+
                 }else {
-                    var message =  document.getElementById("message");
-                    message.innerText = "Key không đúng";
+                    location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
                 }
                 // toast();
 
@@ -331,6 +339,8 @@
             document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";
         }, 500);
     }
+
+
 </script>
 
 </script>

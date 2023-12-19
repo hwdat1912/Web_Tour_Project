@@ -30,6 +30,10 @@ public class KeyService {
     public  void insertKey(String userId,String p_key,int status){
         KeyDAO.getInstance().insertKey(userId,p_key,status);
     }
+
+    public boolean isContantKey(String key){
+        return KeyDAO.getInstance().isContantKey(key);
+    }
     public static KeyService getInstance() {
         if (instance == null) instance = new KeyService();
         return instance;

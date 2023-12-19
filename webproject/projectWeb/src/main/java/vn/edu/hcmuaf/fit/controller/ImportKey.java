@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.Console;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -30,26 +31,34 @@ public class ImportKey extends HttpServlet {
 
 
         if(keyService.getPublicKeyByStatus(user.getUser_Id(),KeyService.ENABLE).size() == 0){
-            String message ="" ;
+//            String message ="" ;
+            int message;
             String key = request.getParameter("key");
-            if(key == null || key.isEmpty()){
-                message = "error";
+            if(key == null || key.isEmpty() || keyService.isContantKey(key)){
+//                message = "error";
+                message = 0 ;
                 response.getWriter().println(message);
                 return;
             }
             try {
                 rsa.importPublicKey(key);
                 keyService.insertKey(user.getUser_Id(),rsa.exportPublicKey(),KeyService.ENABLE);
-                message = "success";
+//                message = "success";
+                message = 1 ;
+
+
             } catch (NoSuchAlgorithmException e) {
-                message = "error";
+//                message = "error";
+                message = 0 ;
             } catch (InvalidKeySpecException e) {
-                message = "error";
+//                message = "error";
+                message = 0 ;
             }
+            System.out.println(message);
             response.getWriter().println(message);
+
         }else {
-            request.setAttribute("error","Lỗi có public key đang được sử dụng");
-            request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
+            response.getWriter().println(0);
         }
     }
 }

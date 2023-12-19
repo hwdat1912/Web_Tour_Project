@@ -18,7 +18,7 @@ import java.util.List;
 public class CreateKey extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
         HttpSession session = request.getSession(true);
@@ -54,11 +54,13 @@ public class CreateKey extends HttpServlet {
 
 //            request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
 
-        }else {
+        }else if(list.size() > 0) {
 //            response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
             request.setAttribute("error","Lỗi có public key đang được sử dụng");
             request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
 
+        }else {
+                        response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
         }
 
 //        response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
