@@ -82,6 +82,18 @@ public class KeyDAO {
         return list;
     }
 
+    public boolean isContantKey(String key){
+        List<PublicKey> list = JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.status FROM public_key WHERE \n" +
+                            "p_key = ? ")
+                    .bind(0,key)
+                    .registerRowMapper(ConstructorMapper.factory(PublicKey.class))
+                    .mapTo(PublicKey.class)
+                    .list();
+        });
+        return list.size() > 0 ? true :false;
+    }
+
     public void insertKey(String userId,String p_key,int status){
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("INSERT INTO public_key(User_id,p_key,status) VALUES (?,?,?)")
@@ -90,6 +102,7 @@ public class KeyDAO {
                     .bind(2,status)
                     .execute();
         });
+
     }
     public static void main(String[] args) {
         KeyDAO dao = KeyDAO.getInstance();
