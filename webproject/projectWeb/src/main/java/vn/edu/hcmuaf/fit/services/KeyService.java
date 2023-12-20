@@ -27,8 +27,12 @@ public class KeyService {
         return KeyDAO.getInstance().getPublicKeyByUserId(userId);
     }
 
-    public  void insertKey(String userId,String p_key,int status){
+    public void insertKey(String userId,String p_key,int status){
         KeyDAO.getInstance().insertKey(userId,p_key,status);
+    }
+
+    public void lostKey(int publicId){
+        KeyDAO.getInstance().lostKey(publicId, WARNING);
     }
 
     public boolean isContantKey(String key){

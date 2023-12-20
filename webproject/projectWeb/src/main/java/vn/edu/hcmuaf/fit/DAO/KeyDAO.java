@@ -104,6 +104,18 @@ public class KeyDAO {
         });
 
     }
+
+    public void lostKey(int publicId, int status){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE public_key " +
+                            "SET status = ?, date_create = NOW() " +
+                            "WHERE public_id = ?")
+                    .bind(0, status)
+                    .bind(1, publicId)
+                    .execute();
+        });
+    }
+
     public static void main(String[] args) {
         KeyDAO dao = KeyDAO.getInstance();
 
