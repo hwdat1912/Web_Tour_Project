@@ -1,7 +1,10 @@
 package vn.edu.hcmuaf.fit.services;
 
 import java.security.*;
+import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.RSAPublicKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 
@@ -13,6 +16,7 @@ public class RSAService {
     public void generate() {
         try {
             SecureRandom sr = new SecureRandom();
+
             KeyPairGenerator kpg = KeyPairGenerator.getInstance("RSA");
             kpg.initialize(1024, sr);
             KeyPair keys = kpg.generateKeyPair();
@@ -25,7 +29,6 @@ public class RSAService {
             e.printStackTrace();
         }
     }
-
 
 
     public PrivateKey getPrivateKey() {
@@ -41,6 +44,16 @@ public class RSAService {
     }
 
     public void setPublicKey(PublicKey publicKey) {
+        this.publicKey = publicKey;
+    }
+
+    public void generatePublicKeyFromPrivateKey(PKCS8EncodedKeySpec spec) throws NoSuchAlgorithmException, InvalidKeySpecException {
+        KeyFactory factory = KeyFactory.getInstance("RSA");
+        PrivateKey privateKey = factory.generatePrivate(spec);
+
+        RSAPrivateCrtKey rsaPrivateKey = (RSAPrivateCrtKey)privateKey;
+        PublicKey publicKey = KeyFactory.getInstance("RSA").generatePublic(new RSAPublicKeySpec(rsaPrivateKey.getModulus(), rsaPrivateKey.getPublicExponent()));
+
         this.publicKey = publicKey;
     }
 

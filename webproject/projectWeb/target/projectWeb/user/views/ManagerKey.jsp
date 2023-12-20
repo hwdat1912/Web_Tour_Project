@@ -227,16 +227,15 @@
             <div class="dialog-body">
                 <a class="dialog-close-btn" href="#">&times;</a>
                 <h3 class="title">Tạo Public Key</h3>
-
                 <div class="group-input">
-                    <label>Chọn File Private Key:</label><input class="input-key" type="file" name="">
+                    <label>Chọn File Private Key:</label><input id="file" class="input-key" type="file" name="file" enctype='multipart/form-data' accept=".bin"  required >
                 </div>
                 <div id="messgae-private">
 
 
                 </div>
                 <div class="container-button">
-                    <a class="btn btn-success" href="" style="margin-right: 10px;">Nhập key</a>
+                    <button class="btn btn-success" onclick="createPublicKey()"  style="margin-right: 10px;">Tạo key</button>
                     <a class="btn btn-secondary" href="#">Trở về</a>
                 </div>
             </div>
@@ -279,7 +278,7 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script>
-    function toast(){
+    function toast(title,message){
         const main = document.getElementById('toast_message');
         if(main){
             const toast = document.createElement('div');
@@ -288,8 +287,8 @@
             toast.innerHTML =`
 					<div class="toast__icon"><i class="fa-solid fa-bug icon-error"></i></div>
 					<div class="toast__body">
-						<h3 class="toast__title">Lỗi</h3>
-						<p class="toast__msg">Key không phù hợp hoặc có key đang sử dụng</p>
+						<h3 class="toast__title"> ${title} </h3>
+						<p class="toast__msg">${message}</p>
 					</div>
 					<div class="toast__close"><i class="fa-solid fa-xmark"></i></div>
 				`;
@@ -319,7 +318,7 @@
                 console.log(typeof  data)
                 console.log(data == 0)
                 if(data == 0) {
-                    toast();
+                    toast("Lỗi","Key không phù hợp hoặc có key đang sử dụng");
 
                 }else {
                     location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
@@ -332,10 +331,79 @@
 
     }
 
+    function createPublicKey(){
+        // var key = document.getElementById("fileKey");
+
+        var fileInput = document.getElementById('file');
+        var file = fileInput.files[0];
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        if(file == undefined){
+            toast("Lỗi","Vui lòng chọn File")
+        }else {
+            $.ajax({
+                url : "<%=request.getContextPath()+"/user/views/CreateByPrivate"%>",
+                type:"POST",
+                encType : "multipart/form-data",
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function(data){
+                    console.log(data)
+
+                    console.log(typeof  data)
+                    console.log(data == 0)
+                    if(data == 0) {
+                        toast("Lỗi","Có lỗi xảy ra vui lòng thử lại sau");
+
+                    }else if(data == 2) {
+                        toast("Lỗi","Có Key đang được sử dụng");
+                    }else {
+                        location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
+                    }
+                    // toast();
+
+                }
+            });
+        }
+
+
+
+
+    }
+
+
     function thanks() {
         setTimeout(function () {
             document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";
         }, 500);
+    }
+
+    function createKey(){
+        $.ajax({
+            url : "<%=request.getContextPath()+"/user/views/CreateKey"%>",
+            type:"POST",
+            data:{
+
+            },
+            success: function(data){
+                console.log(data)
+
+                console.log(typeof  data)
+                console.log(data == 0)
+                if(data == 0) {
+                    toast("Lỗi","Có key đang được sử dụng");
+                    console.log("Đaya")
+
+                }else {
+                    <%--location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";--%>
+                }
+                // toast();
+
+            }
+        });
     }
 
     function lostKeyFunction() {
