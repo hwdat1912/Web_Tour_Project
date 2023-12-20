@@ -50,9 +50,6 @@
 
 <%@include file="./components/header.jsp"%>
 
-<>
-
-
 <div class="profile-wrapper">
     <main role="main">
         <main role="main">
@@ -161,12 +158,13 @@
                                                             <td style="word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
                                                             <td class="badge <%=badge%>" style="margin-top: 25%;"><%=status%></td>
                                                             <td class="table-td-center" style="vertical-align: middle">
-                                                                <form action="#" id="form" method="post">
+                                                                <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">
                                                                     <input style="display: none" name="guideId" value="">
+                                                                    <input type="hidden" name="publicId" value="<%=item.getPublic_id()%>">
                                                                     <button class="btn btn-primary btn-sm bullseye" type="submit"name="option" value="view" title="Xem"
                                                                     ><i class="fa-solid fa-eye"></i>
                                                                     </button>
-                                                                    <button class="btn btn-danger btn-sm " name="option" value="warning" type="submit" title="Thông báo lộ Key"
+                                                                    <button class="btn btn-danger btn-sm " onclick="lostKeyFunction()" name="option" value="warning" type="submit" title="Thông báo lộ Key"
                                                                     ><i class="fa-solid fa-triangle-exclamation"></i>
                                                                     </button>
                                                                 </form>
@@ -340,7 +338,9 @@
         }, 500);
     }
 
-
+    function lostKeyFunction() {
+        alert("Bạn muốn thông báo mất key!");
+    }
 </script>
 
 </script>
