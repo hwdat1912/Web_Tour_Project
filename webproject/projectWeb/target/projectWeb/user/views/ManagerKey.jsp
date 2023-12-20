@@ -61,8 +61,10 @@
                                                     <div class="row element-button">
                                                         <div class="col-sm-2 mb-3">
 
-                                                            <a class="btn btn-outline-primary btn-sm" href="#" title="Thêm"><i class="fas fa-plus"></i>
-                                                                Tạo Key</a>
+                                                            <a class="btn btn-outline-primary btn-sm" href="#" title="Thêm" onclick="generateRSAKey()">
+                                                                <i class="fas fa-plus"></i> Tạo Key
+                                                            </a>
+
                                                         </div>
 
                                                         <div class="col-sm-2 mb-3">
@@ -131,8 +133,39 @@
 </div>
 
 </body>
+<script>
+    function generateRSAKey() {
+        // Tạo một cặp khóa RSA ngẫu nhiên
+        var key = new RSAKey();
+        key.generate(2048, '10001');
+
+        // Trích xuất khóa công cộng và khóa riêng
+        var publicKey = key.getPublicKey();
+        var privateKey = key.getPrivateKey();
+
+        // Hiển thị khóa hoặc gửi chúng đến máy chủ bằng AJAX
+        alert('Khóa Công Cộng: ' + publicKey);
+        alert('Khóa Riêng: ' + privateKey);
+
+        $.ajax({
+            type: 'POST',
+            url: '/generate-key', // Thay đổi đường dẫn tới servlet mới tạo
+            data: { publicKey: publicKey, privateKey: privateKey },
+            success: function(response) {
+                // Xử lý phản hồi từ máy chủ nếu cần
+                alert('Keys sent to the server successfully');
+            },
+            error: function(error) {
+                alert('Error sending keys to the server');
+            }
+        });
+
+    }
+</script>
 
 <!-- Essential javascripts for application to work-->
+<script src="https://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js"></script>
+
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>

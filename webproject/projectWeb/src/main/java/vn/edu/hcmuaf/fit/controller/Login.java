@@ -9,9 +9,9 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.security.PublicKey;
 
 
 /* Servlet đăng nhập
@@ -22,6 +22,7 @@ import java.util.Map;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // Chuyển hướng đến Servlet xem Public Key
 
     }
 
@@ -31,24 +32,25 @@ public class Login extends HttpServlet {
         String password = request.getParameter("password");
         User user = UserService.getInstance().checkLogin(username, password);
 
-        if(user==null){
+        if (user == null) {
             request.setAttribute("error", "Tên người dùng hoặc mật khẩu không chính xác");
-            request.setAttribute("route","sign");
+            request.setAttribute("route", "sign");
             request.getRequestDispatcher("sign.jsp").forward(request, response);
-        }else{
-
-            Map<String, TourCart> listTourCart = new LinkedHashMap<String, TourCart>();
-            Cart cart = new Cart(user.getUser_Id(),listTourCart);
+        } else {
+            Map<String, TourCart> listTourCart = new LinkedHashMap<>();
+            Cart cart = new Cart(user.getUser_Id(), listTourCart);
             HttpSession session = request.getSession(true);
+
+
+            // Các dòng mã tiếp theo không thay đổi từ mã ban đầu của bạn
             session.setAttribute("auth", user);
-            session.setAttribute("cart",cart);
-//            session.setAttribute("login","Bạn đã đăng nhập");
-            if (user.getUser_role() >0 ){
+            session.setAttribute("cart", cart);
+
+            if (user.getUser_role() > 0) {
                 response.sendRedirect("/projectWeb_war/redirect.jsp");
-            }else{
+            } else {
                 response.sendRedirect("/projectWeb_war/user/views/home");
             }
-
         }
     }
 }
