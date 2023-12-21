@@ -18,6 +18,11 @@ import java.util.List;
 public class CreateKey extends HttpServlet {
 
     @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        resp.sendRedirect(req.getContextPath()+"/user/views/ManagerKey");
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
@@ -26,6 +31,7 @@ public class CreateKey extends HttpServlet {
         KeyService keyService = new KeyService();
         List<PublicKey> list = keyService.getPublicKeyByStatus(user.getUser_Id(),KeyService.ENABLE);
         System.out.println(user);
+
 
         if(list.size() == 0){
             RSAService rsaService = new RSAService();
@@ -60,7 +66,7 @@ public class CreateKey extends HttpServlet {
             request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
 
         }else {
-                        response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
+            response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
         }
 
 //        response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
