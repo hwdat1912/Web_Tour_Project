@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page import="vn.edu.hcmuaf.fit.bean.PublicKey" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -31,11 +32,11 @@
     <jsp:param name="isCurrent" value="khoaTable"/>
 </jsp:include>
 
-<% List<User> listKH = request.getAttribute("listKH")==null?null:(List<User>) request.getAttribute("listKH") ;%>
+<% List<PublicKey> listKeys = request.getAttribute("listKeys")==null?null:(List<PublicKey>) request.getAttribute("listKeys") ;%>
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
-            <li class="breadcrumb-item active"><a href="#"><b>Danh sách user</b></a></li>
+            <li class="breadcrumb-item active"><a href="#"><b>Danh sách khóa</b></a></li>
         </ul>
         <div id="clock"></div>
     </div>
@@ -59,110 +60,65 @@
                         <thead>
                         <tr>
                             <th width="10"><input type="checkbox" id="all"></th>
-                            <th>ID key</th>
+                            <th width="50">ID key</th>
                             <th width="150">ID User</th>
-                            <th width="200">Khóa</th>
+                            <th width="300" class="text-center">Khóa</th> <!-- Adjusted width for the "Khóa" column -->
                             <th width="150">Thời gian tạo khóa</th>
-                            <th>Trạng thái</th>
+                            <th width="100">Trạng thái</th>
                             <th width="100">Tính năng</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <%
-                                for (int i = 0; i < listKH.size(); i++) {
-                                    int j=i+1;
+                            <% for (int i = 0; i < listKeys.size(); i++) {
+                                int j = i + 1;
                             %>
-                            <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
-                            <td><%=listKH.get(i).getFullName()==null?"Chưa có":listKH.get(i).getFullName()%></td>
-                            <td><%=listKH.get(i).getUser_Id()%></td>
-                            <td><%=listKH.get(i).getDiaChi()==null?"Chưa có":listKH.get(i).getDiaChi()%></td>
-                            <td><%=listKH.get(i).getBirth() ==null?"Chưa có":listKH.get(i).getBirth().toString()%></td>
-                            <td><%=listKH.get(i).getGioiTinh()==null?"Chưa có":listKH.get(i).getGioiTinh()%></td>
-
-
-                            <td class="table-td-center">
-                                <%--                    <button class="btn btn-primary btn-sm trash" type="button" title="Xóa"--%>
-                                <%--                      onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>--%>
-                                <%--                    </button>--%>
-                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                        data-toggle="modal" data-target="#ModalUP<%=listKH.get(i).getUser_Id()%>"><i class="fas fa-edit"></i>
-                                </button>
-                                    <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
-                                    ><i class="fas fa-trash-alt"></i>
-                                    </button>
+                            <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=listKeys.get(i).getPublic_id()%>"
+                                                  data-key="<%=listKeys.get(i).getPublic_id()%>"></td>
+                            <td><%=listKeys.get(i).getPublic_id() == 0 ? "Chưa có" : listKeys.get(i).getPublic_id()%></td>
+                            <td><%=listKeys.get(i).getUserId()==null?"Chưa có":listKeys.get(i).getUserId()%></td>
+                            <td class="wrap-text"><%=listKeys.get(i).getP_key()==null?"Chưa có":listKeys.get(i).getP_key()%></td>
+                            <td><%=listKeys.get(i).getDate_create()==null?"Chưa có":listKeys.get(i).getDate_create().toString()%></td>
+                            <td>
+                                <% Integer status = listKeys.get(i).getStatus(); %>
+                                <%= (status != null && status == 0) ? "Disabled" : "Hoạt động" %>
                             </td>
+                            <td class="table-td-center">
+
+                                <div class="col-sm-2">
+                                    <a class="btn btn-primary btn-sm disable-key-btn"
+                                       href="#"
+                                       data-toggle="modal"
+                                       data-target="#disableKeyModal"
+                                       onclick="disableKey('<%= listKeys.get(i).getPublic_id() %>')"
+                                       title="Disabled">
+                                        <i class="fas fa-ban"></i>
+                                    </a>
+                                </div>
+                                <button class="btn btn-primary btn-sm trash" type="submit" name="option" value="delete" title="Xóa">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </td>
+
+
+
                         </tr>
-
-                        <%}%>
-
-
+                        <% } %>
                         </tbody>
                     </table>
+
                 </div>
             </div>
         </div>
     </div>
 </main>
 
-<!--
-MODAL
--->
-<%
-    for (User u:
-            listKH) {
-
-%>
-<div class="modal fade" id="ModalUP<%=u.getUser_Id()%>" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static"
-     data-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-
-            <div class="modal-body">
-                <div class="row">
-                    <div class="form-group  col-md-12">
-              <span class="thong-tin-thanh-toan">
-                <h5>Chỉnh sửa thông tin khóa</h5>
-              </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group col-md-6">
-                        <label class="control-label">Khóa</label>
-                        <input class="form-control" type="text" required value="#CD2187" disabled>
-                    </div>
-
-                    <div class="form-group  col-md-6">
-                        <label for="exampleSelect1" class="control-label">Trạng thái</label>
-                        <select class="form-control" id="exampleSelect1">
-                            <option>Hoạt động</option>
-                            <option>Vô hiệu hóa</option>
 
 
-                        </select>
-                    </div>
-                </div>
-                <BR>
-                <!-- <a href="#" style="    float: right;
-              font-weight: 600;
-              color: #ea0000;">Chỉnh sửa nâng cao</a>
-                <BR> -->
-                <BR>
-                <button class="btn btn-save" type="button">Lưu lại</button>
-                <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                <BR>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
-</div>
-<%}%>
-<!--
-MODAL
--->
 
-<!-- Essential javascripts for application to work-->
+
+
+
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="js/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
@@ -177,26 +133,27 @@ MODAL
 <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript">$('#sampleTable').DataTable();</script>
+
 <script>
-    function deleteRow(r) {
-        var i = r.parentNode.parentNode.rowIndex;
-        document.getElementById("myTable").deleteRow(i);
-    }
+
     jQuery(function () {
         jQuery(".trash").click(function () {
+            var row = jQuery(this).closest("tr");
+
             swal({
                 title: "Cảnh báo",
-
                 text: "Bạn có chắc chắn là muốn xóa khóa này?",
                 buttons: ["Hủy bỏ", "Đồng ý"],
-            })
-                .then((willDelete) => {
-                    if (willDelete) {
-                        swal("Đã xóa thành công.!", {
+            }).then((willDelete) => {
+                if (willDelete) {
+                    // Remove the row if the user confirms
+                    row.remove();
 
-                        });
-                    }
-                });
+                    swal("Đã xóa thành công!", {
+                        icon: "success",
+                    });
+                }
+            });
         });
     });
     oTable = $('#sampleTable').dataTable();
@@ -204,6 +161,27 @@ MODAL
         $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
         e.stopImmediatePropagation();
     });
+
+
+    function disableKey(publicKeyId) {
+        // Use Ajax to disable the key
+        $.ajax({
+            type: "POST",
+            url: "/projectWeb_war/admin/DisableKeyServlet", // Make sure this path is correct
+            data: { publicId: publicKeyId },
+            success: function(response) {
+                alert("Key disabled successfully!");
+            },
+
+            error: function(error) {
+                alert("Error disabling key: " + error.responseText);
+            }
+        });
+
+    }
+
+
+
 
     //EXCEL
     // $(document).ready(function () {
@@ -215,6 +193,7 @@ MODAL
     //     ]
     //   });
     // });
+
 
 
     //Thời Gian
@@ -267,29 +246,20 @@ MODAL
             win.print();
         }
     }
-    //     //Sao chép dữ liệu
-    //     var copyTextareaBtn = document.querySelector('.js-textareacopybtn');
-
-    // copyTextareaBtn.addEventListener('click', function(event) {
-    //   var copyTextarea = document.querySelector('.js-copytextarea');
-    //   copyTextarea.focus();
-    //   copyTextarea.select();
-
-    //   try {
-    //     var successful = document.execCommand('copy');
-    //     var msg = successful ? 'successful' : 'unsuccessful';
-    //     console.log('Copying text command was ' + msg);
-    //   } catch (err) {
-    //     console.log('Oops, unable to copy');
-    //   }
-    // });
 
 
-    //Modal
-    $("#show-emp").on("click", function () {
-        $("#ModalUP").modal({ backdrop: false, keyboard: false })
-    });
+
+
 </script>
+<style>
+    .wrap-text {
+        max-width: 300px; /* Adjust the max-width as per your design */
+        word-wrap: break-word;
+        white-space: normal;
+    }
+</style>
 </body>
 
 </html>
+
+z

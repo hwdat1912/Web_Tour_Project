@@ -273,7 +273,7 @@
                                         <li class="mb-1">
                                             <a
                                                     class="d-inline-flex align-items-center rounded"
-                                                    href="ManagerKey.jsp"
+                                                    href="<%=request.getContextPath()%>/user/views/ManagerKey"
                                             >
                                                 <h6 class="fw-bold <%=isCurrent.equals("managerKey")?"isCurrent":""%>">Quản lí Khóa</h6>
                                             </a>
