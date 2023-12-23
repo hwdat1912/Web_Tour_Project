@@ -1,4 +1,4 @@
-        <%@ page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 <%@ page import="vn.edu.hcmuaf.fit.bean.PublicKey" %>
 <%@ page import="vn.edu.hcmuaf.fit.services.KeyService" %>
 <%@ page import="java.io.OutputStream" %><%--
@@ -64,8 +64,8 @@
                         <%
                             String success = (String) request.getAttribute("success");
 
-                            if (success != null) {
-                                response.sendRedirect(request.getContextPath() + "/user/views/ManagerKey");
+                            if(success != null){
+                                response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
                             }
 
                         %>
@@ -85,7 +85,7 @@
                                     <%
                                         String error = (String) request.getAttribute("error");
                                     %>
-                                    <div class="alert alert-danger" style="<%=error == null ? "display:none" : ""%>">
+                                    <div class="alert alert-danger" style="<%=error ==null ? "display:none":""%>">
                                         <strong>Lỗi!</strong> Có một public key đang được sử dụng không thể tạo mới
                                     </div>
 
@@ -126,58 +126,51 @@
                                                         <thead>
                                                         <tr>
                                                             <th width="50">Ngày Tạo</th>
-                                                            <th width="50">Ngày Báo</th>
                                                             <th width="150">Key</th>
                                                             <th width="100">Trạng Thái</th>
+
                                                             <th width="100">Tính năng</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
                                                         <%
-                                                            List<PublicKey> list = (List<PublicKey>) request.getAttribute("listKey");
-                                                            ;
-                                                            PublicKey item = null;
-                                                            if (list != null) {
+                                                            List<PublicKey> list = (List<PublicKey>) request.getAttribute("listKey");;
+                                                            if(list !=null){
+                                                                PublicKey item;
                                                                 String status;
                                                                 String badge = "";
-                                                                for (int i = 0; i < list.size(); i++) {
+                                                                for (int i = 0 ;i < list.size();i++) {
                                                                     item = list.get(i);
-                                                                    if (item.getStatus() == KeyService.WARNING) {
+                                                                    if(item.getStatus() == KeyService.WARNING){
                                                                         status = "Key Đang Yêu Cầu ENABLE";
                                                                         badge = "bg-warning";
-                                                                    } else if (item.getStatus() == KeyService.ENABLE) {
+                                                                    }else if(item.getStatus() == KeyService.ENABLE){
                                                                         status = "Key Đang Sử Dụng";
                                                                         badge = "bg-success";
-                                                                    } else {
+                                                                    }else {
                                                                         status = "Key Đã Bị ENABLE";
-                                                                        badge = "bg-danger";
+                                                                        badge ="bg-danger";
                                                                     }
 
                                                         %>
                                                         <tr style=" text-align: center;">
-                                                            <td style="vertical-align: middle">
-                                                                <%=item.getDate_create()%></td>
-                                                            <td style="vertical-align: middle">
-                                                                <%=(item.getDate_report() != null) ? item.getDate_report() : "&nbsp;"%></td>
-                                                            <td id="hiddenText" style="word-wrap: break-word;max-width: 100px; text-align: left;"></td>
-                                                            <td class="badge <%=badge%>" style="margin-top: 25%;">
-                                                                <%=status%></td>
+                                                            <td style="vertical-align: middle"><%=item.getDate_create()%></td>
+                                                            <td style="word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
+                                                            <td class="badge <%=badge%>" style="margin-top: 25%;"><%=status%></td>
                                                             <td class="table-td-center" style="vertical-align: middle">
                                                                 <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">
                                                                     <input style="display: none" name="guideId" value="">
-                                                                    <input type="hidden" name="publicId" value="
-                        <%=item.getPublic_id()%>">
-                                                                    <button class="btn btn-primary btn-sm bullseye" onclick="toggleTextVisibility()" type="button" name="options" value="view" title="Xem"
+                                                                    <input type="hidden" name="publicId" value="<%=item.getPublic_id()%>">
+                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit"name="option" value="view" title="Xem"
                                                                     ><i class="fa-solid fa-eye"></i>
                                                                     </button>
-                                                                    <button class="btn btn-danger btn-sm " onclick="lostKey()" name="option" value="warning" type="button" title="Thông báo lộ Key"
+                                                                    <button class="btn btn-danger btn-sm " onclick="lostKeyFunction()" name="option" value="warning" type="submit" title="Thông báo lộ Key"
                                                                     ><i class="fa-solid fa-triangle-exclamation"></i>
                                                                     </button>
                                                                 </form>
                                                             </td>
                                                         </tr>
-                                                        <%}
-                                                        }%>
+                                                        <%}}%>
 
                                                         </tbody>
                                                     </table>
@@ -285,27 +278,6 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script>
-    var originalText = '<%=item.getP_key()%>'; // Lấy giá trị cần ẩn từ server-side
-    var isTextVisible = false; // Đặt giá trị mặc định là false để ẩn đoạn chữ ban đầu
-
-    document.addEventListener('DOMContentLoaded', function() {
-        updateTextVisibility();
-    });
-
-    function toggleTextVisibility() {
-        isTextVisible = !isTextVisible;
-        updateTextVisibility();
-    }
-
-    function updateTextVisibility() {
-        var displayText = isTextVisible ? originalText : hideTextWithAsterisks(originalText);
-        document.getElementById('hiddenText').innerText = displayText;
-    }
-
-    function hideTextWithAsterisks(text) {
-        return '*'.repeat(text.length); // Thay thế bằng dấu '*' có cùng độ dài với đoạn chữ ban đầu
-    }
-
     function toast(title,message){
         const main = document.getElementById('toast_message');
         if(main){
@@ -335,7 +307,7 @@
         var key = document.getElementById("input-key");
 
         $.ajax({
-            url : "<%=request.getContextPath() + "/user/views/ImportKey"%>",
+            url : "<%=request.getContextPath()+"/user/views/ImportKey"%>",
             type:"POST",
             data:{
                 key:key.value
@@ -344,8 +316,8 @@
                     console.log(data)
 
                 console.log(typeof  data)
-                console.log(data === 0)
-                if(data === 0) {
+                console.log(data == 0)
+                if(data == 0) {
                     toast("Lỗi","Key không phù hợp hoặc có key đang sử dụng");
 
                 }else {
@@ -368,11 +340,11 @@
         var formData = new FormData();
         formData.append('file', file);
 
-        if(file === undefined){
+        if(file == undefined){
             toast("Lỗi","Vui lòng chọn File")
         }else {
             $.ajax({
-                url : "<%=request.getContextPath() + "/user/views/CreateByPrivate"%>",
+                url : "<%=request.getContextPath()+"/user/views/CreateByPrivate"%>",
                 type:"POST",
                 encType : "multipart/form-data",
                 data: formData,
@@ -382,11 +354,11 @@
                     console.log(data)
 
                     console.log(typeof  data)
-                    console.log(data === 0)
-                    if(data === 0) {
+                    console.log(data == 0)
+                    if(data == 0) {
                         toast("Lỗi","Có lỗi xảy ra vui lòng thử lại sau");
 
-                    }else if(data === 2) {
+                    }else if(data == 2) {
                         toast("Lỗi","Có Key đang được sử dụng");
                     }else {
                         location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
@@ -411,7 +383,7 @@
 
     function createKey(){
         $.ajax({
-            url : "<%=request.getContextPath() + "/user/views/CreateKey"%>",
+            url : "<%=request.getContextPath()+"/user/views/CreateKey"%>",
             type:"POST",
             data:{
 
@@ -420,8 +392,8 @@
                 console.log(data)
 
                 console.log(typeof  data)
-                console.log(data === 0)
-                if(data === 0) {
+                console.log(data == 0)
+                if(data == 0) {
                     toast("Lỗi","Có key đang được sử dụng");
                     console.log("Đaya")
 
@@ -434,32 +406,15 @@
         });
     }
 
-    function lostKey() {
-        var publicId = '<%=item.getPublic_id()%>';
-        $.ajax({
-            url: '<%=request.getContextPath()%>/user/views/LostKey',
-            type: 'POST',
-            data: {
-                option: 'warning',
-                publicId: publicId
-            },
-            success: function (data) {
-                if (data === 'success') {
-                    toast('OK!', 'Thông báo lộ Key thành công');
-                    setTimeout(function () {
-                        window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
-                    }, 2000);
-                } else if (<%=item.getStatus()%> === <%=KeyService.WARNING%>) {
-                    toast('Lỗi!', 'Key đã ở trạng thái CẢNH BÁO(Đang chờ kích hoạt)');
-                    setTimeout(function () {
-                        window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
-                    }, 2000);
-                }
-            },
-            error: function () {
-                toast('Lỗi!', 'Đã xảy ra lỗi không mong muốn');
-            }
-        });
+    function lostKeyFunction() {
+        alert("Bạn muốn thông báo mất key!");
     }
+</script>
+
+</script>
+<script>
+
+
+
 </script>
 </html>
