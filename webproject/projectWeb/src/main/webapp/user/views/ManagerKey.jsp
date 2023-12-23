@@ -126,9 +126,9 @@
                                                         <thead>
                                                         <tr>
                                                             <th width="50">Ngày Tạo</th>
-                                                            <th width="50">Ngày Báo</th>
                                                             <th width="150">Key</th>
                                                             <th width="100">Trạng Thái</th>
+
                                                             <th width="100">Tính năng</th>
                                                         </tr>
                                                         </thead>
@@ -155,7 +155,6 @@
                                                         %>
                                                         <tr style=" text-align: center;">
                                                             <td style="vertical-align: middle"><%=item.getDate_create()%></td>
-                                                            <td style="vertical-align: middle"><%=item.getDate_report()%></td>
                                                             <td style="word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
                                                             <td class="badge <%=badge%>" style="margin-top: 25%;"><%=status%></td>
                                                             <td class="table-td-center" style="vertical-align: middle">
