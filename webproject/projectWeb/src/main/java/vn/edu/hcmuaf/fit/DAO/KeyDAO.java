@@ -36,7 +36,7 @@ public class KeyDAO {
 
     public List<PublicKey> getPublicKeyByStatus(int status){
         List<PublicKey> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.status FROM public_key WHERE \n" +
+            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.date_report,public_key.status FROM public_key WHERE \n" +
                             "status = ? ORDER BY  public_key.date_create DESC")
                     .bind(0,status)
                     .registerRowMapper(ConstructorMapper.factory(PublicKey.class))
@@ -56,7 +56,7 @@ public class KeyDAO {
 //        );
 
         List<PublicKey> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.status FROM public_key WHERE \n" +
+            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.date_report,public_key.status FROM public_key WHERE \n" +
                             "status = ? and User_id = ? ORDER BY  public_key.date_create DESC")
                     .bind(0,status)
                     .bind(1,userId)
@@ -72,7 +72,7 @@ public class KeyDAO {
 
 
         List<PublicKey> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.status FROM public_key WHERE \n" +
+            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.date_report,public_key.status FROM public_key WHERE \n" +
                             "User_id = ? ORDER BY  public_key.date_create DESC")
                     .bind(0,userId)
                     .registerRowMapper(ConstructorMapper.factory(PublicKey.class))
@@ -84,7 +84,7 @@ public class KeyDAO {
 
     public boolean isContantKey(String key){
         List<PublicKey> list = JDBIConnector.get().withHandle(handle -> {
-            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.status FROM public_key WHERE \n" +
+            return handle.createQuery("SELECT public_key.public_id,public_key.User_id,public_key.p_key,public_key.date_create,public_key.date_report,public_key.status FROM public_key WHERE \n" +
                             "p_key = ? ")
                     .bind(0,key)
                     .registerRowMapper(ConstructorMapper.factory(PublicKey.class))
@@ -108,7 +108,7 @@ public class KeyDAO {
     public void lostKey(int publicId, int status){
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE public_key " +
-                            "SET status = ?, date_create = NOW() " +
+                            "SET status = ?, date_report = NOW() " +
                             "WHERE public_id = ?")
                     .bind(0, status)
                     .bind(1, publicId)
