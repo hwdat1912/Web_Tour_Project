@@ -31,8 +31,14 @@ public class KeyService {
         KeyDAO.getInstance().insertKey(userId,p_key,status);
     }
 
-    public void lostKey(int publicId){
-        KeyDAO.getInstance().lostKey(publicId, WARNING);
+    public boolean lostKey(int publicId){
+        try {
+            KeyDAO.getInstance().lostKey(publicId, WARNING);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
     public boolean isContantKey(String key){
