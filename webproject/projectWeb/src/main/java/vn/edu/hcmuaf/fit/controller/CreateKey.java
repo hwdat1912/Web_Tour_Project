@@ -62,7 +62,7 @@ public class CreateKey extends HttpServlet {
 
         }else if(list.size() > 0) {
 //            response.sendRedirect(request.getContextPath()+"/user/views/ManagerKey");
-            request.setAttribute("error","Lỗi có public key đang được sử dụng");
+            request.setAttribute("error","Lỗi có public key đang được sử dụng hoặc chờ vô hiệu hóa");
             request.getRequestDispatcher("/user/views/ManagerKey").forward(request,response);
 
         }else {
