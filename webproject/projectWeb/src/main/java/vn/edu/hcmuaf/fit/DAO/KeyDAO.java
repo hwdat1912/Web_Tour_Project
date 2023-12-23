@@ -5,7 +5,8 @@ import vn.edu.hcmuaf.fit.bean.PublicKey;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import static vn.edu.hcmuaf.fit.services.KeyService.DISABLE;
 
 public class KeyDAO {
     private static KeyDAO instance;
@@ -105,6 +106,7 @@ public class KeyDAO {
 
     }
 
+
     public void lostKey(int publicId, int status){
         JDBIConnector.get().withHandle(handle -> {
             return handle.createUpdate("UPDATE public_key " +
@@ -131,4 +133,15 @@ public class KeyDAO {
 //        });
 //        System.out.println(users);
     }
+
+
+    public void disableKey(int publicKeyId) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE public_key SET status = ? WHERE public_id = ?")
+                    .bind(0, DISABLE)
+                    .bind(1, publicKeyId)
+                    .execute();
+        });
+    }
+
 }

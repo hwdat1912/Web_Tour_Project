@@ -44,6 +44,11 @@
             class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý Blog</span></a>
     </li>
 
+    <li><a class="app-menu__item <%=isCurrent.equals("khoaTable")?"active":""%>" href="/projectWeb_war/admin/KeyTableData">
+      <i class='app-menu__icon bx bx-key'></i>
+      <span class="app-menu__label">Quản lý Khóa</span></a>
+    </li>
+
     <li><a class="app-menu__item <%=isCurrent.equals("reportTable")?"active":""%>" href="/projectWeb_war/admin/ReportTableData"><i
             class='app-menu__icon bx bx-pie-chart-alt-2'></i><span class="app-menu__label">Báo cáo doanh thu</span></a>
     </li>

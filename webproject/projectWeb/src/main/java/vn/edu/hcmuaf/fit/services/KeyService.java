@@ -3,8 +3,6 @@ package vn.edu.hcmuaf.fit.services;
 import vn.edu.hcmuaf.fit.DAO.KeyDAO;
 import vn.edu.hcmuaf.fit.bean.PublicKey;
 
-import java.io.FileOutputStream;
-import java.security.*;
 import java.util.List;
 
 public class KeyService {
@@ -27,6 +25,10 @@ public class KeyService {
         return KeyDAO.getInstance().getPublicKeyByUserId(userId);
     }
 
+
+
+
+
     public void insertKey(String userId,String p_key,int status){
         KeyDAO.getInstance().insertKey(userId,p_key,status);
     }
@@ -35,11 +37,26 @@ public class KeyService {
         KeyDAO.getInstance().lostKey(publicId, WARNING);
     }
 
+
     public boolean isContantKey(String key){
         return KeyDAO.getInstance().isContantKey(key);
     }
+
+    public List<PublicKey> getAllPublicKey() {
+        // Triển khai phương thức này để lấy tất cả khóa công khai từ DAO
+        return KeyDAO.getInstance().getAllPublicKey();
+    }
+
     public static KeyService getInstance() {
         if (instance == null) instance = new KeyService();
         return instance;
     }
+
+
+    public void disableKey(int publicKeyId) {
+        KeyDAO.getInstance().disableKey(publicKeyId);
+    }
+
+
+
 }
