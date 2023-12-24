@@ -70,7 +70,7 @@
 
                         %>
 
-                        <div class="" style="margin-top: 20px;">
+                        <div class="">
                             <div class="wrapper order" >
                                 <main class="app-content ps-md-4" style="padding-left: 0px !important; margin-left: 60px !important;">
                                     <div class="app-title">
