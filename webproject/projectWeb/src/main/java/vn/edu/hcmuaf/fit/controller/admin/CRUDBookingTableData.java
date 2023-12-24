@@ -72,9 +72,10 @@ public class CRUDBookingTableData extends HttpServlet {
             }
         }else{
             boolean b = BookingService.getInstance().updateBookingAdmin(tc);
+            boolean checkVerify = false;
             if (b){
 
-                response.sendRedirect("/projectWeb_war/admin/BookingTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/BookingTableData");
             }else {
                 String text = "Sửa không thành công vì số lượng còn lại của Tour: "+tc.getTOUR_ID()+" bé hơn số lượng vé yêu cầu "+tc.getSOLUONG();
                 request.setAttribute("error",text);
