@@ -64,6 +64,7 @@
                             <th width="150">ID User</th>
                             <th width="300" class="text-center">Khóa</th> <!-- Adjusted width for the "Khóa" column -->
                             <th width="150">Thời gian tạo khóa</th>
+                            <th width="150">Thời gian report</th>
                             <th width="100">Trạng thái</th>
                             <th width="100">Tính năng</th>
                         </tr>
@@ -79,6 +80,7 @@
                             <td><%=listKeys.get(i).getUserId()==null?"Chưa có":listKeys.get(i).getUserId()%></td>
                             <td class="wrap-text"><%=listKeys.get(i).getP_key()==null?"Chưa có":listKeys.get(i).getP_key()%></td>
                             <td><%=listKeys.get(i).getDate_create()==null?"Chưa có":listKeys.get(i).getDate_create().toString()%></td>
+                            <td><%=listKeys.get(i).getDate_report()==null?"Chưa có":listKeys.get(i).getDate_report().toString()%></td>
                             <td>
                                 <% Integer status = listKeys.get(i).getStatus(); %>
                                 <%= (status != null && status == 0) ? "Disabled" : "Hoạt động" %>
@@ -164,22 +166,36 @@
 
 
     function disableKey(publicKeyId) {
-        // Use Ajax to disable the key
-        $.ajax({
-            type: "POST",
-            url: "/projectWeb_war/admin/DisableKeyServlet", // Make sure this path is correct
-            data: { publicId: publicKeyId },
-            success: function(response) {
-                alert("Key disabled successfully!");
-            },
-
-            error: function(error) {
-                alert("Error disabling key: " + error.responseText);
+        // Ask for confirmation using SweetAlert
+        swal({
+            title: "Cảnh báo",
+            text: "Bạn có chắc chắn muốn tắt khóa này?",
+            icon: "warning",
+            buttons: ["Hủy", "Đồng ý"],
+            dangerMode: true,
+        }).then((confirmed) => {
+            if (confirmed) {
+                // User confirmed, proceed to disable the key
+                $.ajax({
+                    type: "POST",
+                    url: "/projectWeb_war/admin/DisableKeyServlet",
+                    data: { publicId: publicKeyId },
+                    success: function(response) {
+                        // Check if the key was disabled successfully
+                        if (response.trim() === "success") {
+                            swal("Thành công", "Key đã được tắt thành công!", "success");
+                        }
+                    },
+                    error: function(error) {
+                        swal("Lỗi", "Không thể tắt key. Vui lòng thử lại!", "error");
+                    }
+                });
+            } else {
+                // User canceled, do nothing
+                swal("Hủy bỏ", "Không có thay đổi nào được thực hiện!", "info");
             }
         });
-
     }
-
 
 
 
