@@ -317,8 +317,8 @@
                     console.log(data)
 
                 console.log(typeof  data)
-                console.log(data === 0)
-                if(data === 0) {
+                console.log(data == 0)
+                if(data == 0) {
                     toast("Lỗi","Key không phù hợp hoặc có key đang sử dụng,chờ vô hiệu hóa");
 
                 }else {
@@ -352,14 +352,14 @@
                 contentType: false,
                 processData: false,
                 success: function(data){
-                    console.log(data === 0)
+                    console.log(data == 0)
                     data = Number(data)
                     console.log(typeof  data)
                     console.log(data)
-                    if(data === 0) {
+                    if(data == 0) {
                         toast("Lỗi","Có lỗi xảy ra vui lòng thử lại sau");
 
-                    }else if(data === 2) {
+                    }else if(data == 2) {
                         toast("Lỗi","Có Key đang được sử dụng hoặc chờ vô hiệu");
                     }else {
                         location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
@@ -393,8 +393,8 @@
                 console.log(data)
 
                 console.log(typeof  data)
-                console.log(data === 0)
-                if(data === 0) {
+                console.log(data == 0)
+                if(data == 0) {
                     toast("Lỗi","Có key đang được sử dụng");
                     console.log("Đaya")
 
