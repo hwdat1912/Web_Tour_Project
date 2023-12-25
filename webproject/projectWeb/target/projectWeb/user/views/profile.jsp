@@ -69,14 +69,13 @@
                               này được sử dụng ra sao.
                             </p>
                           </div>
-                          <div style="display: flex; align-items: center; gap: 2rem">
+                          <div style="display: flex; align-items: center; gap: 8px">
 
-                                                                  <a style="color: var(--c-primary)" onclick="btnOpenEdit()"
-                                                                    class="fw-bold  "
-                                                                    >Chỉnh sửa</a
-                                                                  >
-                            <button style="color: var(--c-primary)"
-                               class="fw-bold  "
+                            <button type="button" class="fw-bold btn btn-success" onclick="btnOpenEdit()">
+                              Chỉnh sửa
+                            </button>
+                            <button
+                               class="fw-bold btn btn-success"
                             >Lưu lại</button
                             >
 
@@ -905,20 +904,25 @@
           x.style.display = "none";
         }
       }
-      function btnOpenEdit() {
-        console.log("open")
-        var x = document.getElementById("edit_name");
-        if (x.style.display === "none") {
+
+      function toggleElementVisibility(elementId) {
+        var x = document.getElementById(elementId);
+        if (!x.style.display || x.style.display === "none") {
           x.style.display = "block";
         } else {
           x.style.display = "none";
         }
-        btnHidden2();
-        btnHidden3();
-        btnHidden4();
-        btnHidden6();
-        btnHidden7();
       }
+
+      function btnOpenEdit() {
+        console.log("open");
+        var elementsToToggle = ["edit_name", "edit_sdt", "edit_birthday", "edit_gender", "edit_address", "edit_cmnd"];
+
+        elementsToToggle.forEach(function(elementId) {
+          toggleElementVisibility(elementId);
+        });
+      }
+
     </script>
     <script src="./assets/js/main.js"></script>
     <script src="./assets/js/profile.js"></script>
