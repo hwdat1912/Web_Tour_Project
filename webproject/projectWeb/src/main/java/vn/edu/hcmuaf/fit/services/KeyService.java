@@ -33,8 +33,8 @@ public class KeyService {
         KeyDAO.getInstance().insertKey(userId,p_key,status);
     }
 
-    public void lostKey(int publicId){
-        KeyDAO.getInstance().lostKey(publicId, WARNING);
+    public int lostKey(int publicId){
+        return KeyDAO.getInstance().lostKey(publicId, WARNING);
     }
 
 

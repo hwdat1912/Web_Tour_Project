@@ -107,14 +107,25 @@ public class KeyDAO {
     }
 
 
-    public void lostKey(int publicId, int status){
-        JDBIConnector.get().withHandle(handle -> {
-            return handle.createUpdate("UPDATE public_key " +
-                            "SET status = ?, date_report = NOW() " +
-                            "WHERE public_id = ?")
-                    .bind(0, status)
-                    .bind(1, publicId)
-                    .execute();
+    public int lostKey(int publicId, int status) {
+        return JDBIConnector.get().withHandle(handle -> {
+            int currentStatus = handle.createQuery("SELECT status FROM public_key WHERE public_id = ?")
+                    .bind(0, publicId)
+                    .mapTo(Integer.class)
+                    .findOne()
+                    .orElse(0); // Assuming default value is 0 if not found
+
+            if (currentStatus == -1) {
+                return -1;
+            } else {
+                // Status is 1, update the key
+                return handle.createUpdate("UPDATE public_key " +
+                                "SET status = ?, date_report = NOW() " +
+                                "WHERE public_id = ?")
+                        .bind(0, status)
+                        .bind(1, publicId)
+                        .execute();
+            }
         });
     }
 

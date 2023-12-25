@@ -70,7 +70,7 @@
 
                         %>
 
-                        <div class="" style="margin-top: 20px;">
+                        <div class="">
                             <div class="wrapper order" >
                                 <main class="app-content ps-md-4" style="padding-left: 0px !important; margin-left: 60px !important;">
                                     <div class="app-title">
@@ -129,7 +129,6 @@
                                                             <th width="50">Ngày Báo</th>
                                                             <th width="150">Key</th>
                                                             <th width="100">Trạng Thái</th>
-
                                                             <th width="100">Tính năng</th>
                                                         </tr>
                                                         </thead>
@@ -156,17 +155,17 @@
                                                         %>
                                                         <tr style=" text-align: center;">
                                                             <td style="vertical-align: middle"><%=item.getDate_create()%></td>
-                                                            <td style="vertical-align: middle"><%=item.getDate_report()%></td>
+                                                            <td style="vertical-align: middle"><%=(item.getDate_report() != null) ? item.getDate_report() : "&nbsp;"%></td>
                                                             <td style="word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
                                                             <td class="badge <%=badge%>" style="margin-top: 25%;"><%=status%></td>
                                                             <td class="table-td-center" style="vertical-align: middle">
                                                                 <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">
                                                                     <input style="display: none" name="guideId" value="">
                                                                     <input type="hidden" name="publicId" value="<%=item.getPublic_id()%>">
-                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit"name="option" value="view" title="Xem"
+                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit" name="options" value="view" title="Xem"
                                                                     ><i class="fa-solid fa-eye"></i>
                                                                     </button>
-                                                                    <button class="btn btn-danger btn-sm " onclick="lostKeyFunction()" name="option" value="warning" type="submit" title="Thông báo lộ Key"
+                                                                    <button class="btn btn-danger btn-sm " onclick="lostKeyFunction(<%=item.getPublic_id()%>)" name="option" value="warning" type="button" title="Thông báo lộ Key"
                                                                     ><i class="fa-solid fa-triangle-exclamation"></i>
                                                                     </button>
                                                                 </form>
@@ -318,8 +317,8 @@
                     console.log(data)
 
                 console.log(typeof  data)
-                console.log(data == 0)
-                if(data == 0) {
+                console.log(data === 0)
+                if(data === 0) {
                     toast("Lỗi","Key không phù hợp hoặc có key đang sử dụng,chờ vô hiệu hóa");
 
                 }else {
@@ -353,14 +352,14 @@
                 contentType: false,
                 processData: false,
                 success: function(data){
-                    console.log(data == 0)
+                    console.log(data === 0)
                     data = Number(data)
                     console.log(typeof  data)
                     console.log(data)
-                    if(data == 0) {
+                    if(data === 0) {
                         toast("Lỗi","Có lỗi xảy ra vui lòng thử lại sau");
 
-                    }else if(data == 2) {
+                    }else if(data === 2) {
                         toast("Lỗi","Có Key đang được sử dụng hoặc chờ vô hiệu");
                     }else {
                         location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
@@ -394,8 +393,8 @@
                 console.log(data)
 
                 console.log(typeof  data)
-                console.log(data == 0)
-                if(data == 0) {
+                console.log(data === 0)
+                if(data === 0) {
                     toast("Lỗi","Có key đang được sử dụng");
                     console.log("Đaya")
 
@@ -408,8 +407,39 @@
         });
     }
 
-    function lostKeyFunction() {
-        alert("Bạn muốn thông báo mất key!");
+    function lostKeyFunction(publicId) {
+        $.ajax({
+            type: 'POST',
+            url: '<%=request.getContextPath()%>/user/views/LostKey',
+            data: {
+                option: 'warning',
+                publicId: publicId
+            },
+            success: function (response) {
+                if (response.status === 'success') {
+                    toast('OK!', 'Thông báo lộ Key thành công!');
+                    setTimeout(function () {
+                        window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
+                    }, 2000);
+                } else if (response.status === 'warning') {
+                    toast('Cảnh báo!', 'Key đang yêu cầu Enable (Đang chờ kích hoat)');
+                    setTimeout(function () {
+                        window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
+                    }, 2000);
+                } else {
+                    toast('Lỗi!', 'Không thể báo cáo Key');
+                    setTimeout(function () {
+                        window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
+                    }, 2000);
+                }
+            },
+            error: function () {
+                toast('Lỗi!', 'Không thể báo cáo Key');
+                setTimeout(function () {
+                    window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
+                }, 2000);
+            }
+        });
     }
 </script>
 
