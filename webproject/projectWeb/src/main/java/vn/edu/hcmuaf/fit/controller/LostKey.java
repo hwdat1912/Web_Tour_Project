@@ -14,15 +14,22 @@ public class LostKey extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option = request.getParameter("option");
-        if("warning".equals(option)){
+        if ("warning".equals(option)) {
             String publicIdParam = request.getParameter("publicId");
-            if(publicIdParam != null && !publicIdParam.isEmpty()){
+            if (publicIdParam != null && !publicIdParam.isEmpty()) {
                 int publicId = Integer.parseInt(publicIdParam);
-                System.out.println("Public ID: " + publicId);
                 KeyService keyService = KeyService.getInstance();
-                keyService.lostKey(publicId);
+                int status = keyService.lostKey(publicId);
 
-                response.sendRedirect(request.getContextPath() + "/user/views/ManagerKey");
+                String jsonResponse;
+                if (status == KeyService.WARNING) {
+                    jsonResponse = "{\"status\": \"warning\"}";
+                } else {
+                    jsonResponse = "{\"status\": \"success\"}";
+                }
+
+                response.setContentType("application/json");
+                response.getWriter().write(jsonResponse);
                 return;
             }
         }
