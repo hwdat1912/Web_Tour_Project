@@ -150,7 +150,7 @@
 
                 </div>
             </div>
-              <button class="btn btn-save" type="submit">Lưu lại</button>
+              <button class="btn btn-save" type="submit" <%=error==null?"":"disabled"%> >Lưu lại</button>
               <a class="btn btn-cancel" href="/projectWeb_war/admin/BookingTableData">Hủy bỏ</a>
             </form>
           </div>

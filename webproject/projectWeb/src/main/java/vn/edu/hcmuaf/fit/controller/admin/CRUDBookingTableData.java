@@ -1,10 +1,7 @@
 package vn.edu.hcmuaf.fit.controller.admin;
 
 import vn.edu.hcmuaf.fit.bean.*;
-import vn.edu.hcmuaf.fit.services.BookingService;
-import vn.edu.hcmuaf.fit.services.DestinationService;
-import vn.edu.hcmuaf.fit.services.TourService;
-import vn.edu.hcmuaf.fit.services.UserService;
+import vn.edu.hcmuaf.fit.services.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -71,10 +68,12 @@ public class CRUDBookingTableData extends HttpServlet {
                 request.getRequestDispatcher("form-add-don-hang.jsp").forward(request, response);
             }
         }else{
+
             boolean b = BookingService.getInstance().updateBookingAdmin(tc);
             boolean checkVerify = false;
             if (b){
 
+                WriteBookingSevice.getInstance().writeBooking(tc,request);
                 response.sendRedirect(request.getContextPath()+"/admin/BookingTableData");
             }else {
                 String text = "Sửa không thành công vì số lượng còn lại của Tour: "+tc.getTOUR_ID()+" bé hơn số lượng vé yêu cầu "+tc.getSOLUONG();

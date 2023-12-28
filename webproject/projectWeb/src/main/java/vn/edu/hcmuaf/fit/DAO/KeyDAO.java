@@ -141,6 +141,29 @@ public class KeyDAO {
         });
     }
 
+    public String getOnePublicKeyById(String id){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT public_key.p_key FROM public_key " +
+                            "WHERE public_id =? ORDER BY  public_key.date_create DESC LIMIT 1")
+                    .bind(0, id)
+                    .mapTo(String.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
+    public String getOnePublicKeyIdByStatus(String userId, int status){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT public_key.public_id FROM public_key " +
+                            "WHERE status = ? AND User_id = ? ORDER BY  public_key.date_create DESC LIMIT 1")
+                    .bind(0, status)
+                    .bind(1, userId)
+                    .mapTo(String.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
     public int getPublicIdByStatus(String userId, int status){
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT public_id FROM public_key " +
@@ -156,9 +179,9 @@ public class KeyDAO {
     public static void main(String[] args) {
         KeyDAO dao = KeyDAO.getInstance();
 
-        List<PublicKey> list = dao.getPublicKeyByUserId("User34567");
-
-        System.out.println(list);
+//        List<PublicKey> list = dao.getPublicKeyByUserId("User34567");
+//
+//        System.out.println(list);
 
 //        List<PublicKey> users = JDBIConnector.get().withHandle(handle -> {
 //            return handle.createQuery("select * from public_key")
@@ -167,6 +190,8 @@ public class KeyDAO {
 //                    .list();
 //        });
 //        System.out.println(users);
+
+        System.out.println(KeyDAO.getInstance().getOnePublicKeyById("75"));
     }
 
 

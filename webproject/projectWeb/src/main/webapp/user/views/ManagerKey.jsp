@@ -83,7 +83,9 @@
                                     </div>
 
                                     <%
-                                        String error = (String) request.getAttribute("error");
+//                                        String error = (String) request.getAttribute("error");
+                                        String error = (String) request.getParameter("error");
+                                        System.out.println(error);
                                     %>
                                     <div class="alert alert-danger" style="<%=error ==null ? "display:none":""%>">
                                         <strong>Lỗi!</strong> Có một public key đang được sử dụng không thể tạo mới
@@ -317,8 +319,8 @@
                     console.log(data)
 
                 console.log(typeof  data)
-                console.log(data === 0)
-                if(data === 0) {
+                console.log(data == 0)
+                if(data == 0) {
                     toast("Lỗi","Key không phù hợp hoặc có key đang sử dụng,chờ vô hiệu hóa");
 
                 }else {
@@ -378,7 +380,8 @@
 
     function thanks() {
         setTimeout(function () {
-            document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";
+            <%--document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";--%>
+            location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
         }, 500);
     }
 

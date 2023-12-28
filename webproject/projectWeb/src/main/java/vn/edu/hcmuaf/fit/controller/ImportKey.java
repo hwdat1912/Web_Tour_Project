@@ -54,7 +54,7 @@ public class ImportKey extends HttpServlet {
 //                message = "error";
                 message = 0 ;
             }
-            System.out.println(message);
+            System.out.println("Print Message:" +message);
             response.getWriter().println(message);
 
         }else {

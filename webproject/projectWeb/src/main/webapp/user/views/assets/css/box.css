@@ -77,3 +77,8 @@
     display: flex;
 }
 
+.disable-href {
+    opacity: .4;
+    cursor: default !important;
+    pointer-events: none;
+}
