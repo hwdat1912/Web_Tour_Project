@@ -17,9 +17,10 @@ public class WriteBookingSevice {
     }
 
     public String writeBooking(Booking booking, HttpServletRequest request) {
-        String dirUrl = request.getContextPath() + File.separator + "booking";
+        String dirUrl =File.separator + "sign";
+        String absolutePath = request.getServletContext().getRealPath(dirUrl);
 
-        File dir = new File(dirUrl);
+        File dir = new File(absolutePath);
         if (!dir.exists()) {
             dir.mkdir();
         }
@@ -46,10 +47,8 @@ public class WriteBookingSevice {
             }
             return fileBooking;
         } catch (FileNotFoundException e) {
-
+            e.printStackTrace();
             return null;
         }
-
-
     }
 }

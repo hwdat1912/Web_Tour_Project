@@ -129,6 +129,30 @@ public class KeyDAO {
         });
     }
 
+    public String getOnePublicKeyByStatus(String userId, int status){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT public_key.p_key FROM public_key " +
+                            "WHERE status = ? AND User_id = ? ORDER BY  public_key.date_create DESC LIMIT 1")
+                    .bind(0, status)
+                    .bind(1, userId)
+                    .mapTo(String.class)
+                    .findOne()
+                    .orElse(null);
+        });
+    }
+
+    public int getPublicIdByStatus(String userId, int status){
+        return JDBIConnector.get().withHandle(handle -> {
+            return handle.createQuery("SELECT public_id FROM public_key " +
+                            "WHERE status = ? AND User_id = ? ORDER BY date_create DESC LIMIT 1;")
+                    .bind(0, status)
+                    .bind(1, userId)
+                    .mapTo(Integer.class)
+                    .findOne()
+                    .orElse(-1);
+        });
+    }
+
     public static void main(String[] args) {
         KeyDAO dao = KeyDAO.getInstance();
 
