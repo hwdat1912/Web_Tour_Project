@@ -2,6 +2,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="vn.edu.hcmuaf.fit.services.VerifyService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -109,6 +110,11 @@
                         <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                         ><i class="fas fa-edit"></i>
                         </button>
+                        <button class="btn btn-sm btn-info" onclick="checkAndShowToast('<%= bookingList.get(i).getBOOKING_ID() %>')">
+                          <i class="fas fa-eye"></i>
+                        </button>
+
+
                         <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận"
                                 ><i class="fas fa-check"></i>
                         </button>
@@ -210,8 +216,61 @@
   <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
-  <script>
-    function deleteRow(r) {
+
+
+
+
+
+
+
+<script>
+
+  function checkAndShowToast(bookingId, event) {
+    // Prevent the default form submission
+    event.preventDefault();
+
+    // Gọi servlet hoặc controller để kiểm tra xác thực
+    $.ajax({
+      type: "POST",
+      url: "/projectWeb_war/admin/CheckSignatureServlet",
+      data: { bookingId: bookingId },
+      success: function (response) {
+        if (response === 'verified') {
+          showToast('Hóa đơn đã được xác thực!');
+        } else {
+          // Thực hiện các hành động khác nếu cần thiết khi chưa xác thực
+          // Ví dụ: mở modal xem thông tin chi tiết đơn hàng
+          openOrderDetailsModal(bookingId);
+        }
+      },
+      error: function (error) {
+        console.error('Error checking verification:', error);
+      }
+    });
+  }
+
+  // Attach the click event to the button using jQuery
+  $(document).on("click", ".btn-info", function (event) {
+    var bookingId = $(this).data("booking-id"); // Assuming you have a data-booking-id attribute in your button
+    checkAndShowToast(bookingId, event);
+  });
+
+  function showToast(message) {
+    swal({
+      title: 'Thông báo',
+      text: message,
+      icon: 'success',
+      button: 'Đóng',
+    });
+  }
+
+  function openOrderDetailsModal(bookingId) {
+    // Thực hiện các hành động mở modal xem chi tiết đơn hàng
+    // Ví dụ: mở modal, load dữ liệu và hiển thị
+    // ...
+  }
+
+  function deleteRow(r) {
       var i = r.parentNode.parentNode.rowIndex;
       document.getElementById("myTable").deleteRow(i);
     }

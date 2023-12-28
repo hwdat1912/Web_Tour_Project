@@ -31,20 +31,13 @@ public class CreateByPrivate extends HttpServlet {
         int message = 1;
 
 
-        String data = req.getParameter("data");
-
-
-        System.out.println(data);
-
-        resp.setContentType("text/html;charset=UTF-8");
-
         HttpSession session = req.getSession(true);
         User user = (User) (User) session.getAttribute("auth");
         KeyService keyService = new KeyService();
         List<PublicKey> list = keyService.getPublicKeyByStatus(user.getUser_Id(),KeyService.ENABLE);
 
-        if(list.size() > 0){
-            message = 2;
+        if(list.size() > 0 || keyService.getPublicKeyByStatus(user.getUser_Id(), KeyService.WARNING).size() > 0){
+            resp.getWriter().println(2);
 
         }else {
             try (PrintWriter out = resp.getWriter()) {
@@ -74,22 +67,21 @@ public class CreateByPrivate extends HttpServlet {
                 } catch (NoSuchAlgorithmException e) {
                     message = 0;
 
-                    System.out.println("error");
                 } catch (InvalidKeySpecException e) {
                     message = 0;
-                    System.out.println("error");
                 }
 
-//            resp.getWriter().println(message);
+            resp.getWriter().println(message);
 
 //                out.println("File uploaded successfully!");
             } catch (Exception e) {
-                message = 0;
+                resp.getWriter().println(0);
+
 
             }
         }
-        System.out.println(message);
-        resp.getWriter().println(message);
+
+
 
     }
 }
