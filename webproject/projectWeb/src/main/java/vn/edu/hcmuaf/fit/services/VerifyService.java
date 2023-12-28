@@ -1,12 +1,16 @@
 package vn.edu.hcmuaf.fit.services;
 
+import vn.edu.hcmuaf.fit.DAO.BookingDAO;
+import vn.edu.hcmuaf.fit.bean.Booking;
+import vn.edu.hcmuaf.fit.bean.User;
+
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -49,9 +53,8 @@ public class VerifyService {
 
             return messageTest.equals(deString);
 
-        } catch (InvalidKeyException | NoSuchAlgorithmException | NoSuchPaddingException | IllegalBlockSizeException
-                 | BadPaddingException | IllegalArgumentException e) {
-            // TODO Auto-generated catch block
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
 
         }
@@ -61,7 +64,7 @@ public class VerifyService {
     //Phuong thuc ki hoa don
     //fileStoreVerify la thu muc chua file sinh ra khi ki
     //filename la file can ki
-    public void sign(String filename, String fileStoreVerify, PrivateKey priKey) {
+    public void sign(String filename, String fileStoreVerify, PrivateKey privateKey) {
         try {
 
 
@@ -70,7 +73,7 @@ public class VerifyService {
             // Ký số (Sign)***************************
             // Tạo đối tượng signer
             Signature signer = Signature.getInstance("SHA1withRSA");
-            signer.initSign(priKey, new SecureRandom());
+            signer.initSign(privateKey, new SecureRandom());
             // Chọn file để thực hiện ký số
 
 
@@ -144,6 +147,29 @@ public class VerifyService {
     public static VerifyService getInstance() {
         if (instance == null) instance = new VerifyService();
         return instance;
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+        VerifyService verifyService = VerifyService.getInstance();
+        KeyService keyService = KeyService.getInstance();
+        String publicKeyString = keyService.getOnePublicKeyBySatus("User54926");
+        PublicKey publicKey = keyService.convertStringToPublicKey(publicKeyString);
+
+        InputStream fileContent = new FileInputStream("/Users/hidroxit/Downloads/privateKey.bin");
+        PrivateKey privateKey = keyService.convertFileToPrivateKey(fileContent);
+        boolean keyCompatibility = verifyService.check(publicKey,privateKey);
+        System.out.println(publicKey);
+        System.out.println(privateKey);
+        BookingDAO bookingDAO = BookingDAO.getInstance();
+        Booking booking = bookingDAO.getBookingById("BOOKING-1289403724");
+        System.out.println(booking);
+
+        if (keyCompatibility) {
+            System.out.println("OK");
+        } else {
+            System.out.println("ERROR");
+        }
+
     }
 
 

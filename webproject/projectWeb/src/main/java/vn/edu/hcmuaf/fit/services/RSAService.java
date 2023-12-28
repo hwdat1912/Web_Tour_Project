@@ -77,6 +77,7 @@ public class RSAService {
         rsa.generate();
 
         System.out.println(Base64.getEncoder().encodeToString(rsa.getPublicKey().getEncoded()));
+        System.out.println(Base64.getEncoder().encodeToString(rsa.getPrivateKey().getEncoded()));
     }
 
 }
