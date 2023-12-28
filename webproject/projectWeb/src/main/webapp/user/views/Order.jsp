@@ -3,6 +3,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="vn.edu.hcmuaf.fit.services.VerifyService" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html >
@@ -85,6 +87,7 @@
                                 List<Booking> listCancelBooking = new ArrayList<Booking>();
                                 List<Booking> listWaitBooking = new ArrayList<Booking>();
                                 List<Booking> listCompleteBooking = new ArrayList<Booking>();
+                                Map<String,Integer> verifyOrder = (Map<String, Integer>) request.getAttribute("listVerify");
                                 for (Booking b:
                                      listBooking) {
                                     if (b.getTRANGTHAI() ==0 ) listWaitBooking.add(b);
@@ -192,14 +195,29 @@
                                                        <div class="tour-item-third-side">
                                                            <p class="add-more"style="font-size: 12px;" ><span ><%=b.getSOLUONG_VENGUOILON()%> người lớn</span> <span ><%=b.getSOLUONG_VETREEM()%> trẻ em</span></p>
                                                            <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
-                                                           <div class="message-status"></div>
+                                                           <%
+                                                               int status = verifyOrder.get(b.getBOOKING_ID());
+                                                               String message = "Lỗi không thể kí";
+                                                               String badge="";
+                                                               if(status == VerifyService.VERIFY_SUCCESS){
+                                                                   message = "Ký thành công";
+                                                                   badge ="bg-success";
+                                                               }else if(status == VerifyService.VERIFY_CHANGE){
+                                                                   message ="Đơn hàng đã bị thay đổi";
+                                                                   badge = "bg-danger";
+                                                               }else {
+                                                                   message = "Đơn chưa được kí";
+                                                                   badge = "bg-info";
+                                                               }
+                                                           %>
+                                                           <div class="message-status badge <%=badge%>" id="<%=b.getBOOKING_ID()+"mess"%>"><%=message%></div>
                                                        </div>
                                                        <div class="tour-item-four-side">
 
                                                            <span style="font-size: 12px;color: blue;font-weight: bold">Chờ xác nhận</span>
 
                                                            <input class="bookingId-current" type="hidden" name="bookingId" value="<%=b.getBOOKING_ID()%>">
-                                                           <a class="btn btn-primary btn-sm" style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
+                                                           <a  class="btn btn-primary btn-sm <%=status!=VerifyService.VERIFY_SUCCESS ? "":"disable-href"%>" id="<%=b.getBOOKING_ID()%>"  style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
                                                            Ký hoá đơn</a>
 
                                                            <a class="bound dahuy" style="width: 90px; border-radius: 5px" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
@@ -475,6 +493,26 @@
                 }, 2000);
             }
         }
+        function toastOK(title,message){
+            const main = document.getElementById('toast_message');
+            if(main){
+                const toast = document.createElement('div');
+                toast.classList.add('toast-item');
+                toast.style.animation = ` fadeIn ease 0.3s,fadeOut linear 1s 2s forwards`;
+                toast.innerHTML =`
+					<div class="toast__icon"><i class="fa-solid fa-circle-check icon-subccess"></i></div>
+					<div class="toast__body">
+						<h3 class="toast__title"> ${title} </h3>
+						<p class="toast__msg">${message}</p>
+					</div>
+					<div class="toast__close"><i class="fa-solid fa-xmark"></i></div>
+				`;
+                main.appendChild(toast);
+                setTimeout(() => {
+                    main.removeChild(toast);
+                }, 2000);
+            }
+        }
 
         function openModal(bookingId) {
             $('#pop-dialog').attr('data-booking-id', bookingId);
@@ -496,25 +534,35 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
+                    var itemMess = "#"+bookingId+"mess"
                     if (response.status === 'success') {
                         console.log('ID Booking and file sent successfully');
-                        toast("OK", "Ký hoá đơn thành công");
-                        $(".message-status").text("Ký thành công").removeClass("error-message");
+                        console.log(bookingId);
+                        document.getElementById(bookingId).classList.add("disable-href")
+                        toastOK("OK", "Ký hoá đơn thành công");
+                        $(itemMess).text("Ký thành công").removeClass("error-message");
+                        $(itemMess).addClass("bg-success");
+                        $(itemMess).removeClass("bg-info")
+                        window.location.href ="#";
+
                     } else if (response.status === 'error') {
                         console.error('Error sending ID Booking and file:', response.error);
                         toast("Lỗi", "Ký hoá đơn không thành công");
-                        $(".message-status").text("Ký không thành công").addClass("error-message");
+                        $(itemMess).text("Ký không thành công").addClass("error-message");
+                        $(itemMess).removeClass("bg-success");
+                        $(itemMess).removeClass("bg-info");
                     } else {
                         console.error('Unexpected response:', response);
                         toast("Lỗi", "Ký hoá đơn không thành công");
-                        $(".message-status").text("Lỗi không thể ký").addClass("error-message");
+                        $(itemMess).text("Lỗi không thể ký").addClass("error-message");
+                        $(itemMess).removeClass("bg-success");
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.error("AJAX Error:", textStatus, errorThrown);
                     console.error("Server Response:", jqXHR.responseText);
                     toast("Lỗi", "Server đang gặp vấn đề");
-                    $(".message-status").text("Lỗi server").addClass("error-message");
+                    $("itemMess").text("Lỗi server").addClass("error-message");
                 }
             });
         }

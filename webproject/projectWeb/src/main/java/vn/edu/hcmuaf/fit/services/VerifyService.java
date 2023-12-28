@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.services;
 
 import vn.edu.hcmuaf.fit.DAO.BookingDAO;
+import vn.edu.hcmuaf.fit.DAO.VerifyDAO;
 import vn.edu.hcmuaf.fit.bean.Booking;
 import vn.edu.hcmuaf.fit.bean.User;
 
@@ -22,6 +23,13 @@ import java.util.Base64;
 
 public class VerifyService {
     private static VerifyService instance;
+
+    public  static final int  VERIFY_SUCCESS = 1;
+    public  static final int  NONE_VERIFY = 0;
+
+    public  static final int  VERIFY_CHANGE = -1;
+
+
 
     private VerifyService() {
     }
@@ -144,9 +152,21 @@ public class VerifyService {
         }
     }
 
+    public void insertVerify(String public_id,String booking_id	){
+         VerifyDAO.getInstance().insertVerify(public_id,booking_id);
+    }
+
+//    public boolean isVerify(String booking_id){
+//        return  VerifyDAO.getInstance().isVerify(booking_id);
+//    }
+
     public static VerifyService getInstance() {
         if (instance == null) instance = new VerifyService();
         return instance;
+    }
+
+    public  String getKeyIdByBookingId(String booking){
+        return VerifyDAO.getInstance().getKeyIdByBookingId(booking);
     }
 
     public static void main(String[] args) throws FileNotFoundException {

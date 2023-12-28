@@ -44,6 +44,10 @@ public class KeyService {
         return KeyDAO.getInstance().getOnePublicKeyByStatus(userId, ENABLE);
     }
 
+    public String getOnePublicKeyIdBySatus(String userId){
+        return KeyDAO.getInstance().getOnePublicKeyIdByStatus(userId, ENABLE);
+    }
+
     public boolean isContantKey(String key){
         return KeyDAO.getInstance().isContantKey(key);
     }
@@ -51,6 +55,10 @@ public class KeyService {
     public List<PublicKey> getAllPublicKey() {
         // Triển khai phương thức này để lấy tất cả khóa công khai từ DAO
         return KeyDAO.getInstance().getAllPublicKey();
+    }
+
+    public String getKeyById(String id){
+        return KeyDAO.getInstance().getOnePublicKeyById(id);
     }
 
     public static KeyService getInstance() {

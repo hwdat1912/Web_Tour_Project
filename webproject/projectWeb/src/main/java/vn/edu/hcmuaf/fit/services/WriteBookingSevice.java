@@ -17,7 +17,7 @@ public class WriteBookingSevice {
     }
 
     public String writeBooking(Booking booking, HttpServletRequest request) {
-        String dirUrl =File.separator + "sign";
+        String dirUrl =File.separator + "booking";
         String absolutePath = request.getServletContext().getRealPath(dirUrl);
 
         File dir = new File(absolutePath);
@@ -25,7 +25,7 @@ public class WriteBookingSevice {
             dir.mkdir();
         }
 
-        String fileBooking = dir.getAbsolutePath() + File.separator + booking.getBOOKING_ID() + ".txt";
+        String fileBooking = absolutePath + File.separator + booking.getBOOKING_ID() + ".txt";
         try {
             PrintWriter print = new PrintWriter(new BufferedOutputStream(new FileOutputStream(fileBooking)), true);
             print.println(booking.getBOOKING_ID());
@@ -39,8 +39,9 @@ public class WriteBookingSevice {
             print.println(booking.getSOLUONG_VETREEM());
             print.println(booking.getSOLUONG());
             print.println(booking.getNgayTao());
-            print.println(booking.getTongTien());
+//            print.println(booking.getTongTien());
             print.println(booking.getDescription());
+
 
             if (print != null) {
                 print.close();
