@@ -2,6 +2,7 @@ package vn.edu.hcmuaf.fit.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.Objects;
 
 public class Booking implements Serializable {
     private String BOOKING_ID ;
@@ -203,5 +204,18 @@ public class Booking implements Serializable {
                 ", NgayKhoiHanh=" + NgayKhoiHanh +
                 ", NgayKetThuc=" + NgayKetThuc +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return SOLUONG_VENGUOILON == booking.SOLUONG_VENGUOILON && SOLUONG_VETREEM == booking.SOLUONG_VETREEM && SOLUONG == booking.SOLUONG && TRANGTHAI == booking.TRANGTHAI && Float.compare(tongTien, booking.tongTien) == 0 && Objects.equals(BOOKING_ID, booking.BOOKING_ID) && Objects.equals(TOUR_ID, booking.TOUR_ID) && Objects.equals(USER_ID, booking.USER_ID) && Objects.equals(HoTen, booking.HoTen) && Objects.equals(Email, booking.Email) && Objects.equals(Phone, booking.Phone) && Objects.equals(DiaChi, booking.DiaChi) && Objects.equals(NgayTao, booking.NgayTao) && Objects.equals(Description, booking.Description) && Objects.equals(TourName, booking.TourName) && Objects.equals(NgayKhoiHanh, booking.NgayKhoiHanh) && Objects.equals(NgayKetThuc, booking.NgayKetThuc);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(BOOKING_ID, TOUR_ID, USER_ID, HoTen, Email, Phone, DiaChi, SOLUONG_VENGUOILON, SOLUONG_VETREEM, SOLUONG, TRANGTHAI, NgayTao, tongTien, Description, TourName, NgayKhoiHanh, NgayKetThuc);
     }
 }

@@ -2,7 +2,11 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.text.NumberFormat" %>
+<<<<<<< HEAD
 <%@ page import="vn.edu.hcmuaf.fit.services.VerifyService" %>
+=======
+<%@ page import="java.io.File" %>
+>>>>>>> c357fd77f0d972f08ce5b51fca21b9a6cab81859
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
@@ -101,15 +105,22 @@
                     <td><span class="badge <%=bookingList.get(i).getTRANGTHAI()==-1?"bg-danger":bookingList.get(i).getTRANGTHAI()==0?"bg-info":"bg-success"%>"><%=bookingList.get(i).getTRANGTHAI()==-1?"Đã hủy":bookingList.get(i).getTRANGTHAI()==0?"Chờ xác nhận":"Hoàn thành"%></span></td>
                     <td >
                       <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
+                        <%
+                          boolean isVerify;
+                          File file = new File(request.getContextPath()+File.separator+"booking"+File.separator+bookingList.get(i).getBOOKING_ID()+".txt");
+
+                          isVerify = file.exists();
+                        %>
                         <input style="display: none" name="bookingId" value="<%=bookingList.get(i).getBOOKING_ID()%>">
 
-                       <%if (bookingList.get(i).getTRANGTHAI()==-1){%> <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
+                       <%if (bookingList.get(i).getTRANGTHAI()==-1){%> <button class="btn btn-primary btn-sm trash"  type="submit"name="option" value="delete" title="Xóa"
                         ><i class="fas fa-trash-alt"></i>
                         </button>
                         <%}%>
                         <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                         ><i class="fas fa-edit"></i>
                         </button>
+<<<<<<< HEAD
                         <button class="btn btn-sm btn-info" onclick="checkAndShowToast('<%= bookingList.get(i).getBOOKING_ID() %>')">
                           <i class="fas fa-eye"></i>
                         </button>
@@ -117,6 +128,10 @@
 
                         <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận"
                                 ><i class="fas fa-check"></i>
+=======
+                        <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540; "  name="option" value="submit" type="submit" title="Xác nhận"
+                             ><i class="fas fa-check"></i>
+>>>>>>> c357fd77f0d972f08ce5b51fca21b9a6cab81859
                         </button>
                         <%}%>
                         <%if (bookingList.get(i).getTRANGTHAI()==0){%> <button class="btn btn-primary btn-sm " style="background-color: #eee3e3; color: #828c82" type="submit" name="option" value="cancel" title="Hủy"

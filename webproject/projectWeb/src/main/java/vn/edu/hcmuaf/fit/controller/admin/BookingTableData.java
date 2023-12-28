@@ -6,6 +6,7 @@ import vn.edu.hcmuaf.fit.services.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -32,6 +33,18 @@ public class BookingTableData extends HttpServlet {
             request.setAttribute("booking",booking);
             List<User> listKH = UserService.getInstance().getListKhachHang();
             List<Tour> listTour = TourService.getInstance().getListTour();
+
+            String dirUrl = File.separator + "booking";
+            String absolutePath = request.getServletContext().getRealPath(dirUrl);
+            String fileBooking = absolutePath + File.separator + booking.getBOOKING_ID() + ".txt";
+
+            File fileCheck = new File(fileBooking);
+
+            if(!fileCheck.exists()){
+                request.setAttribute("error","Đơn hàng chưa được kí không được chỉnh sửa");
+            }
+
+
             request.setAttribute("listKH",listKH);
             request.setAttribute("listTour",listTour);
             request.getRequestDispatcher("form-add-don-hang.jsp").forward(request, response);
