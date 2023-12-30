@@ -23,6 +23,11 @@ public class BookingTableData extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String option = request.getParameter("option");
         String bookingId = request.getParameter("bookingId");
+
+
+
+
+
         if (option.equals("edit")) {
             Booking booking = BookingService.getInstance().getBookingById(bookingId);
             request.setAttribute("booking",booking);
