@@ -1,6 +1,8 @@
 package vn.edu.hcmuaf.fit.controller.admin;
 
+import vn.edu.hcmuaf.fit.bean.Booking;
 import vn.edu.hcmuaf.fit.bean.PublicKey;
+import vn.edu.hcmuaf.fit.services.BookingService;
 import vn.edu.hcmuaf.fit.services.KeyService;
 
 import javax.servlet.ServletException;
@@ -27,6 +29,25 @@ public class KeyTableData extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String option = request.getParameter("option");
+        int publicId = Integer.parseInt(request.getParameter("publicId"));
+
+        if (option.equals("submit")) {
+
+            KeyService.getInstance().disableKey(publicId);
+
+           
+        } else if (option.equals("cancel")) {
+
+            KeyService.getInstance().enableKey(publicId);
+
+        }
+
+
+        response.sendRedirect(request.getContextPath() + "/admin/KeyTableData");
+
+
+
 
     }
 }

@@ -1,12 +1,16 @@
 package vn.edu.hcmuaf.fit.DAO;
 
+import org.jdbi.v3.core.JdbiException;
 import org.jdbi.v3.core.mapper.reflect.ConstructorMapper;
 import vn.edu.hcmuaf.fit.bean.PublicKey;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static vn.edu.hcmuaf.fit.services.KeyService.DISABLE;
+import static vn.edu.hcmuaf.fit.services.KeyService.ENABLE;
 
 public class KeyDAO {
     private static KeyDAO instance;
@@ -202,6 +206,31 @@ public class KeyDAO {
                     .bind(1, publicKeyId)
                     .execute();
         });
+    }
+    public void enableKey(int publicKeyId) {
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE public_key SET status = ? WHERE public_id = ?")
+                    .bind(0, ENABLE)
+                    .bind(1, publicKeyId)
+                    .execute();
+        });
+    }
+
+    public LocalDateTime getDateReportById(int publicId) {
+        try {
+            Optional<LocalDateTime> dateReport = JDBIConnector.get().withHandle(handle -> {
+                return handle.createQuery("SELECT date_report FROM public_key WHERE public_id = ?")
+                        .bind(0, publicId)
+                        .mapTo(LocalDateTime.class)
+                        .findOne();
+            });
+
+            return dateReport.orElse(null);
+        } catch (JdbiException e) {
+            // Handle the exception, log or throw a custom exception as needed
+            e.printStackTrace();
+            return null;
+        }
     }
 
 }
