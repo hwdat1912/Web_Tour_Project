@@ -8,7 +8,9 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(name = "BookingTableData", value = "/admin/BookingTableData")
 public class BookingTableData extends HttpServlet {
@@ -104,6 +106,44 @@ public class BookingTableData extends HttpServlet {
                 request.setAttribute("error",text);
                response.sendRedirect("/projectWeb_war/admin/Index");
             }
+        } else   if (option.equals("viewOrderStatus")) {
+            int status;
+            Booking booking = BookingService.getInstance().getBookingById(bookingId);
+
+            if (VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()) != null) {
+                String dirUrl = File.separator + "booking";
+                String absolutePath = request.getServletContext().getRealPath(dirUrl);
+                String fileBooking = absolutePath + File.separator + booking.getBOOKING_ID() + ".txt";
+
+                String dirVerify = File.separator + "sign";
+                String absoluteVerify = request.getServletContext().getRealPath(dirVerify);
+                String fileVerify = absoluteVerify + File.separator + booking.getBOOKING_ID();
+
+                File fileBook = new File(fileBooking);
+                File fileVeri = new File(fileVerify);
+
+                System.out.println("File Book:" + fileBook.exists());
+                System.out.println("File Verify:" + fileVeri.exists());
+
+                System.out.println("Path:" + fileBook.getAbsolutePath());
+                System.out.println("Path:" + fileVeri.getAbsolutePath());
+
+                String publicKey = KeyService.getInstance().getKeyById(VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()));
+
+                if (VerifyService.getInstance().verify(fileBooking, fileVerify, publicKey)) {
+                    status = VerifyService.VERIFY_SUCCESS;
+                } else {
+                    status = VerifyService.VERIFY_CHANGE;
+                }
+
+            } else {
+                status = VerifyService.NONE_VERIFY;
+            }
+
+            response.setContentType("application/json");
+            response.getWriter().write("{\"status\":" + status + "}");
+        }
         }
     }
-}
+
+
