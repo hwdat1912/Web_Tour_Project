@@ -1,6 +1,7 @@
 package vn.edu.hcmuaf.fit.services;
 
 import vn.edu.hcmuaf.fit.DAO.KeyDAO;
+import vn.edu.hcmuaf.fit.bean.Booking;
 import vn.edu.hcmuaf.fit.bean.PublicKey;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 
@@ -69,6 +71,22 @@ public class KeyService {
 
     public void disableKey(int publicKeyId) {
         KeyDAO.getInstance().disableKey(publicKeyId);
+        updateOrderStatus(publicKeyId);
+    }
+
+    private void updateOrderStatus(int publicKeyId) {
+        List<Booking> bookingsToUpdate = BookingService.getInstance().getBookingsByDateReport(publicKeyId);
+
+        // Cập nhật trạng thái của các đơn hàng
+        for (Booking booking : bookingsToUpdate) {
+            booking.setTRANGTHAI(-1); // Trạng thái hủy
+            BookingService.getInstance().updateBookingAdmin(booking); // Cập nhật đơn hàng
+        }
+    }
+
+
+    public void enableKey(int publicKeyId) {
+        KeyDAO.getInstance().enableKey(publicKeyId);
     }
 
     public int getPublicIdByStatus(String userId){
@@ -101,5 +119,10 @@ public class KeyService {
 
         return null;
     }
+    public LocalDateTime getDateReportById(int publicId) {
+        KeyDAO keyDAO = KeyDAO.getInstance();
+        return keyDAO.getDateReportById(publicId);
+    }
+
 
 }

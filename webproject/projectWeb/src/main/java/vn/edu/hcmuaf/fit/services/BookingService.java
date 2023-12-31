@@ -4,6 +4,8 @@ import vn.edu.hcmuaf.fit.DAO.BookingDAO;
 import vn.edu.hcmuaf.fit.bean.Booking;
 import vn.edu.hcmuaf.fit.bean.TourCart;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class BookingService {
@@ -38,4 +40,11 @@ public class BookingService {
     public boolean adminDeleteBooking(String bookingId){return BookingDAO.getInstance().adminDeleteBooking(bookingId);}
     public List<Booking> getListBookingByMonth(){return  BookingDAO.getInstance().getListBookingByMonth();}
     public List<Booking> getListBookingByTourId(String tourId){return BookingDAO.getInstance().getListBookingByTourId(tourId);}
+    public List<Booking> getBookingsByDateReport(int publicId) {
+        // Lấy ngày `date_report` từ khóa
+        LocalDateTime dateReport = KeyService.getInstance().getDateReportById(publicId);
+        // Lấy danh sách các đơn hàng trong khoảng thời gian `date_report` đến thời gian hiện tại
+        LocalDateTime currentDate = LocalDateTime.now();
+        return BookingDAO.getInstance().getBookingsByDateReport(dateReport, currentDate);
+    }
 }

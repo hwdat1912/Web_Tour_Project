@@ -3,6 +3,7 @@
   <component name="WebContextManager">
     <option name="state">
       <map>
+        <entry key="file://$PROJECT_DIR$/webproject/projectWeb/src/main/webapp/admin/table-data-oder.jsp" value="file://$PROJECT_DIR$/webproject/projectWeb/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/webproject/projectWeb/src/main/webapp/user/views/ManagerKey.jsp" value="file://$PROJECT_DIR$/webproject/projectWeb/src/main/webapp/user/views" />
       </map>
     </option>

@@ -6,6 +6,8 @@ import vn.edu.hcmuaf.fit.services.TourDetailService;
 import vn.edu.hcmuaf.fit.services.TourService;
 import vn.edu.hcmuaf.fit.services.VoucherService;
 
+import java.sql.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -285,6 +287,19 @@ public class BookingDAO {
 
         return list;
     }
+    public List<Booking> getBookingsByDateReport(LocalDateTime startDate, LocalDateTime endDate) {
+        List<Booking> list = JDBIConnector.get().withHandle(handle ->
+                handle.createQuery("SELECT * FROM booking WHERE NgayTao BETWEEN ? AND ?")
+                        .bind(0, Date.valueOf(startDate.toLocalDate()))
+                        .bind(1, Date.valueOf(endDate.toLocalDate()))
+                        .mapToBean(Booking.class)
+                        .list()
+        );
+
+        list.sort((o1, o2) -> o1.getNgayTao().getTime() >= o2.getNgayTao().getTime() ? -1 : 1);
+        return list;
+    }
+
 
 
     public static void main(String[] args) {

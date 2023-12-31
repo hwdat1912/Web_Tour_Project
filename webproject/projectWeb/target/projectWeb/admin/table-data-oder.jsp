@@ -2,11 +2,15 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Locale" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="vn.edu.hcmuaf.fit.services.VerifyService" %>
 <%@ page import="java.io.File" %>
+<%@ page import="java.util.Map" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html >
 
 <head>
+
   <title>Danh sách đơn hàng | Quản trị Admin</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,6 +28,8 @@
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.2.0/css/all.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
 
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 
 <body onload="time()" class="app sidebar-mini rtl">
@@ -38,6 +44,7 @@
   <%
     List<Booking> bookingList  = request.getAttribute("bookingList")==null?null:(List<Booking>) request.getAttribute("bookingList");
     String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");
+    Map<String,Integer> verifyOrder = (Map<String, Integer>) request.getAttribute("listVerify");
   %>
     <main class="app-content">
       <div class="app-title">
@@ -87,6 +94,7 @@
                   Locale locale = new Locale("vi");
                   NumberFormat format =  NumberFormat.getCurrencyInstance(locale);
                   String giaVeString = format.format(giaVe).split(",")[0];
+
                 %>
                   <tr>
                     <td width="10"><input type="checkbox" name="check<%=j%>" value="<%=j%>"></td>
@@ -116,15 +124,35 @@
                         <button class="btn btn-primary btn-sm edit" name="option" value="edit" type="submit" title="Sửa"
                         ><i class="fas fa-edit"></i>
                         </button>
-                        <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540; "  name="option" value="submit" type="submit" title="Xác nhận"
-                             ><i class="fas fa-check"></i>
+
+
+
+
+
+
+
+
+
+                        <%if (bookingList.get(i).getTRANGTHAI()==0){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận"
+                                ><i class="fas fa-check"></i>
+
                         </button>
                         <%}%>
                         <%if (bookingList.get(i).getTRANGTHAI()==0){%> <button class="btn btn-primary btn-sm " style="background-color: #eee3e3; color: #828c82" type="submit" name="option" value="cancel" title="Hủy"
                         ><i class="fa-solid fa-xmark"></i>
                         </button>
                         <%}%>
+                        <button onclick="viewOrderStatus('<%= bookingList.get(i).getBOOKING_ID() %>'); return false;" class="btn btn-info btn-sm" title="Check Verify" style="padding: 5px 10px; font-size: 10px;">
+                          <i class="fas fa-eye"></i>
+                        </button>
+
                       </form>
+
+
+
+
+
+
                     </td>
                   </tr>
                 <%}%>
@@ -202,7 +230,10 @@
     </div>
   </div>
 </div>
+
+
   <!-- Essential javascripts for application to work-->
+
   <script src="js/jquery-3.2.1.min.js"></script>
   <script src="js/popper.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -216,9 +247,71 @@
   <!-- Data table plugin-->
   <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
   <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
   <script type="text/javascript">$('#sampleTable').DataTable();</script>
-  <script>
-    function deleteRow(r) {
+
+
+
+
+
+
+
+
+
+<script>
+
+  function viewOrderStatus(bookingId) {
+    $.ajax({
+      type: "POST",
+      url: "/projectWeb_war/admin/BookingTableData",
+      data: { option: "viewOrderStatus", bookingId: bookingId },
+      success: function (data) {
+        // Handle the response from the server
+        let message;
+        let backgroundColor;
+
+        if (data.status === -1) {
+          message = "Đơn hàng đã bị chỉnh sữa";
+          backgroundColor = "#dc3545"; // Red for changed orders
+        } else if (data.status === 0) {
+          message = "Đơn hàng chưa được ký";
+          backgroundColor = "#ffc107"; // Yellow for unsigned orders
+        } else if (data.status === 1) {
+          message = "Đơn hàng đã được ký";
+          backgroundColor = "#28a745"; // Green for signed orders
+        } else {
+          message = "Unknown Order Status";
+          backgroundColor = "#dc3545"; // Default to red for unknown status
+        }
+
+        Toastify({
+          text: message,
+          duration: 3000,  // Duration in milliseconds
+          close: true,
+          gravity: "top",  // Available options: "top", "bottom", "left", "right"
+          position: "right",  // Available options: "left", "right", "center"
+          backgroundColor: backgroundColor,
+        }).showToast();
+      },
+      error: function () {
+        Toastify({
+          text: "Error fetching order status",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: "right",
+          backgroundColor: "#dc3545",
+        }).showToast();
+      }
+    });
+    return false;
+  }
+
+
+
+  function deleteRow(r) {
       var i = r.parentNode.parentNode.rowIndex;
       document.getElementById("myTable").deleteRow(i);
     }

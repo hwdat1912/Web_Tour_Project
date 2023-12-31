@@ -81,6 +81,7 @@ table {
       List<TourDetailType> tdt = (List<TourDetailType>) request.getAttribute("tdt")==null?null:(List<TourDetailType>) request.getAttribute("tdt");
       List<Voucher> voucher = (List<Voucher>) request.getAttribute("voucher")==null?null:(List<Voucher>) request.getAttribute("voucher");
         String textError = (String)request.getAttribute("textError")==null?"":(String) request.getAttribute("textError");
+      Booking confirmedBooking = (Booking) session.getAttribute("confirmedBooking");
   %>
 
     <div class="error-wrapper pt-100">

@@ -64,8 +64,9 @@
                             <th width="150">ID User</th>
                             <th width="300" class="text-center">Khóa</th> <!-- Adjusted width for the "Khóa" column -->
                             <th width="150">Thời gian tạo khóa</th>
+                            <th width="150">Thời gian report</th>
                             <th width="100">Trạng thái</th>
-                            <th width="100">Tính năng</th>
+                            <th class="confirm-leak-column">Xác nhận khi lộ key</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -79,26 +80,36 @@
                             <td><%=listKeys.get(i).getUserId()==null?"Chưa có":listKeys.get(i).getUserId()%></td>
                             <td class="wrap-text"><%=listKeys.get(i).getP_key()==null?"Chưa có":listKeys.get(i).getP_key()%></td>
                             <td><%=listKeys.get(i).getDate_create()==null?"Chưa có":listKeys.get(i).getDate_create().toString()%></td>
+                            <td><%=listKeys.get(i).getDate_report()==null?"Chưa có":listKeys.get(i).getDate_report().toString()%></td>
                             <td>
                                 <% Integer status = listKeys.get(i).getStatus(); %>
-                                <%= (status != null && status == 0) ? "Disabled" : "Hoạt động" %>
+                                <%=
+                                (status != null) ?
+                                        ((status == 1) ? "Hoạt động" : ((status == -1) ? "Key bị lộ" : "Disable"))
+                                        : "Chưa xác định"
+                                %>
                             </td>
-                            <td class="table-td-center">
 
-                                <div class="col-sm-2">
-                                    <a class="btn btn-primary btn-sm disable-key-btn"
-                                       href="#"
-                                       data-toggle="modal"
-                                       data-target="#disableKeyModal"
-                                       onclick="disableKey('<%= listKeys.get(i).getPublic_id() %>')"
-                                       title="Disabled">
-                                        <i class="fas fa-ban"></i>
-                                    </a>
-                                </div>
-                                <button class="btn btn-primary btn-sm trash" type="submit" name="option" value="delete" title="Xóa">
-                                    <i class="fas fa-trash-alt"></i>
+                            <td class="confirm-leak-column">
+                                <form action="/projectWeb_war/admin/KeyTableData" id="form" method="post">
+                                    <input type="hidden" name="publicId" value="<%=listKeys.get(i).getPublic_id()%>">
+                                    <%if (listKeys.get(i).getStatus()==-1){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận disable"
+                                ><i class="fas fa-check"></i>
+
                                 </button>
+                                    <%}%>
+                                    <%if (listKeys.get(i).getStatus()==-1){%> <button class="btn btn-primary btn-sm " style="background-color: #eee3e3; color: #828c82" type="submit" name="option" value="cancel" title="Hủy"
+                                ><i class="fa-solid fa-xmark"></i>
+                                </button>
+                                    <%}%>
+                                </form>
+
+
+
                             </td>
+
+
+
 
 
 
@@ -136,49 +147,7 @@
 
 <script>
 
-    jQuery(function () {
-        jQuery(".trash").click(function () {
-            var row = jQuery(this).closest("tr");
 
-            swal({
-                title: "Cảnh báo",
-                text: "Bạn có chắc chắn là muốn xóa khóa này?",
-                buttons: ["Hủy bỏ", "Đồng ý"],
-            }).then((willDelete) => {
-                if (willDelete) {
-                    // Remove the row if the user confirms
-                    row.remove();
-
-                    swal("Đã xóa thành công!", {
-                        icon: "success",
-                    });
-                }
-            });
-        });
-    });
-    oTable = $('#sampleTable').dataTable();
-    $('#all').click(function (e) {
-        $('#sampleTable tbody :checkbox').prop('checked', $(this).is(':checked'));
-        e.stopImmediatePropagation();
-    });
-
-
-    function disableKey(publicKeyId) {
-        // Use Ajax to disable the key
-        $.ajax({
-            type: "POST",
-            url: "/projectWeb_war/admin/DisableKeyServlet", // Make sure this path is correct
-            data: { publicId: publicKeyId },
-            success: function(response) {
-                alert("Key disabled successfully!");
-            },
-
-            error: function(error) {
-                alert("Error disabling key: " + error.responseText);
-            }
-        });
-
-    }
 
 
 
@@ -258,8 +227,11 @@
         white-space: normal;
     }
 </style>
+<style>
+    .confirm-leak-column {
+        width: 200px; /* Adjust the width as per your design */
+    }
+</style>
 </body>
 
 </html>
-
-z
