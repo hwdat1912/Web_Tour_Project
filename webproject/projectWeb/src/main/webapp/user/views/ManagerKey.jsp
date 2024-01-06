@@ -382,7 +382,7 @@
         setTimeout(function () {
             <%--document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";--%>
             location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
-        }, 500);
+        }, 2500);
     }
 
     function createKey(){
