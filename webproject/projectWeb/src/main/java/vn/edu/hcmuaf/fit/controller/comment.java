@@ -33,7 +33,8 @@ public class comment extends HttpServlet {
         if ( b==false){
 
         }else{
-            request.getRequestDispatcher("/projectWeb_war/user/views/?blogDetail="+blog_id).forward(request,response);
+            request.getRequestDispatcher(request.getContextPath()+"/user/views/?blogDetail="+blog_id).forward(request,response);
+//            request.getRequestDispatcher("/projectWeb_war/user/views/?blogDetail="+blog_id).forward(request,response);
         }
     }
 }

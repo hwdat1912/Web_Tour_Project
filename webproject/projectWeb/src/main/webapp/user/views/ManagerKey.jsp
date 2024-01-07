@@ -164,10 +164,10 @@
                                                                 <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">
                                                                     <input style="display: none" name="guideId" value="">
                                                                     <input type="hidden" name="publicId" value="<%=item.getPublic_id()%>">
-                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit" name="options" value="view" title="Xem"
-                                                                    ><i class="fa-solid fa-eye"></i>
-                                                                    </button>
-                                                                    <button class="btn btn-danger btn-sm " onclick="lostKeyFunction(<%=item.getPublic_id()%>)" name="option" value="warning" type="button" title="Thông báo lộ Key"
+<%--                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit" name="options" value="view" title="Xem"--%>
+<%--                                                                    ><i class="fa-solid fa-eye"></i>--%>
+<%--                                                                    </button>--%>
+                                                                    <button style="<%=item.getStatus() == KeyService.ENABLE ? "":" display:none;"%>" class="btn btn-danger btn-sm " onclick="lostKeyFunction(<%=item.getPublic_id()%>)" name="option" value="warning" type="button" title="Thông báo lộ Key"
                                                                     ><i class="fa-solid fa-triangle-exclamation"></i>
                                                                     </button>
                                                                 </form>
@@ -306,6 +306,31 @@
     }
 
 
+    function toastSuccess(title,message){
+        const main = document.getElementById('toast_message');
+        if(main){
+            const toast = document.createElement('div');
+            toast.classList.add('toast-item');
+            toast.style.animation = ` fadeIn ease 0.3s,fadeOut linear 1s 2s forwards`;
+            toast.innerHTML =`
+					<div class="toast__icon"><i class="fa-solid  fa-check icon-subccess"></i></div>
+					<div class="toast__body">
+						<h3 class="toast__title"> ${title} </h3>
+						<p class="toast__msg">${message}</p>
+					</div>
+					<div class="toast__close"><i class="fa-solid fa-xmark"></i></div>
+				`;
+            main.appendChild(toast);
+            setTimeout(() => {
+                main.removeChild(toast);
+            }, 2000);
+        }
+
+
+
+    }
+
+
     function importKey(){
         var key = document.getElementById("input-key");
 
@@ -379,10 +404,11 @@
 
 
     function thanks() {
+        toastSuccess('OK!', 'Tạo Key thành công!');
         setTimeout(function () {
             <%--document.location.pathname = "<%=request.getContextPath()%>/user/views/ManagerKey";--%>
             location.href = "<%=request.getContextPath()%>/user/views/ManagerKey";
-        }, 500);
+        }, 2500);
     }
 
     function createKey(){
@@ -420,7 +446,7 @@
             },
             success: function (response) {
                 if (response.status === 'success') {
-                    toast('OK!', 'Thông báo lộ Key thành công!');
+                    toastSuccess('OK!', 'Thông báo lộ Key thành công!');
                     setTimeout(function () {
                         window.location.href = '<%=request.getContextPath()%>/user/views/ManagerKey';
                     }, 2000);
