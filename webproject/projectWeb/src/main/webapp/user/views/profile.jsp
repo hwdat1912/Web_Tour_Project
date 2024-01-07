@@ -58,7 +58,7 @@
       
                     <div class="ps-md-4">
                       <div class="wrapper p-md-4">
-                        <form action="/projectWeb_war/user/views/profile" method="post">
+                        <form action="<%=request.getContextPath()%>/user/views/profile" method="post">
 
 
                         <div class="heading-profile">

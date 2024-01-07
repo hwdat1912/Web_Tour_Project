@@ -104,8 +104,8 @@
                                                    %>
                                                     <div class="tour-item">
                                                         <div class="tour-item-first-side">
-                                                            <a style="color: #2d4271;" href="/projectWeb_war/user/views/tourDetail?tourId=<%=id%>"><span class="tour-item-first-side-id">Id Tour: <span><%=id%></span></span></a>
-                                                            <a style="color: #2d4271;"href="/projectWeb_war/user/views/tourDetail?tourId=<%=id%>"> <span><%=tc.getTourName()%></span></a>
+                                                            <a style="color: #2d4271;" href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=id%>"><span class="tour-item-first-side-id">Id Tour: <span><%=id%></span></span></a>
+                                                            <a style="color: #2d4271;"href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=id%>"> <span><%=tc.getTourName()%></span></a>
                                                         </div>
                                                         <div class="tour-item-second-side">
                                                             <div class="tour-item-second-side-start">
@@ -122,10 +122,10 @@
                                                             <span>Thành tiền: <span><%=thanhTienString%></span><span>₫</span></span>
                                                         </div>
                                                         <div class="tour-item-four-side" style="display: flex;flex-direction: column;gap: 0.5rem">
-                                                            <a class="bound sua" style="background: #d8bb00" href="/projectWeb_war/user/views/TourCart?tourId=<%=id%>" >
+                                                            <a class="bound sua" style="background: #d8bb00" href="<%=request.getContextPath()%>/user/views/TourCart?tourId=<%=id%>" >
                                                                 <span>Sửa</span>
                                                             </a>
-                                                            <a class="bound dahuy " href="/projectWeb_war/user/views/CEDTourCart?tourId=<%=id%>" >
+                                                            <a class="bound dahuy " href="<%=request.getContextPath()%>/user/views/CEDTourCart?tourId=<%=id%>" >
                                                                 <span>Xóa</span>
                                                             </a>
 
