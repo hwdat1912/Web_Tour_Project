@@ -41,7 +41,7 @@ public class CRUDGuideData extends HttpServlet {
         if (id.equals("")){
             boolean b = UserService.getInstance().createGuide(result);
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/GuideTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/GuideTableData");
             }else {
                 String text = "Tạo mới không thành công";
                 request.setAttribute("error",text);
@@ -50,7 +50,8 @@ public class CRUDGuideData extends HttpServlet {
         }else{
             boolean b = UserService.getInstance().updateGuide(result);
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/GuideTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/GuideTableData");
+//                response.sendRedirect("/projectWeb_war/admin/GuideTableData");
             }else {
                 String text = "Sửa không thành công";
                 request.setAttribute("error",text);

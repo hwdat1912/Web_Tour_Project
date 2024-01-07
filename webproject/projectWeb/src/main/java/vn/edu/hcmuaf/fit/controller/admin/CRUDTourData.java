@@ -54,7 +54,8 @@ request.setAttribute("tour",null);
         if (id.equals("")){
             boolean b = TourDetailService.getInstance().adminCreateTour(result);
             if (b){
-                response.sendRedirect("/projectWeb_war/admin/TourTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/TourTableData");
+//                response.sendRedirect("/projectWeb_war/admin/TourTableData");
             }else{
                 String text = "Tạo mới không thành công";
                 request.setAttribute("error",text);
@@ -75,7 +76,7 @@ request.setAttribute("tour",null);
         }else{
             boolean b = TourDetailService.getInstance().adminUpdateTour(result);
             if (b){
-                response.sendRedirect("/projectWeb_war/admin/TourTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/TourTableData");
             }else{
                 String text = "Cập nhật không thành công";
                 request.setAttribute("error",text);

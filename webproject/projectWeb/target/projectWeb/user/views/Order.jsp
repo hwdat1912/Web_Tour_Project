@@ -543,6 +543,7 @@
                         $(itemMess).text("Ký thành công").removeClass("error-message");
                         $(itemMess).addClass("bg-success");
                         $(itemMess).removeClass("bg-info")
+                        $(itemMess).removeClass("bg-danger")
                         window.location.href ="#";
 
                     } else if (response.status === 'error') {
@@ -552,10 +553,20 @@
                         $(itemMess).removeClass("bg-success");
                         $(itemMess).removeClass("bg-info");
                     } else {
-                        console.error('Unexpected response:', response);
-                        toast("Lỗi", "Ký hoá đơn không thành công");
-                        $(itemMess).text("Lỗi không thể ký").addClass("error-message");
-                        $(itemMess).removeClass("bg-success");
+                        // console.error('Unexpected response:', response);
+                        // toast("Lỗi", "Ký hoá đơn không thành công");
+                        // $(itemMess).text("Lỗi không thể ký").addClass("error-message");
+                        // $(itemMess).removeClass("bg-success");
+
+                        console.log('ID Booking and file sent successfully');
+                        console.log(bookingId);
+                        document.getElementById(bookingId).classList.add("disable-href")
+                        toastOK("OK", "Ký hoá đơn thành công");
+                        $(itemMess).text("Ký thành công").removeClass("error-message");
+                        $(itemMess).addClass("bg-success");
+                        $(itemMess).removeClass("bg-info")
+                        $(itemMess).removeClass("bg-danger")
+                        window.location.href ="#";
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

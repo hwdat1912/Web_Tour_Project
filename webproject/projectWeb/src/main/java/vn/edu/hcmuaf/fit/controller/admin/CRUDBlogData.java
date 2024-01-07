@@ -50,7 +50,7 @@ public class CRUDBlogData extends HttpServlet {
             boolean b = BlogService.getInstance().createBlog(result);
 
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/BlogTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/BlogTableData");
             }else {
                 String text = "Tạo mới không thành công";
                 request.setAttribute("error",text);
@@ -61,7 +61,7 @@ public class CRUDBlogData extends HttpServlet {
         }else{
             boolean b = BlogService.getInstance().updateBlog(result);
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/BlogTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/BlogTableData");
             }else {
                 String text = "Sửa không thành công";
                 request.setAttribute("error",text);

@@ -24,7 +24,8 @@ public class newPassword extends HttpServlet {
                 HttpSession session = request.getSession(true);
                 session.removeAttribute("email");
                 session.removeAttribute("otb");
-                response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+//                response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+                response.sendRedirect(request.getContextPath()+"/user/views/sign.jsp");
             }else{
 
             }

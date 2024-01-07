@@ -23,12 +23,13 @@ public class savedTour extends HttpServlet {
                 if (b==false){
                     TourDetailService.getInstance().unLikeTour(user.getUser_Id(),tourId);
                 }
-                response.sendRedirect("/projectWeb_war/user/views/tourDetail?tourId="+tourId);
-
+//                response.sendRedirect("/projectWeb_war/user/views/tourDetail?tourId="+tourId);
+            response.sendRedirect(request.getContextPath()+"/user/views/tourDetail?tourId="+tourId);
 
 
         }else{
-            response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+            response.sendRedirect(request.getContextPath()+"/user/views/sign.jsp");
+            //response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
         }
     }
 

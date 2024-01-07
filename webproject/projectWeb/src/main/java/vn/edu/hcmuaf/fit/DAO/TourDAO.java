@@ -324,7 +324,7 @@ public class TourDAO {
             if (tour.getSoLuong()>= booking.getSOLUONG()){
                 int rest = tour.getSoLuong() - booking.getSOLUONG();
                 JDBIConnector.get().withHandle(handle ->
-                        handle.createUpdate("update TOUR " +
+                        handle.createUpdate("update tour " +
                                 "set SoLuong = ? " +
                                 "where TOUR_ID = ?").bind(0,rest).bind(1,tour.getTOUR_ID()).execute()
                 );
@@ -338,13 +338,13 @@ public class TourDAO {
     }
     public void updateTourStatus(){
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("update TOUR " +
+                handle.createUpdate("update tour " +
                         "set TrangThai = ? " +
                         "where SoLuong = ?").bind(0,0).bind(1,0).execute()
         );
 
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("update TOUR " +
+                handle.createUpdate("update tour " +
                         "set TrangThai = ? " +
                         "where DATEDIFF(NgayKhoiHanh,CURRENT_DATE) <= 2").bind(0,0).execute()
         );
@@ -360,9 +360,9 @@ public class TourDAO {
 
 
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("delete from TOUR_GUIDE " +
+                    handle.createUpdate("delete from tour_guide " +
 
-                            "where TOUR_GUIDE.TOUR_ID = ?").bind(0,td.getTOUR_ID()).execute()
+                            "where tour_guide.TOUR_ID = ?").bind(0,td.getTOUR_ID()).execute()
             );
         }
     }
