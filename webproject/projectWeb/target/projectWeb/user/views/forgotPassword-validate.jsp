@@ -12,12 +12,12 @@
 </head>
 <body>
 	<div class="logo">
-		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
+		<a href="<%=request.getContextPath()%>/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
 	 
 	<div class="form-container ">
-		<form action="/projectWeb_war/user/views/forgotPassword" method="get" class="forgotpassowrd">
+		<form action="<%=request.getContextPath()%>/user/views/forgotPassword" method="get" class="forgotpassowrd">
 			<h1>Xác nhận Mã</h1>
 			
 			<span>Mã xác nhận được gửi về Email mà bạn đã nhập trước đó ,vui lòng nhận chính xác mã để tiếp tục</span>

@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div class="logo">
-		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
+		<a href="<%=request.getContextPath()%>/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
 	 <%String error = request.getAttribute("error")==null?null:(String) request.getAttribute("error");%>

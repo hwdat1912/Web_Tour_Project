@@ -81,7 +81,7 @@ table {
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Đặt Tour</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">Đặt Tour</li>
                 </ul>
             </div>
@@ -126,7 +126,7 @@ table {
                 <div class="col-lg-5">
                     <div class="error-content text-center">
                         <h2>Nhập thông tin khách hàng</h2>
-                        <form action="/projectWeb_war/user/views/CEDTourCart" method="post" id="booking-form">
+                        <form action="<%=request.getContextPath()%>/user/views/CEDTourCart" method="post" id="booking-form">
                             <div class="booking-form-wrapper">
                                 <div class="custom-input-group">
                                     <input type="text" placeholder="Họ Tên" value="<%=tc==null?"":tc.getHoTen()%>" id="inputFullName" name="bookingFullName">

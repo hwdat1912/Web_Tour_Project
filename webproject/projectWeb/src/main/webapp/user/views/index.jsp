@@ -106,7 +106,7 @@
     <div class="searchbar-section home4">
         <div class="container">
             <div class="multi-main-searchber">
-                <form action="/projectWeb_war/user/views/doSearchWithFilter" method="post" id="main_searchbar">
+                <form action="<%=request.getContextPath()%>/user/views/doSearchWithFilter" method="post" id="main_searchbar">
                     <div class="row g-4">
                         <div class="col-lg-10">
                             <div class="row gx-0 gy-4">
@@ -226,16 +226,16 @@
                 <div class="col-lg-4 col-md-6 col-sm-10">
                     <div class="package-card-delta">
                         <div class="package-thumb">
-                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><img src="<%="../.."+pt.getImageURL()%>" alt=""></a>
+                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><img src="<%="../.."+pt.getImageURL()%>" alt=""></a>
                             <p class="card-lavel">
                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                             </p>
                         </div>
                         <div class="package-card-body">
-                            <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><%=pt.getTourName()%></a></h3>
+                            <h3 class="p-card-title"><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=pt.getTour_id()%>"><%=pt.getTourName()%></a></h3>
                             <div class="p-card-bottom">
                                 <div class="book-btn">
-                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=pt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                    <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=pt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                 </div>
                                 <div class="p-card-info">
                                     <span>Số còn nhận <span style="color: var(--c-primary);"><%=pt.getSoLuong()%></span></span>
@@ -248,7 +248,7 @@
                <%}%>
             </div>
             <div class="package-page-btn text-center mt-60">
-                <a href="/projectWeb_war/user/views/tour" class="button-fill-primary">Xem Tất Cả</a>
+                <a href="<%=request.getContextPath()%>/user/views/tour" class="button-fill-primary">Xem Tất Cả</a>
             </div>
         </div>
     </div>
@@ -277,10 +277,10 @@
                         </div>
                         <div class="destination-overlay">
                             <div class="content">
-                                <a href="/projectWeb_war/user/views/doSearchWithFilter?searchDiaDiem=<%=desList.get(i).getDiaDiem_ID()%>">
+                                <a href="<%=request.getContextPath()%>/user/views/doSearchWithFilter?searchDiaDiem=<%=desList.get(i).getDiaDiem_ID()%>">
                                     <h5><%=desList.get(i).getTenDiaDiem()%></h5>
                                 </a>
-                                <a href="/projectWeb_war/user/views/doSearchWithFilter?searchDiaDiem=<%=desList.get(i).getDiaDiem_ID()%>">
+                                <a href="<%=request.getContextPath()%>/user/views/doSearchWithFilter?searchDiaDiem=<%=desList.get(i).getDiaDiem_ID()%>">
                                     <h6><%=desList.get(i).getSoluong()%> Địa điểm du lịch</h6>
                                 </a>
                             </div>
@@ -329,16 +329,16 @@
                             <div class="swiper-slide">
                                 <div class="package-card-delta">
                                     <div class="package-thumb">
-                                        <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><img src="<%="../.."+inct.getImageURL()%>" alt=""></a>
+                                        <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><img src="<%="../.."+inct.getImageURL()%>" alt=""></a>
                                         <p class="card-lavel">
                                             <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                         </p>
                                     </div>
                                     <div class="package-card-body">
-                                        <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><%=inct.getTourName()%></a></h3>
+                                        <h3 class="p-card-title"><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=inct.getTour_id()%>"><%=inct.getTourName()%></a></h3>
                                         <div class="p-card-bottom">
                                             <div class="book-btn">
-                                                <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=inct.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                                <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=inct.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                             </div>
                                             <div class="p-card-info">
                                                 <span>Số còn nhận <span style="color: var(--c-primary);"><%=inct.getSoLuong()%></span></span>
@@ -428,16 +428,16 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="package-card-delta">
                                         <div class="package-thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
+                                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
                                             <p class="card-lavel">
                                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                             </p>
                                         </div>
                                         <div class="package-card-body">
-                                            <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><%=vt.getTourName()%></a></h3>
+                                            <h3 class="p-card-title"><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><%=vt.getTourName()%></a></h3>
                                             <div class="p-card-bottom">
                                                 <div class="book-btn">
-                                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                                    <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                                 </div>
                                                 <div class="p-card-info">
                                                     <span>Số còn nhận <span style="color: var(--c-primary);"><%=vt.getSoLuong()%></span></span>
@@ -472,16 +472,16 @@
                                 <div class="col-lg-4 col-md-6">
                                     <div class="package-card-delta">
                                         <div class="package-thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
+                                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><img src="<%="../.."+vt.getImageURL()%>" alt=""></a>
                                             <p class="card-lavel">
                                                 <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%> Đêm</span>
                                             </p>
                                         </div>
                                         <div class="package-card-body">
-                                            <h3 class="p-card-title"><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><%=vt.getTourName()%></a></h3>
+                                            <h3 class="p-card-title"><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>"><%=vt.getTourName()%></a></h3>
                                             <div class="p-card-bottom">
                                                 <div class="book-btn">
-                                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=vt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
+                                                    <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=vt.getTour_id()%>">Đặt Ngay <i class='bx bxs-right-arrow-alt'></i></a>
                                                 </div>
                                                 <div class="p-card-info">
                                                     <span>Số còn nhận <span style="color: var(--c-primary);"><%=vt.getSoLuong()%></span></span>
@@ -686,7 +686,7 @@
                                 <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
                             </ul>
                            <div class="contact-lavel">
-                                <a href="/projectWeb_war/user/views/contact?guideId=<%=guide.getUser_Id()%>">Liên hệ</a>
+                                <a href="<%=request.getContextPath()%>/user/views/contact?guideId=<%=guide.getUser_Id()%>">Liên hệ</a>
                             </div>
                         </div>
                         <div class="guide-content">
@@ -720,17 +720,17 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="blog-card-gamma">
                         <div class="blog-thumb">
-                            <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>">
+                            <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>">
                             <img src="<%="../.."+b.getImageURL()%>" alt="">
                             </a>
                           
                         </div>
                         <div class="blog-content">
                             <div class="blog-body-top">
-                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> Bởi <%=b.getFullName()%> </a>
-                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-calendar3"></i> <%=b.getNgayVietBai().toString()%></a>
+                                <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> Bởi <%=b.getFullName()%> </a>
+                                <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-calendar3"></i> <%=b.getNgayVietBai().toString()%></a>
                             </div>
-                            <h4 class="blog-title"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>"><%=b.getBLOG_TITLE()%>.</a></h4>
+                            <h4 class="blog-title"><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>"><%=b.getBLOG_TITLE()%>.</a></h4>
                         </div>
                     </div>
                 </div>
