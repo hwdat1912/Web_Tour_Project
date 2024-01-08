@@ -48,7 +48,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Tin tức</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Tin tức</li>
                 </ul>
             </div>
@@ -76,7 +76,7 @@
                             %>
                         <div class="blog-card-gamma-full">
                             <div class="blog-thumb">
-                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>">
+                                <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>">
                                 <img src="<%="../.."+blog.getImageURL()%>" alt="">
                                 </a>
                                 <!-- <div class="blog-lavel">
@@ -85,11 +85,11 @@
                             </div>
                             <div class="blog-content">
                                 <div class="blog-body-top">
-                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: <%=blog.getFullName()%> </a>
-                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-date"><i class="bi bi-calendar3"></i><%=blog.getNgayVietBai().toString()%></a>
-                                    <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (<%=blog.getSumComment()%>)</a>
+                                    <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> Tác giả: <%=blog.getFullName()%> </a>
+                                    <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-date"><i class="bi bi-calendar3"></i><%=blog.getNgayVietBai().toString()%></a>
+                                    <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-chat-left-quote"></i> Bình Luận (<%=blog.getSumComment()%>)</a>
                                 </div>
-                                <h4 class="blog-title"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h4>
+                                <h4 class="blog-title"><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h4>
                             </div>
                         </div>
                         <%}%>
@@ -110,7 +110,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4">
-                    <form action="/projectWeb_war/user/views/blog" method="post" id="blog-sidebar-search">
+                    <form action="<%=request.getContextPath()%>/user/views/blog" method="post" id="blog-sidebar-search">
                     <div class="blog-sidebar ">
                         <aside class="blog-widget widget-search">
                             <div class="widget-title">
@@ -190,9 +190,9 @@
 
                                 %>
                                 <li class="clearfix">
-                                    <div class="wi"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><img src="<%="../.."+blog.getImageURL()%>" alt=""></a></div>
+                                    <div class="wi"><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><img src="<%="../.."+blog.getImageURL()%>" alt=""></a></div>
                                     <div class="wb">
-                                        <h6><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h6>
+                                        <h6><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blog.getBLOG_ID()%>"><%=blog.getBLOG_TITLE()%></a></h6>
                                         <div class="wb-info">
                                             <span class="post-date"> <i class="bi bi-person-circle"></i><%=blog.getFullName()%> </span>
                                             <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blog.getNgayVietBai().toString()%></span>
