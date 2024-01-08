@@ -32,7 +32,7 @@ public class SavedCart extends HttpServlet {
 
 
         }else{
-            response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+            response.sendRedirect(request.getContextPath()+"/user/views/sign.jsp");
         }
 
     }

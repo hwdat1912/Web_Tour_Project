@@ -17,11 +17,11 @@
 	String route = request.getAttribute("route") == null?null:(String) request.getAttribute("route");
 %>
 	<div class="logo">
-		<a href="/projectWeb_war/user/views/home"><img src="./assets//images/logo-w.png" alt="logo"></a>
+		<a href="<%=request.getContextPath()%>/user/views/home"><img src="./assets//images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container <%=route==null?"":route.equals("register")?"right-panel-active":""%>"  id="container">
 	<div class="form-container sign-up-container">
-		<form action="/projectWeb_war/user/views/doRegister" method="POST" class="sign-up-container-valid">
+		<form action="<%=request.getContextPath()%>/user/views/doRegister" method="POST" class="sign-up-container-valid">
 			<h1>Tạo Tài Khoản</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -51,7 +51,7 @@
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action="/projectWeb_war/user/views/doLogin" method="POST" class="sign-in-container-valid">
+		<form action="<%=request.getContextPath()%>/user/views/doLogin" method="POST" class="sign-in-container-valid">
 			<h1>Đăng Nhập</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>

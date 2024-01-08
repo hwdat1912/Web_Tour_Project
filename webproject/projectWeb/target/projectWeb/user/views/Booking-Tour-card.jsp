@@ -69,7 +69,7 @@ table {
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Đặt Tour</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">Đặt Tour</li>
                 </ul>
             </div>
@@ -93,7 +93,7 @@ table {
                         <span style="color: red;font-size: 1rem;"><%=textError%></span>
 
                         <h2>Thanh toán</h2>
-                        <form action="/projectWeb_war/user/views/booking" method="post" id="booking-form">
+                        <form action="<%=request.getContextPath()%>/user/views/booking" method="post" id="booking-form">
                             <div class="booking-form-wrapper">
                                
                                 

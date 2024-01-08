@@ -35,6 +35,42 @@ public class VerifyService {
     private VerifyService() {
     }
 
+    public boolean changeVerifyInDb(Booking booking,String fileBooking){
+        BufferedReader read = null;
+        try {
+            read = new BufferedReader(new FileReader(fileBooking));
+            String bookindID = read.readLine();
+            String tourID =read.readLine().trim();
+            String userID =read.readLine().trim();
+            String hoTen =read.readLine().trim();
+            String email = read.readLine().trim();
+            String phone =read.readLine().trim();
+            String diachi =read.readLine().trim();
+            int slVeNguoiLon =Integer.parseInt(read.readLine());
+            int slVeTreEm = Integer.parseInt(read.readLine());
+            String soLuong =read.readLine();
+            String ngayTao =read.readLine();
+////            print.println(booking.getTongTien());
+            String descreption =read.readLine().trim();
+            System.out.println(bookindID +"-" +tourID +"-" + userID +"-" + hoTen +"-" +email +"-" +phone+"-" +diachi+"-" +
+                    slVeNguoiLon +"-" +slVeTreEm +"-" +descreption);
+
+            return  (bookindID.equals(booking.getBOOKING_ID()) && tourID.equals(booking.getTOUR_ID()) &&
+                    userID.equals(booking.getUSER_ID()) && hoTen.equals(booking.getHoTen().trim())
+                    && email.equals(booking.getEmail().trim()) && phone.equals(booking.getPhone().trim())
+                    && diachi.equals(booking.getDiaChi().trim()) && (slVeNguoiLon ==booking.getSOLUONG_VENGUOILON())
+                    && (slVeTreEm == booking.getSOLUONG_VETREEM() && descreption.equals(booking.getDescription().trim()))
+                    );
+
+
+        } catch (FileNotFoundException e) {
+//            throw new RuntimeException(e);
+            return false;
+        } catch (IOException e) {
+//            throw new RuntimeException(e);
+            return  false;
+        }
+    }
     private String encrypt(String input,PublicKey publicKey) throws NoSuchAlgorithmException, NoSuchPaddingException,
             IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
         Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");

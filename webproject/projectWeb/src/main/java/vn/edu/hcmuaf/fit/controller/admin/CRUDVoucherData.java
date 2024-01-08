@@ -34,7 +34,7 @@ public class CRUDVoucherData extends HttpServlet {
         if (voucherId.equals("")){
             boolean b = VoucherService.getInstance().createVoucher(voucherStart,voucherEnd,voucherValue,voucherTrangThai);
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/VoucherTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/VoucherTableData");
             }else {
                 String text = "Tạo mới không thành công";
                 request.setAttribute("error",text);
@@ -43,7 +43,8 @@ public class CRUDVoucherData extends HttpServlet {
         }else{
             boolean b = VoucherService.getInstance().updateVoucher(voucherId,voucherStart,voucherEnd,voucherValue);
             if (b) {
-                response.sendRedirect("/projectWeb_war/admin/VoucherTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/VoucherTableData");
+//                response.sendRedirect("/projectWeb_war/admin/VoucherTableData");
             }else {
                 String text = "Sửa không thành công";
                 request.setAttribute("error",text);

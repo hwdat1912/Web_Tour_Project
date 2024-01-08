@@ -63,7 +63,7 @@
                                             Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
                                         </p>
                                     </div>
-                                    <form class="row change-password py-4" method="post" action="/projectWeb_war/user/views/changePassword">
+                                    <form class="row change-password py-4" method="post" action="<%=request.getContextPath()%>/user/views/changePassword">
                                         <input style="display: none" class="form-control"  name="userId" type="text" value="<%=userHeader.getUser_Id()%>" />
 
                                         <div class="col-12">

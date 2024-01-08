@@ -16,7 +16,7 @@ import java.util.List;
 public class booking extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request,response);
     }
 
     @Override
@@ -34,14 +34,15 @@ public class booking extends HttpServlet {
             if (b==true){
                 session.removeAttribute("tc");
                 cart.removeTourCart(tc.getTOUR_ID());
-                response.sendRedirect("/projectWeb_war/user/views/order");
+//                response.sendRedirect("/projectWeb_war/user/views/order");
+                response.sendRedirect(request.getContextPath()+"/user/views/order");
             }else{
                 List<TourDetailType> tdt = TourDetailService.getInstance().getListType(tc.getTOUR_ID());
                 List<Voucher> voucher = TourDetailService.getInstance().getListVoucher(tc.getTOUR_ID());
                 request.setAttribute("tdt",tdt);
                 request.setAttribute("voucher",voucher);
                 request.setAttribute("textError","Số lượng vé Tour còn lại không đủ theo yêu cầu của quý khách");
-                request.getRequestDispatcher("Booking-Tour-card.jsp").forward(request,response);
+                request.getRequestDispatcher("/user/views/Booking-Tour-card.jsp").forward(request,response);
             }
         }else{
             List<TourDetailType> tdt = TourDetailService.getInstance().getListType(tc.getTOUR_ID());
@@ -49,7 +50,7 @@ public class booking extends HttpServlet {
             request.setAttribute("tdt",tdt);
             request.setAttribute("voucher",voucher);
             request.setAttribute("textError","Mật khẩu không chính xác");
-            request.getRequestDispatcher("Booking-Tour-card.jsp").forward(request,response);
+            request.getRequestDispatcher("/user/views/Booking-Tour-card.jsp").forward(request,response);
         }
     }
 }
