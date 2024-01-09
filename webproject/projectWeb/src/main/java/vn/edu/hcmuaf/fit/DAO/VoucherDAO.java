@@ -25,7 +25,7 @@ public class VoucherDAO {
         updateStatusVoucher();
         List<Voucher> list = JDBIConnector.get().withHandle(h ->
                 h.createQuery("select * from voucher where TRANGTHAI = ?")
-                        .bind(0,1)
+                        .bind(0,0)
                         .mapToBean(Voucher.class)
                         .stream()
                         .collect(Collectors.toList())
