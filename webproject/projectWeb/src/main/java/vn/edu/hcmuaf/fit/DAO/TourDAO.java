@@ -245,7 +245,7 @@ public class TourDAO {
                                 "from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
-                                "and tour.TrangThai =1")
+                                "and tour.TrangThai =0")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -271,7 +271,7 @@ public class TourDAO {
                                 "from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
-                                "and tour.TrangThai =2")
+                                "and tour.TrangThai =0")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -301,7 +301,7 @@ public class TourDAO {
                                     "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                     "inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
                                     " where tour_type.Type =1 " +
-                                    "and tour.TrangThai =1 " +
+                                    "and tour.TrangThai =0 " +
                                     "and TOUR_VOUCHER.VOUCHER_ID = ?")
                             .bind(0,v.getVOUCHER_ID())
                             .mapToBean(Tour.class)
