@@ -91,7 +91,7 @@
                             </td>
 
                             <td class="confirm-leak-column">
-                                <form action="/projectWeb_war/admin/KeyTableData" id="form" method="post">
+                                <form action="<%=request.getContextPath()%>/admin/KeyTableData" id="form" method="post">
                                     <input type="hidden" name="publicId" value="<%=listKeys.get(i).getPublic_id()%>">
                                     <%if (listKeys.get(i).getStatus()==-1){%><button class="btn btn-primary btn-sm " style="background-color: #d1ffd1; color: #3ad540" name="option" value="submit" type="submit" title="Xác nhận disable"
                                 ><i class="fas fa-check"></i>

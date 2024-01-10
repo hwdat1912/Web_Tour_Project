@@ -61,7 +61,7 @@
               <div class="row element-button">
                 <div class="col-sm-2">
   
-                  <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDBookingTableData" title="Thêm"><i class="fas fa-plus"></i>
+                  <a class="btn btn-add btn-sm" href="<%=request.getContextPath()%>/admin/CRUDBookingTableData" title="Thêm"><i class="fas fa-plus"></i>
                     Tạo mới đơn đặt Tour</a>
                 </div>
                
@@ -108,7 +108,7 @@
                     <td><%=bookingList.get(i).getNgayTao()%></td>
                     <td><span class="badge <%=bookingList.get(i).getTRANGTHAI()==-1?"bg-danger":bookingList.get(i).getTRANGTHAI()==0?"bg-info":"bg-success"%>"><%=bookingList.get(i).getTRANGTHAI()==-1?"Đã hủy":bookingList.get(i).getTRANGTHAI()==0?"Chờ xác nhận":"Hoàn thành"%></span></td>
                     <td >
-                      <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
+                      <form action="<%=request.getContextPath()%>/admin/BookingTableData" id="form" method="post">
                         <%
                           boolean isVerify;
                           File file = new File(request.getContextPath()+File.separator+"booking"+File.separator+bookingList.get(i).getBOOKING_ID()+".txt");
@@ -265,7 +265,7 @@
   function viewOrderStatus(bookingId) {
     $.ajax({
       type: "POST",
-      url: "/projectWeb_war/admin/BookingTableData",
+      url: "<%=request.getContextPath()%>/admin/BookingTableData",
       data: { option: "viewOrderStatus", bookingId: bookingId },
       success: function (data) {
         // Handle the response from the server

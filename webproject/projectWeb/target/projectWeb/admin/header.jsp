@@ -17,7 +17,7 @@
                                     aria-label="Hide Sidebar"></a>
     <!-- Navbar Right Menu-->
     <ul class="app-nav">
-        <li title="Đăng xuất" ><a class="app-nav__item" style="background-color: var(--primary);color: white;" href="/projectWeb_war/user/views/signout"><i class="fa-solid fa-right-from-bracket"></i></a>
+        <li title="Đăng xuất" ><a class="app-nav__item" style="background-color: var(--primary);color: white;" href="<%=request.getContextPath()%>/user/views/signout"><i class="fa-solid fa-right-from-bracket"></i></a>
 
         </li>
         <li><a class="app-nav__item" style="background-color: var(--primary);color: white;" ><i class="fa-regular fa-comment"></i> </a></li>

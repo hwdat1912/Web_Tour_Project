@@ -55,7 +55,7 @@
           <div class="tile">
 
             <h3 class="tile-title"><%=booking==null?"Tạo mới đơn hàng":"Sửa đơn hàng"%></h3>
-            <form  method="post" action="/projectWeb_war/admin/CRUDBookingTableData">
+            <form  method="post" action="<%=request.getContextPath()%>/admin/CRUDBookingTableData">
               <div class="tile-body">
                 <div class="row">
                 <div class="form-group  col-md-4"  style="display: <%=booking==null?"none":"block"%>">
@@ -151,7 +151,7 @@
                 </div>
             </div>
               <button class="btn btn-save" type="submit" <%=error==null?"":"disabled"%> >Lưu lại</button>
-              <a class="btn btn-cancel" href="/projectWeb_war/admin/BookingTableData">Hủy bỏ</a>
+              <a class="btn btn-cancel" href="<%=request.getContextPath()%>/admin/BookingTableData">Hủy bỏ</a>
             </form>
           </div>
         </div>

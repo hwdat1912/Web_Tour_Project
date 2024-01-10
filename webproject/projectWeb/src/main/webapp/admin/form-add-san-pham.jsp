@@ -174,7 +174,7 @@
       <div class="col-md-12">
         <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
         <div class="tile">
-          <form method="post" action="/projectWeb_war/admin/CRUDTourData"  enctype="multipart/form-data">
+          <form method="post" action="<%=request.getContextPath()%>/admin/CRUDTourData"  enctype="multipart/form-data">
 <%--            modal--%>
 <%--            modal--%>
 
@@ -525,7 +525,7 @@
 
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
-          <a class="btn btn-cancel" href="/projectWeb_war/admin/TourTableData">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="<%=request.getContextPath()%>/admin/TourTableData">Hủy bỏ</a>
 
           </div>
           </form>
