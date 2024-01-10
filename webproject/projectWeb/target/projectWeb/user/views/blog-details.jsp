@@ -50,7 +50,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Chi tiết Blog</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Chi tiết Blog</li>
                 </ul>
             </div>
@@ -138,7 +138,7 @@
                             <!-- <span id="show-more-button" style="font-weight: 500;color: var(--c-primary);cursor: pointer;">Xem Thêm Bình Luận</span> -->
                         </div>
                     </div>
-                    <form action="/projectWeb_war/user/views/comment?blogId=<%=blog.getBLOG_ID()%>" id="comment_form" method="post">
+                    <form action="<%=request.getContextPath()%>/user/views/comment?blogId=<%=blog.getBLOG_ID()%>" id="comment_form" method="post">
                         <div class="comment-form mt-110">
                             <h4>Để Lại Bình Luận Của Bạn</h4>
 
@@ -168,7 +168,7 @@
                 </div>
 
                 <div class="col-lg-4">
-                    <form action="/projectWeb_war/user/views/blog" method="post" id="blog-sidebar-search">
+                    <form action="<%=request.getContextPath()%>/user/views/blog" method="post" id="blog-sidebar-search">
                         <div class="blog-sidebar ">
                             <aside class="blog-widget widget-search">
                                 <div class="widget-title">
@@ -248,9 +248,9 @@
 
                                     %>
                                     <li class="clearfix">
-                                        <div class="wi"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><img src="<%="../.."+blogr.getImageURL()%>" alt=""></a></div>
+                                        <div class="wi"><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><img src="<%="../.."+blogr.getImageURL()%>" alt=""></a></div>
                                         <div class="wb">
-                                            <h6><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><%=blogr.getBLOG_TITLE()%></a></h6>
+                                            <h6><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=blogr.getBLOG_ID()%>"><%=blogr.getBLOG_TITLE()%></a></h6>
                                             <div class="wb-info">
                                                 <span class="post-date"> <i class="bi bi-person-circle"></i><%=blogr.getFullName()%> </span>
                                                 <span class="post-date"> <i class="bi bi-calendar3"></i> <%=blogr.getNgayVietBai().toString()%></span>

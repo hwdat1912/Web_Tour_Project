@@ -47,7 +47,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Lỗi</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang chủ</a></li>
                     <li class="breadcrumb-item active">Lỗi</li>
                 </ul>
             </div>
@@ -67,7 +67,7 @@
                             <h2>Không tìm thấy trang</h2>
                             <p></p>
                             <div class="error-btn">
-                                <a href="/projectWeb_war/user/views/home"><i class="bi bi-house-door"></i>Về trang chủ</a>
+                                <a href="<%=request.getContextPath()%>/user/views/home"><i class="bi bi-house-door"></i>Về trang chủ</a>
                             </div>
                         </div>
                     </div>

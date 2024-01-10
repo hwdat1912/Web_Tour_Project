@@ -106,7 +106,7 @@
                                                                 <span>Số chỗ còn lại <span><%=td.getSoLuong()%></span></span>
                                                             </div>
                                                             <div class="tour-item-four-side">
-                                                                <a class="bound dahuy btn-xoa" href="/projectWeb_war/user/views/SavedCart?tourId=<%=td.getTOUR_ID()%>" >
+                                                                <a class="bound dahuy btn-xoa" href="<%=request.getContextPath()%>/user/views/SavedCart?tourId=<%=td.getTOUR_ID()%>" >
                                                                     <span>Xóa</span>
                                                                 </a>
                                                             </div>

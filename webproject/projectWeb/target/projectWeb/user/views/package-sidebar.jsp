@@ -53,7 +53,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Du Lịch</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Du Lịch</li>
                 </ul>
             </div>
@@ -102,10 +102,10 @@
                                 int ngay = dem+1;
                                 %>
                         <div class="col-md-6 " style="height: 450px" >
-                            <div class="package-card-alpha" style="height: 450px" href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
+                            <div class="package-card-alpha" style="height: 450px" href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                 <div class="package-thumb">
                                     <div class="is-new-tour <%=checkDate?"":"display-hide"%>" id="<%=tour.getNgayTao().toString()%>"><span >Mới</span></div>
-                                    <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%="../.."+tour.getImageURL()%>" alt=""></a>
+                                    <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><img src="<%="../.."+tour.getImageURL()%>" alt=""></a>
                                     <p class="card-lavel">
                                         <i class="bi bi-clock"></i> <span><%=ngay%> Ngày và <%=dem%>  Đêm</span>
                                     </p>
@@ -149,7 +149,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="package-sidebar">
-                        <form action="/projectWeb_war/user/views/doSearchWithFilter"  method="post" id="blog-sidebar-search">
+                        <form action="<%=request.getContextPath()%>/user/views/doSearchWithFilter"  method="post" id="blog-sidebar-search">
                             <aside class="package-widget widget-search">
                                 <div class="widget-title">
                                     <h4>Tìm kiếm</h4>
@@ -300,12 +300,12 @@
                                     %>
                                     <li class="package-sm">
                                         <div class="thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
+                                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                                 <img src="<%="../.."+tour.getImageURL()%>" alt="">
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <h6><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
+                                            <h6><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
                                             <div class="price">
                                                 <span>Chỉ Từ</span>
                                                 <h6><%=giaVeString%> ₫ <span>1 Người</span></h6>

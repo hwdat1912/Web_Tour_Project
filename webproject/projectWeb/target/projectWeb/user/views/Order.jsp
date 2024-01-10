@@ -220,7 +220,7 @@
                                                            <a  class="btn btn-primary btn-sm <%=status!=VerifyService.VERIFY_SUCCESS ? "":"disable-href"%>" id="<%=b.getBOOKING_ID()%>"  style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
                                                            Ký hoá đơn</a>
 
-                                                           <a class="bound dahuy" style="width: 90px; border-radius: 5px" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
+                                                           <a class="bound dahuy" style="width: 90px; border-radius: 5px" href="<%=request.getContextPath()%>/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
                                                                <span>Hủy đơn</span>
                                                            </a>
 
@@ -359,7 +359,7 @@
                                                             <a class="btn btn-primary btn-sm" style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
                                                                 Ký hoá đơn</a>
 
-                                                            <a class="bound dahuy" style="width: 90px; border-radius: 5px;" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>" >
+                                                            <a class="bound dahuy" style="width: 90px; border-radius: 5px;" href="<%=request.getContextPath()%>/user/views/order?cancel=<%=b.getBOOKING_ID()%>" >
                                                                 <span>Hủy đơn</span>
                                                             </a>
 
