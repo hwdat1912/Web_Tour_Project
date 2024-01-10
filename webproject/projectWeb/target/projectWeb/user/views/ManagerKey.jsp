@@ -158,19 +158,20 @@
                                                         <tr style=" text-align: center;">
                                                             <td style="vertical-align: middle"><%=item.getDate_create()%></td>
                                                             <td style="vertical-align: middle"><%=(item.getDate_report() != null) ? item.getDate_report() : "&nbsp;"%></td>
-                                                            <td style="word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
+                                                            <td id="visibleText"style="word-wrap: break-word;max-width: 100px; text-align: left;"></td>
+                                                            <td id="hiddenText" style="display: none; word-wrap: break-word;max-width: 100px; text-align: left;"><%=item.getP_key()%></td>
                                                             <td class="badge <%=badge%>" style="margin-top: 25%;"><%=status%></td>
                                                             <td class="table-td-center" style="vertical-align: middle">
-                                                                <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">
+<%--                                                                <form action="<%=request.getContextPath()%>/user/views/LostKey" id="form" method="post">--%>
                                                                     <input style="display: none" name="guideId" value="">
                                                                     <input type="hidden" name="publicId" value="<%=item.getPublic_id()%>">
-<%--                                                                    <button class="btn btn-primary btn-sm bullseye" type="submit" name="options" value="view" title="Xem"--%>
-<%--                                                                    ><i class="fa-solid fa-eye"></i>--%>
-<%--                                                                    </button>--%>
+                                                                    <button id="toggleButton" class="btn btn-primary btn-sm bullseye" type="submit" name="options" value="view" title="Xem"
+                                                                    ><i class="fa-solid fa-eye"></i>
+                                                                    </button>
                                                                     <button style="<%=item.getStatus() == KeyService.ENABLE ? "":" display:none;"%>" class="btn btn-danger btn-sm " onclick="lostKeyFunction(<%=item.getPublic_id()%>)" name="option" value="warning" type="button" title="Thông báo lộ Key"
                                                                     ><i class="fa-solid fa-triangle-exclamation"></i>
                                                                     </button>
-                                                                </form>
+<%--                                                                </form>--%>
                                                             </td>
                                                         </tr>
                                                         <%}}%>
@@ -281,6 +282,40 @@
 <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Thực hiện khi trang được tải
+        var trText = document.getElementById("hiddenText").innerText.trim();
+        if (trText !== "") {
+            hideCharacters(3); // Ẩn từ kí tự thứ 4
+        }
+
+        // Sự kiện khi nhấn vào nút
+        document.getElementById("toggleButton").addEventListener("click", function() {
+            toggleCharacters();
+        });
+    });
+
+    function hideCharacters(startIndex) {
+        var trText = document.getElementById("hiddenText").innerText;
+        var hiddenPart = trText.substring(startIndex).replace(/./g, '*');
+        document.getElementById("visibleText").innerText = trText.substring(0, startIndex) + hiddenPart;
+    }
+
+    function toggleCharacters() {
+        var visibleText = document.getElementById("visibleText");
+        var hiddenText = document.getElementById("hiddenText");
+
+        if (visibleText.style.display === "none") {
+            // Nếu đang ẩn, hiển thị lại
+            visibleText.style.display = "table-cell";
+            hiddenText.style.display = "none";
+        } else {
+            // Nếu đang hiển thị, ẩn đi
+            visibleText.style.display = "none";
+            hiddenText.style.display = "table-cell";
+        }
+    }
+
     function toast(title,message){
         const main = document.getElementById('toast_message');
         if(main){
