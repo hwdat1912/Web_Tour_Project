@@ -207,6 +207,10 @@ public class VerifyService {
         return VerifyDAO.getInstance().getKeyIdByBookingId(booking);
     }
 
+    public  void updateVerify(String public_key,String booking_id){
+        VerifyDAO.getInstance().update(public_key,booking_id);
+    }
+
     public static void main(String[] args) throws FileNotFoundException {
         VerifyService verifyService = VerifyService.getInstance();
         KeyService keyService = KeyService.getInstance();
