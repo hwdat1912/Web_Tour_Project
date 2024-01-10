@@ -35,9 +35,18 @@ public class order extends HttpServlet {
         VerifyService verifyService = VerifyService.getInstance();
 
         int status;
+
+        System.out.println("Size:"+ listBooking.size());
+
         for (Booking booking:listBooking
              ) {
+            System.out.println("Đã vào for được danh sách booking");
+
+               System.out.println( "BookingId:"+ VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()));
+
             if (VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()) != null){
+
+                System.out.println("Đã vao được danh sách booking");
                 String dirUrl = File.separator + "booking";
                 String absolutePath = request.getServletContext().getRealPath(dirUrl);
                 String fileBooking = absolutePath + File.separator + booking.getBOOKING_ID() + ".txt";
@@ -58,7 +67,9 @@ public class order extends HttpServlet {
 
                 String publicKey = KeyService.getInstance().getKeyById(VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()));
 
-                System.out.println(verifyService.changeVerifyInDb(booking,fileBooking));
+                System.out.println("System:"+ verifyService.changeVerifyInDb(booking,fileBooking));
+
+
 
                 if(verifyService.verify(fileBooking,fileVerify,publicKey) && verifyService.changeVerifyInDb(booking,fileBooking)){
                     status = VerifyService.VERIFY_SUCCESS;
@@ -67,11 +78,13 @@ public class order extends HttpServlet {
                 }
 
             }else {
+                System.out.println("Chưa vào được danh sách booking");
                 status = VerifyService.NONE_VERIFY;
             }
-
+            System.out.println("Đẫ vào được");
             verfiyOrder.put(booking.getBOOKING_ID(), status);
         }
+
 
         request.setAttribute("listVerify",verfiyOrder);
         request.setAttribute("listBooking",listBooking);

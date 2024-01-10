@@ -50,6 +50,6 @@ public class VerifyDAO {
 //    }
 
     public static void main(String[] args) {
-        System.out.println(VerifyDAO.getInstance().getKeyIdByBookingId("BOOKING-287308338"));
+        System.out.println(VerifyDAO.getInstance().getKeyIdByBookingId("BOOKING-1548999384"));
     }
 }

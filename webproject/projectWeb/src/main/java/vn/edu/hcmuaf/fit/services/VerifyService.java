@@ -207,26 +207,27 @@ public class VerifyService {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        VerifyService verifyService = VerifyService.getInstance();
-        KeyService keyService = KeyService.getInstance();
-        String publicKeyString = keyService.getOnePublicKeyBySatus("User54926");
-        PublicKey publicKey = keyService.convertStringToPublicKey(publicKeyString);
+//        VerifyService verifyService = VerifyService.getInstance();
+//        KeyService keyService = KeyService.getInstance();
+//        String publicKeyString = keyService.getOnePublicKeyBySatus("User54926");
+//        PublicKey publicKey = keyService.convertStringToPublicKey(publicKeyString);
+//
+//        InputStream fileContent = new FileInputStream("/Users/hidroxit/Downloads/privateKey.bin");
+//        PrivateKey privateKey = keyService.convertFileToPrivateKey(fileContent);
+//        boolean keyCompatibility = verifyService.check(publicKey,privateKey);
+//        System.out.println(publicKey);
+//        System.out.println(privateKey);
+//        BookingDAO bookingDAO = BookingDAO.getInstance();
+//        Booking booking = bookingDAO.getBookingById("BOOKING-1289403724");
+//        System.out.println(booking);
+//
+//        if (keyCompatibility) {
+//            System.out.println("OK");
+//        } else {
+//            System.out.println("ERROR");
+//        }
 
-        InputStream fileContent = new FileInputStream("/Users/hidroxit/Downloads/privateKey.bin");
-        PrivateKey privateKey = keyService.convertFileToPrivateKey(fileContent);
-        boolean keyCompatibility = verifyService.check(publicKey,privateKey);
-        System.out.println(publicKey);
-        System.out.println(privateKey);
-        BookingDAO bookingDAO = BookingDAO.getInstance();
-        Booking booking = bookingDAO.getBookingById("BOOKING-1289403724");
-        System.out.println(booking);
-
-        if (keyCompatibility) {
-            System.out.println("OK");
-        } else {
-            System.out.println("ERROR");
-        }
-
+        System.out.println(VerifyService.getInstance().getKeyIdByBookingId("BOOKING-1548999384"));
     }
 
 
