@@ -65,20 +65,22 @@
                   <input class="form-control" type="text" disabled value="<%=booking==null?"":booking.getBOOKING_ID()%>">
                 </div>
                 <div class="form-group  col-md-4">
-                  <label for="khID" class="control-label">Khách hàng ID</label>
-                  <select class="form-control" id="khID" name="bookingUserId" >
-                    <option value="0">Không có</option>
-                    <%
-                      for (User u: listKH) {
-                        if (booking!=null&&booking.getUSER_ID().equals(u.getUser_Id()))
-                        {
-                    %>
-                    <option value="<%=u.getUser_Id()%>" selected><%=u.getUser_Id()%>-<%=u.getFullName()%></option>
-                    <%}else{%>
-                    <option value="<%=u.getUser_Id()%>" ><%=u.getUser_Id()%>-<%=u.getFullName()%></option>
-                    <%}%>
-                    <%}%>
-                  </select>
+<%--                  <label for="khID" class="control-label">Khách hàng ID</label>--%>
+<%--                  <select class="form-control" id="khID" name="bookingUserId" >--%>
+<%--                    <option value="0">Không có</option>--%>
+<%--                    <%--%>
+<%--                      for (User u: listKH) {--%>
+<%--                        if (booking!=null&&booking.getUSER_ID().equals(u.getUser_Id()))--%>
+<%--                        {--%>
+<%--                    %>--%>
+<%--                    <option value="<%=u.getUser_Id()%>" selected><%=u.getUser_Id()%>-<%=u.getFullName()%></option>--%>
+<%--                    <%}else{%>--%>
+<%--                    <option value="<%=u.getUser_Id()%>" ><%=u.getUser_Id()%>-<%=u.getFullName()%></option>--%>
+<%--                    <%}%>--%>
+<%--                    <%}%>--%>
+<%--                  </select>--%>
+                    <label  class="control-label">Khách hàng ID</label>
+                  <input class="form-control" disabled value="<%=booking.getUSER_ID()%>">
 
                 </div>
               <div class="form-group  col-md-4">
