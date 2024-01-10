@@ -36,6 +36,8 @@ public class CRUDBookingTableData extends HttpServlet {
         String bookingTrangThai = request.getParameter("bookingTrangThai");
         String bookingDescription = request.getParameter("bookingDescription");
 
+        System.out.println("User Id:"+bookingUserId);
+
         Booking tc = new Booking();
         tc.setBOOKING_ID(bookingId);
         tc.setUSER_ID(bookingUserId);
@@ -50,8 +52,12 @@ public class CRUDBookingTableData extends HttpServlet {
         tc.setTRANGTHAI(Integer.parseInt(bookingTrangThai));
         tc.setDescription(bookingDescription);
         tc.setSOLUONG(Integer.parseInt(bookingSLVNL)+Integer.parseInt(bookingSLVTE));
-        if (bookingId.equals("")){
 
+        System.out.println(tc.toString());
+
+        System.out.println("Đã vào booking table data");
+        if (bookingId.equals("")){
+            System.out.println("Vào thêm mới");
 
             boolean b = BookingService.getInstance().createBookingAdmin(tc);
             if (b){
@@ -69,11 +75,14 @@ public class CRUDBookingTableData extends HttpServlet {
             }
         }else{
 
+            System.out.println("Vào thêm update");
             boolean b = BookingService.getInstance().updateBookingAdmin(tc);
             boolean checkVerify = false;
+            System.out.println("Check:" + b);
             if (b){
 
-                WriteBookingSevice.getInstance().writeBooking(tc,request);
+//               System.out.println("Write:"+ WriteBookingSevice.getInstance().writeBooking(tc,request));
+                System.out.println("ghi thành công");
                 response.sendRedirect(request.getContextPath()+"/admin/BookingTableData");
             }else {
                 String text = "Sửa không thành công vì số lượng còn lại của Tour: "+tc.getTOUR_ID()+" bé hơn số lượng vé yêu cầu "+tc.getSOLUONG();

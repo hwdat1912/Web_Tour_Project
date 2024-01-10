@@ -68,7 +68,11 @@ public class VerifyKey extends HttpServlet {
                 boolean verify = verifyService.verify(writeBooking, fileStoreVerify, publicKeyString);
 
                 if(verify){
-                    VerifyService.getInstance().insertVerify(keyService.getOnePublicKeyIdBySatus(user.getUser_Id()),bookingId);
+                    if(verifyService.getKeyIdByBookingId(bookingId) != null){
+                        verifyService.updateVerify(keyService.getOnePublicKeyIdBySatus(user.getUser_Id()),bookingId);
+                    }else {
+                        VerifyService.getInstance().insertVerify(keyService.getOnePublicKeyIdBySatus(user.getUser_Id()),bookingId);
+                    }
 
                     System.out.println(keyService.getOnePublicKeyIdBySatus(user.getUser_Id()));
                     System.out.println("Signature verified successfully");

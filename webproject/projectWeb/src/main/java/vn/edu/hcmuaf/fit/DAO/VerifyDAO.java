@@ -27,6 +27,16 @@ public class VerifyDAO {
 
     }
 
+    public void update(String public_id,String booking_id){
+        JDBIConnector.get().withHandle(handle -> {
+            return handle.createUpdate("UPDATE verify set verify.public_id = ? where verify.booking_id = ?")
+                    .bind(0,public_id)
+                    .bind(1,booking_id	)
+                    .execute();
+        });
+
+    }
+
     public String getKeyIdByBookingId(String bookingId){
         return JDBIConnector.get().withHandle(handle -> {
             return handle.createQuery("SELECT verify.public_id FROM verify WHERE booking_id = ? ")

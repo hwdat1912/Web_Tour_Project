@@ -65,6 +65,8 @@
                   <input class="form-control" type="text" disabled value="<%=booking==null?"":booking.getBOOKING_ID()%>">
                 </div>
                 <div class="form-group  col-md-4">
+                    <label  class="control-label">Khách hàng ID</label>
+                    <input class="form-control" type="text"  value="<%=booking==null?"":booking.getUSER_ID().toString()==null?"":booking.getUSER_ID().toString()%>"  disabled>
 <%--                  <label for="khID" class="control-label">Khách hàng ID</label>--%>
 <%--                  <select class="form-control" id="khID" name="bookingUserId" >--%>
 <%--                    <option value="0">Không có</option>--%>
@@ -79,8 +81,7 @@
 <%--                    <%}%>--%>
 <%--                    <%}%>--%>
 <%--                  </select>--%>
-                    <label  class="control-label">Khách hàng ID</label>
-                  <input class="form-control" disabled value="<%=booking.getUSER_ID()%>">
+
 
                 </div>
               <div class="form-group  col-md-4">
@@ -104,6 +105,7 @@
                 <div class="form-group  col-md-4" style="display: <%=booking==null?"none":"block"%>">
                   <label class="control-label">Ngày làm đơn hàng</label>
                   <input class="form-control" type="date" name="bookingDate" value="<%=booking==null?currentDate.toString():booking.getNgayTao()==null?currentDate.toString():booking.getNgayTao().toString()%>" required >
+                    <input type="hidden" name="bookingUserId" value="<%=booking==null?"":booking.getUSER_ID().toString()==null?"":booking.getUSER_ID().toString()%>" required>
                 </div>
 
 
