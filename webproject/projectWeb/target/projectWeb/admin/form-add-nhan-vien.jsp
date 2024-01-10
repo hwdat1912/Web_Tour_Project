@@ -149,7 +149,7 @@
       <div class="tile">
 
         <h3 class="tile-title"><%=guide==null?"Tạo mới hướng dẫn viên":"Sửa hướng dẫn viên"%></h3>
-        <form method="post" action="/projectWeb_war/admin/CRUDGuideData" enctype="multipart/form-data" >
+        <form method="post" action="<%=request.getContextPath()%>/admin/CRUDGuideData" enctype="multipart/form-data" >
           <div class="tile-body">
             <div class="row element-button">
 
@@ -235,7 +235,7 @@
             </div>
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
-          <a class="btn btn-cancel" href="/projectWeb_war/admin/GuideTableData">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="<%=request.getContextPath()%>/admin/GuideTableData">Hủy bỏ</a>
         </form>
 
       </div>
@@ -251,7 +251,7 @@ MODAL
      data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
-      <form method="post" action="/projectWeb_war/admin/Upload" enctype="multipart/form-data">
+      <form method="post" action="<%=request.getContextPath()%>/admin/Upload" enctype="multipart/form-data">
       <div class="modal-body">
         <div class="row">
           <div class="form-group  col-md-12">

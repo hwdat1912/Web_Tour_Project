@@ -46,7 +46,7 @@
           <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
 
           <div class="tile">
-            <form  method="post" action="/projectWeb_war/admin/CRUDVoucherData">
+            <form  method="post" action="<%=request.getContextPath()%>/admin/CRUDVoucherData">
             <h3 class="tile-title"><%=voucher==null?"Tạo mới voucher":"Sửa voucher"%></h3>
             <div class="tile-body">
               <!-- <div class="row element-button">
@@ -89,7 +89,7 @@
             </div>
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
-          <a class="btn btn-cancel" href="/projectWeb_war/admin/VoucherTableData">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="<%=request.getContextPath()%>/admin/VoucherTableData">Hủy bỏ</a>
             </form>
           </div>
         </div>

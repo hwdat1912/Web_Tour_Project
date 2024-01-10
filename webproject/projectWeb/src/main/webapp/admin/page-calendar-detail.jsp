@@ -40,7 +40,7 @@
       <div class="col-md-12">
         <div class="app-title">
           <ul class="app-breadcrumb breadcrumb">
-            <li class="breadcrumb-item"><a href="/projectWeb_war/admin/Calendar"><b>Lịch công tác</b></a></li>
+            <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/admin/Calendar"><b>Lịch công tác</b></a></li>
             <li class="breadcrumb-item">Danh sách chi tiết</li>
           </ul>
           <div id="clock"></div>

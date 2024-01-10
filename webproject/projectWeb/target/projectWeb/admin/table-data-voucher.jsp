@@ -53,7 +53,7 @@
               <div class="row element-button">
                 <div class="col-sm-2">
   
-                  <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDVoucherData" title="Thêm"><i class="fas fa-plus"></i>
+                  <a class="btn btn-add btn-sm" href="<%=request.getContextPath()%>/admin/CRUDVoucherData" title="Thêm"><i class="fas fa-plus"></i>
                     Tạo mới Voucher</a>
                 </div>
                
@@ -89,7 +89,7 @@
                     <td><%=voucherList.get(i).getNgayKetThuc().toString()%></td>
                     <td><span class="badge <%=currentDate.getTime()>voucherList.get(i).getNgayKetThuc().getTime()?"bg-danger":"bg-info"%>"><%=currentDate.getTime()>voucherList.get(i).getNgayKetThuc().getTime()?"Hết khả dụng":"Còn khả dụng"%></span></td>
                     <td>
-                      <form action="/projectWeb_war/admin/VoucherTableData" id="form" method="post">
+                      <form action="<%=request.getContextPath()%>/admin/VoucherTableData" id="form" method="post">
                         <input style="display: none" name="voucherId" value="<%=voucherList.get(i).getVOUCHER_ID()%>">
                         <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                         ><i class="fas fa-trash-alt"></i>

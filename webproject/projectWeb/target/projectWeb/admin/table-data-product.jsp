@@ -52,7 +52,7 @@
                       <div class="row element-button">
                         <div class="col-sm-2">
           
-                          <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDTourData" title="Thêm"><i class="fas fa-plus"></i>
+                          <a class="btn btn-add btn-sm" href="<%=request.getContextPath()%>/admin/CRUDTourData" title="Thêm"><i class="fas fa-plus"></i>
                             Tạo mới Tour</a>
                         </div>
                        
@@ -100,7 +100,7 @@
                                     <td><%=giaVeString%>đ</td>
                                     <td><%=tourList.get(i).getTour_category()%></td>
                                     <td>
-                                        <form action="/projectWeb_war/admin/TourTableData" id="form" method="post">
+                                        <form action="<%=request.getContextPath()%>/admin/TourTableData" id="form" method="post">
                                             <input style="display: none" name="tourId" value="<%=tourList.get(i).getTour_id()%>">
                                             <%if (tourList.get(i).getTrangThai()!=1){%><button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                                             ><i class="fas fa-trash-alt"></i>

@@ -52,7 +52,7 @@
                         <div class="row element-button">
                             <div class="col-sm-2">
               
-                              <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDBlogData" title="Thêm"><i class="fas fa-plus"></i>
+                              <a class="btn btn-add btn-sm" href="<%=request.getContextPath()%>/admin/CRUDBlogData" title="Thêm"><i class="fas fa-plus"></i>
                                 Tạo mới Blog</a>
                             </div>
                            
@@ -88,7 +88,7 @@
                                     
                                     <td><textarea name="noidung" id="" cols="30" rows="10" disabled ><%=blogList.get(i).getDescription()%></textarea></td>
                                     <td>
-                                        <form action="/projectWeb_war/admin/BlogTableData" id="form" method="post">
+                                        <form action="<%=request.getContextPath()%>/admin/BlogTableData" id="form" method="post">
                                             <input style="display: none" name="blogId" value="<%=blogList.get(i).getBLOG_ID()%>">
                                             <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                                             ><i class="fas fa-trash-alt"></i>
