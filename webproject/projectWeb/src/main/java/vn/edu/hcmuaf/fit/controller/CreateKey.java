@@ -52,8 +52,8 @@ public class CreateKey extends HttpServlet {
 
             request.setAttribute("success","Thành Công");
             outStream.write(data);
-            keyService.insertKey(user.getUser_Id(),rsaService.exportPublicKey(),KeyService.ENABLE);
             outStream.flush();
+            keyService.insertKey(user.getUser_Id(),rsaService.exportPublicKey(),KeyService.ENABLE);
             outStream.close();
 //            response.setHeader("Refresh", "0");
 

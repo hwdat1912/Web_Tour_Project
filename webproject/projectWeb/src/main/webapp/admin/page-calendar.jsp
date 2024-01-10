@@ -102,7 +102,7 @@
                         <td><%=tour.getNoiKhoiHanh()%>đ</td>
                         <td><%=tour.getPhuongTienDiChuyen()%></td>
                         <td>
-                          <a href="/projectWeb_war/admin/CalendarDetail?tourId=<%=tour.getTOUR_ID()%>"><span style="color: #5454f3;font-size: 1rem">Xem chi tiết</span></a>
+                          <a href="<%=request.getContextPath()%>/admin/CalendarDetail?tourId=<%=tour.getTOUR_ID()%>"><span style="color: #5454f3;font-size: 1rem">Xem chi tiết</span></a>
                         </td>
                       </tr>
 

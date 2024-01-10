@@ -245,7 +245,7 @@ public class TourDAO {
                                 "from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
-                                "and tour.TrangThai =1")
+                                "and tour.TrangThai =0")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -271,7 +271,7 @@ public class TourDAO {
                                 "from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
-                                "and tour.TrangThai =2")
+                                "and tour.TrangThai =0")
                         .mapToBean(Tour.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -301,7 +301,7 @@ public class TourDAO {
                                     "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                     "inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
                                     " where tour_type.Type =1 " +
-                                    "and tour.TrangThai =1 " +
+                                    "and tour.TrangThai =0 " +
                                     "and TOUR_VOUCHER.VOUCHER_ID = ?")
                             .bind(0,v.getVOUCHER_ID())
                             .mapToBean(Tour.class)
@@ -324,7 +324,7 @@ public class TourDAO {
             if (tour.getSoLuong()>= booking.getSOLUONG()){
                 int rest = tour.getSoLuong() - booking.getSOLUONG();
                 JDBIConnector.get().withHandle(handle ->
-                        handle.createUpdate("update TOUR " +
+                        handle.createUpdate("update tour " +
                                 "set SoLuong = ? " +
                                 "where TOUR_ID = ?").bind(0,rest).bind(1,tour.getTOUR_ID()).execute()
                 );
@@ -338,13 +338,13 @@ public class TourDAO {
     }
     public void updateTourStatus(){
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("update TOUR " +
+                handle.createUpdate("update tour " +
                         "set TrangThai = ? " +
                         "where SoLuong = ?").bind(0,0).bind(1,0).execute()
         );
 
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("update TOUR " +
+                handle.createUpdate("update tour " +
                         "set TrangThai = ? " +
                         "where DATEDIFF(NgayKhoiHanh,CURRENT_DATE) <= 2").bind(0,0).execute()
         );
@@ -360,9 +360,9 @@ public class TourDAO {
 
 
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("delete from TOUR_GUIDE " +
+                    handle.createUpdate("delete from tour_guide " +
 
-                            "where TOUR_GUIDE.TOUR_ID = ?").bind(0,td.getTOUR_ID()).execute()
+                            "where tour_guide.TOUR_ID = ?").bind(0,td.getTOUR_ID()).execute()
             );
         }
     }

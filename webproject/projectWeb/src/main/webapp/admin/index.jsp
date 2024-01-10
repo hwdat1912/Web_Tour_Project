@@ -74,7 +74,7 @@ String error = request.getAttribute("error")==null?null:(String)request.getAttri
        <!-- col-6 -->
        <div class="col-md-6">
         <div class="widget-small primary coloured-icon"><i class='icon bx bxs-user-account fa-3x'></i>
-          <a class="info" href="/projectWeb_war/admin/CustomerDataTable">
+          <a class="info" href="<%=request.getContextPath()%>/admin/CustomerDataTable">
             <h4>Tổng khách du lịch</h4>
             <p><b><%=listKH.size()%> khách du lịch</b></p>
             <p class="info-tong">Tổng số khách du lịch được quản lý.</p>
@@ -140,7 +140,7 @@ String error = request.getAttribute("error")==null?null:(String)request.getAttri
                         <td><%=em.getBirth()==null?"Chưa có":em.getBirth().toString()%></td>
                         <td><span class="badge <%=em.getUser_role()==1?"bg-info":em.getUser_role()==2?"bg-success":"bg-danger"%>"><%=em.getUser_role()==1?"Hướng dẫn viên":em.getUser_role()==2?"Nhân viên quản trị":"Admin"%></span></td>
                         <td>
-                          <form action="/projectWeb_war/admin/Authorization"  method="post">
+                          <form action="<%=request.getContextPath()%>/admin/Authorization"  method="post">
                             <input style="display: none" name="userId" value="<%=em.getUser_Id()%>" type="text">
                             <input style="display: none" name="userRole" value="<%=em.getUser_role()%>" type="text">
                            <% if (em.getUser_role()==2){%> <button class="btn btn-primary btn-sm trash" name="option" value="levelDown" type="submit" title="Hạ quyền"
@@ -203,7 +203,7 @@ String error = request.getAttribute("error")==null?null:(String)request.getAttri
                       </td>
                       <td><span class="badge bg-info">Chờ xác nhận</span></td>
                       <td>
-                        <form action="/projectWeb_war/admin/BookingTableData" id="form" method="post">
+                        <form action="<%=request.getContextPath()%>/admin/BookingTableData" id="form" method="post">
                           <input style="display: none" name="bookingId" value="<%=b.getBOOKING_ID()%>">
                           <button class="btn btn-primary btn-sm save" name="option" value="submitIndex" type="submit" title="Xác nhận"
                           ><i class="fas fa-check"></i>
@@ -226,7 +226,7 @@ String error = request.getAttribute("error")==null?null:(String)request.getAttri
           <div class="col-md-16">
             <div class="tile">
               <h3 class="tile-title">Đơn hàng trong tháng</h3>
-              <a href="/projectWeb_war/admin/BookingTableData"><span style="font-size: 0.6rem;color: blue">Xem tất cả đơn hàng</span></a>
+              <a href="<%=request.getContextPath()%>/admin/BookingTableData"><span style="font-size: 0.6rem;color: blue">Xem tất cả đơn hàng</span></a>
 
               <div>
                 <table class="table table-bordered">

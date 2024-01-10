@@ -54,7 +54,7 @@
             <div class="row element-button">
               <div class="col-sm-2">
 
-                <a class="btn btn-add btn-sm" href="/projectWeb_war/admin/CRUDGuideData" title="Thêm"><i class="fas fa-plus"></i>
+                <a class="btn btn-add btn-sm" href="<%=request.getContextPath()%>/admin/CRUDGuideData" title="Thêm"><i class="fas fa-plus"></i>
                   Tạo mới Huớng dẫn viên</a>
               </div>
              
@@ -100,7 +100,7 @@
                   <td><%=g.getEmail() == null?"Chưa có":g.getEmail()%></td>
                   <td><%=g.getCMND()==null ?"Chưa có":g.getCMND()%></td>
                   <td class="table-td-center">
-                    <form action="/projectWeb_war/admin/GuideTableData" id="form" method="post">
+                    <form action="<%=request.getContextPath()%>/admin/GuideTableData" id="form" method="post">
                       <input style="display: none" name="guideId" value="<%=g.getUser_Id()%>">
                       <button class="btn btn-primary btn-sm trash" type="submit"name="option" value="delete" title="Xóa"
                               ><i class="fas fa-trash-alt"></i>

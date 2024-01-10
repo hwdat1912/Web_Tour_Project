@@ -25,7 +25,8 @@ public class review extends HttpServlet {
         WriteService.getInstance().writeReview(tourIdComment,userIdComment,Comment,dateComment,categoryComment,starComment);
 
 
-        response.sendRedirect("/projectWeb_war/user/views/tourDetail?tourId="+tourIdComment);
+        response.sendRedirect(request.getContextPath()+"/user/views/tourDetail?tourId="+tourIdComment);
+        //response.sendRedirect("/projectWeb_war/user/views/tourDetail?tourId="+tourIdComment);
 
     }
 }

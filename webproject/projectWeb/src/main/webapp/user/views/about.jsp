@@ -57,7 +57,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Về Chúng Tôi</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Về Chúng Tôi</li>
                 </ul>
             </div>
@@ -197,7 +197,7 @@
                     </div>
                 </div>
                 <div class="col-lg-5">
-                    <div class="blog-btn text-lg-end"><a href="/projectWeb_war/user/views/blog" class="button-fill-round">Xem tất cả Tin tức</a></div>
+                    <div class="blog-btn text-lg-end"><a href="<%=request.getContextPath()%>/user/views/blog" class="button-fill-round">Xem tất cả Tin tức</a></div>
                 </div>
             </div>
             <div class="row">
@@ -209,17 +209,17 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="blog-card-gamma">
                         <div class="blog-thumb" style="height: 250px">
-                            <a style="height: 100%" href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>">
+                            <a style="height: 100%" href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>">
 <img style="height: 100%" src="../..<%=b.getImageURL()%>" alt="">
 </a>
                             
                         </div>
                         <div class="blog-content">
                             <div class="blog-body-top">
-                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> By <%=b.getFullName()%> </a>
-                                <a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-calendar3"></i> <%=b.getNgayVietBai().toString()%> </a>
+                                <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-writer"><i class="bi bi-person-circle"></i> By <%=b.getFullName()%> </a>
+                                <a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>" class="blog-comments"><i class="bi bi-calendar3"></i> <%=b.getNgayVietBai().toString()%> </a>
                             </div>
-                            <h4 class="blog-title"><a href="/projectWeb_war/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>"><%=b.getBLOG_TITLE()%></a></h4>
+                            <h4 class="blog-title"><a href="<%=request.getContextPath()%>/user/views/blogDetail?blogId=<%=b.getBLOG_ID()%>"><%=b.getBLOG_TITLE()%></a></h4>
                         </div>
                     </div>
                 </div>
