@@ -19,7 +19,8 @@ public class Calendar extends HttpServlet {
        User u = (User) session.getAttribute("auth");
        if (u == null){
 
-           response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+//           response.sendRedirect("/projectWeb_war/user/views/sign.jsp");
+           response.sendRedirect(request.getContextPath()+"/user/views/sign.jsp");
        }else{
            List<TourDetail> listTour = TourDetailService.getInstance().getListTourGuideCalendar(u.getUser_Id());
            request.setAttribute("listTour",listTour);

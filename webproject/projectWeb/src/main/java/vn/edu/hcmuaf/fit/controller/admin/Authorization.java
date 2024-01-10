@@ -22,12 +22,14 @@ public class Authorization extends HttpServlet {
             if (option.equals("levelUp")){
                boolean b =  UserService.getInstance().AuthorizationUser(userId,option,userRole);
                if (b){
-                   response.sendRedirect("/projectWeb_war/admin/Index");
+                   response.sendRedirect(request.getContextPath()+"/admin/Index");
+//                   response.sendRedirect("/projectWeb_war/admin/Index");
                }
             }else{
                 boolean b =  UserService.getInstance().AuthorizationUser(userId,option,userRole);
                 if (b){
-                    response.sendRedirect("/projectWeb_war/admin/Index");
+                    response.sendRedirect(request.getContextPath()+"/admin/Index");
+//                    response.sendRedirect("/projectWeb_war/admin/Index");
                 }
             }
 

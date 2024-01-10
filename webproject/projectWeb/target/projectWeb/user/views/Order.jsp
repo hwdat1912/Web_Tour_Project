@@ -220,7 +220,7 @@
                                                            <a  class="btn btn-primary btn-sm <%=status!=VerifyService.VERIFY_SUCCESS ? "":"disable-href"%>" id="<%=b.getBOOKING_ID()%>"  style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
                                                            Ký hoá đơn</a>
 
-                                                           <a class="bound dahuy" style="width: 90px; border-radius: 5px" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
+                                                           <a class="bound dahuy" style="width: 90px; border-radius: 5px" href="<%=request.getContextPath()%>/user/views/order?cancel=<%=b.getBOOKING_ID()%>">
                                                                <span>Hủy đơn</span>
                                                            </a>
 
@@ -359,7 +359,7 @@
                                                             <a class="btn btn-primary btn-sm" style="margin: 5px 0 5px 0; border-radius: 5px;" href="#dialog" onclick="openModal('<%=b.getBOOKING_ID()%>')" title="Thêm">
                                                                 Ký hoá đơn</a>
 
-                                                            <a class="bound dahuy" style="width: 90px; border-radius: 5px;" href="/projectWeb_war/user/views/order?cancel=<%=b.getBOOKING_ID()%>" >
+                                                            <a class="bound dahuy" style="width: 90px; border-radius: 5px;" href="<%=request.getContextPath()%>/user/views/order?cancel=<%=b.getBOOKING_ID()%>" >
                                                                 <span>Hủy đơn</span>
                                                             </a>
 
@@ -543,6 +543,7 @@
                         $(itemMess).text("Ký thành công").removeClass("error-message");
                         $(itemMess).addClass("bg-success");
                         $(itemMess).removeClass("bg-info")
+                        $(itemMess).removeClass("bg-danger")
                         window.location.href ="#";
 
                     } else if (response.status === 'error') {
@@ -552,10 +553,20 @@
                         $(itemMess).removeClass("bg-success");
                         $(itemMess).removeClass("bg-info");
                     } else {
-                        console.error('Unexpected response:', response);
-                        toast("Lỗi", "Ký hoá đơn không thành công");
-                        $(itemMess).text("Lỗi không thể ký").addClass("error-message");
-                        $(itemMess).removeClass("bg-success");
+                        // console.error('Unexpected response:', response);
+                        // toast("Lỗi", "Ký hoá đơn không thành công");
+                        // $(itemMess).text("Lỗi không thể ký").addClass("error-message");
+                        // $(itemMess).removeClass("bg-success");
+
+                        console.log('ID Booking and file sent successfully');
+                        console.log(bookingId);
+                        document.getElementById(bookingId).classList.add("disable-href")
+                        toastOK("OK", "Ký hoá đơn thành công");
+                        $(itemMess).text("Ký thành công").removeClass("error-message");
+                        $(itemMess).addClass("bg-success");
+                        $(itemMess).removeClass("bg-info")
+                        $(itemMess).removeClass("bg-danger")
+                        window.location.href ="#";
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {

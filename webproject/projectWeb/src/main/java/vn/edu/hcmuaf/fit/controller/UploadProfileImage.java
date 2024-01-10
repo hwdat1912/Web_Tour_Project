@@ -47,7 +47,7 @@ public class UploadProfileImage extends HttpServlet {
             user.setImageURL(result.get("ImageUpload"));
             session.removeAttribute("auth");
             session.setAttribute("auth",user);
-            response.sendRedirect("/projectWeb_war/user/views/profile.jsp");
+            response.sendRedirect(request.getContextPath()+"/user/views/profile.jsp");
         }else{
 
         }

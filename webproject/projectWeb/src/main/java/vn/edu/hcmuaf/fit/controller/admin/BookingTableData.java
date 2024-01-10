@@ -47,6 +47,7 @@ public class BookingTableData extends HttpServlet {
             }
 
 
+
             request.setAttribute("listKH",listKH);
             request.setAttribute("listTour",listTour);
             request.getRequestDispatcher("form-add-don-hang.jsp").forward(request, response);
@@ -100,11 +101,12 @@ public class BookingTableData extends HttpServlet {
             if (b){
                 String text = "Xác nhận đơn hàng "+bookingId+"  thành công";
                 request.setAttribute("error",text);
-                response.sendRedirect("/projectWeb_war/admin/Index");
+                response.sendRedirect(request.getContextPath()+"/admin/Index");
+//                response.sendRedirect("/projectWeb_war/admin/Index");
             }else{
                 String text = "Xác nhận đơn hàng "+bookingId+" không thành công";
                 request.setAttribute("error",text);
-               response.sendRedirect("/projectWeb_war/admin/Index");
+               response.sendRedirect(request.getContextPath()+"/admin/Index");
             }
         } else   if (option.equals("viewOrderStatus")) {
             int status;

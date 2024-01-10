@@ -50,7 +50,7 @@
             <div class="col-lg-12 text-center">
                 <h2 class="breadcrumb-title">Chi tiết Gói Du Lịch</h2>
                 <ul class="d-flex justify-content-center breadcrumb-items">
-                    <li class="breadcrumb-item"><a href="/projectWeb_war/user/views/home">Trang Chủ</a></li>
+                    <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a></li>
                     <li class="breadcrumb-item active">Du Lịch</li>
                     <li class="breadcrumb-item active">Chi tiết Gói Du Lịch</li>
                 </ul>
@@ -186,7 +186,7 @@
                                 </div>
                                 <div class="pd-lavel d-flex justify-content-between align-items-center flex-wrap gap-2">
                                     <h2 class="pd-title"><%=td.getTourName()%></h2>
-                                    <a href="/projectWeb_war/user/views/savedTour?tourId=<%=td.getTOUR_ID()%>" title="<%=isLike==false?"Thêm vào yêu thích":"Xóa khỏi yêu thích"%>" style="<%=isLike==false?"color: black;font-size: 2rem;cursor: pointer;":"color: red;font-size: 2rem;cursor: pointer;"%>"><%if(isLike==true){%><i class='bx bxs-heart'></i><%}else{%><i class='bx bx-heart'></i><%}%></a>
+                                    <a href="<%=request.getContextPath()%>/user/views/savedTour?tourId=<%=td.getTOUR_ID()%>" title="<%=isLike==false?"Thêm vào yêu thích":"Xóa khỏi yêu thích"%>" style="<%=isLike==false?"color: black;font-size: 2rem;cursor: pointer;":"color: red;font-size: 2rem;cursor: pointer;"%>"><%if(isLike==true){%><i class='bx bxs-heart'></i><%}else{%><i class='bx bx-heart'></i><%}%></a>
                                 </div>
                                 <span>Số còn nhận <span style="color: var(--c-primary);"><%=td.getSoLuong()%></span></span>
                             </div>
@@ -345,7 +345,7 @@
                                             <!-- <span id="show-more-button" style="font-weight: 500;color: var(--c-primary);cursor: pointer;">Xem Thêm Bình Luận</span> -->
                                         </div>
                                     </div>
-                                    <form action="/projectWeb_war/user/views/review" id="comment_form" method="post">
+                                    <form action="<%=request.getContextPath()%>/user/views/review" id="comment_form" method="post">
                                         <div class="comment-form mt-110">
                                             <h4>Để Lại Đánh Giá Của Bạn</h4>
                                             <div class="row">
@@ -469,7 +469,7 @@
                                                         <li><a href="#"><i class='bx bxl-twitter'></i></a></li>
                                                     </ul>
                                                     <div class="contact-lavel">
-                                                        <a href="/projectWeb_war/user/views/contact?guideId=<%=u.getUser_id()%>">Liên hệ</a>
+                                                        <a href="<%=request.getContextPath()%>/user/views/contact?guideId=<%=u.getUser_id()%>">Liên hệ</a>
                                                     </div>
                                                 </div>
                                                 <div class="guide-content">
@@ -504,7 +504,7 @@
                                 <h3 class="widget-lavel"><%=giaVeString%> ₫ <span>1 Người</span></h3>
                             </div>
                             <div class="widget-body">
-                                <form action="/projectWeb_war/user/views/TourCart" method="post" id="booking-form">
+                                <form action="<%=request.getContextPath()%>/user/views/TourCart" method="post" id="booking-form">
                                     <div class="booking-form-wrapper">
                                         <input name="tourId" value="<%=td.getTOUR_ID()%>" style="display: none">
                                         <input name="userId" value="<%=currentUser ==null?"":currentUser.getUser_Id()%>" style="display: none">
@@ -534,12 +534,12 @@
                                     %>
                                         <li class="package-sm">
                                         <div class="thumb">
-                                            <a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
+                                            <a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>">
                                                 <img src="<%="../.."+tour.getImageURL()%>" alt="">
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <h6><a href="/projectWeb_war/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
+                                            <h6><a href="<%=request.getContextPath()%>/user/views/tourDetail?tourId=<%=tour.getTour_id()%>"><%=tour.getTourName()%></a></h6>
                                             <div class="price">
                                                 <span>Chỉ Từ</span>
                                                 <h6><%=giaVeStringRandom%> ₫ <span>1 Người</span></h6>

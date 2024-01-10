@@ -12,14 +12,14 @@
 </head>
 <body>
 	<div class="logo">
-		<a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
+		<a href="<%=request.getContextPath()%>/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
 	</div>
 <div class="container forgotpassowrd-container" id="container">
 	 <%
 	 String email = session.getAttribute("email")==null?null:(String) session.getAttribute("email");
 	 %>
 	<div class="form-container ">
-		<form action="/projectWeb_war/user/views/newPassword" method="POST" class="forgotpassowrd">
+		<form action="<%=request.getContextPath()%>/user/views/newPassword" method="POST" class="forgotpassowrd">
 			<h1>Tạo mật khẩu mới</h1>
 			
 			<!--

@@ -56,7 +56,7 @@ public class CRUDBookingTableData extends HttpServlet {
             boolean b = BookingService.getInstance().createBookingAdmin(tc);
             if (b){
 
-                response.sendRedirect("/projectWeb_war/admin/BookingTableData");
+                response.sendRedirect(request.getContextPath()+"/admin/BookingTableData");
             }else {
                 String text = "Tạo mới không thành công vì số lượng còn lại của Tour: "+tc.getTOUR_ID()+" bé hơn số lượng vé yêu cầu "+tc.getSOLUONG();
                 request.setAttribute("error",text);

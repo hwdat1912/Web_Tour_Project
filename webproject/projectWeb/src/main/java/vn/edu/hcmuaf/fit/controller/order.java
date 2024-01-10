@@ -58,8 +58,9 @@ public class order extends HttpServlet {
 
                 String publicKey = KeyService.getInstance().getKeyById(VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()));
 
+                System.out.println(verifyService.changeVerifyInDb(booking,fileBooking));
 
-                if(verifyService.verify(fileBooking,fileVerify,publicKey)){
+                if(verifyService.verify(fileBooking,fileVerify,publicKey) && verifyService.changeVerifyInDb(booking,fileBooking)){
                     status = VerifyService.VERIFY_SUCCESS;
                 }else {
                     status = VerifyService.VERIFY_CHANGE;

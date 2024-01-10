@@ -18,7 +18,8 @@ public class Admin extends HttpServlet {
             response.sendRedirect("../projectWeb_war/sign.jsp");
             return;
         }
-        response.sendRedirect("/projectWeb_war/admin/index.jsp");
+//        response.sendRedirect("/projectWeb_war/admin/index.jsp");
+        response.sendRedirect(request.getContextPath()+"/admin/index.jsp");
     }
 
     @Override
