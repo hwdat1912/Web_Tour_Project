@@ -132,7 +132,7 @@ public class BookingTableData extends HttpServlet {
 
                 String publicKey = KeyService.getInstance().getKeyById(VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()));
 
-                if (VerifyService.getInstance().verify(fileBooking, fileVerify, publicKey)) {
+                if (VerifyService.getInstance().verify(fileBooking, fileVerify, publicKey) && VerifyService.getInstance().changeVerifyInDb(booking, fileBooking)) {
                     status = VerifyService.VERIFY_SUCCESS;
                 } else {
                     status = VerifyService.VERIFY_CHANGE;
