@@ -232,7 +232,7 @@
                                             </li>
                                             <li>
                                               <a
-                                                href="/projectWeb_war/user/views/signout"
+                                                href="<%=request.getContextPath()%>/user/views/signout"
 
                                                 class="d-inline-flex align-items-center rounded"
                                               >
@@ -256,7 +256,7 @@
                                       <li class="mb-1">
                                         <a
                                           class="d-inline-flex align-items-center rounded"
-                                          href="/projectWeb_war/user/views/order"
+                                          href="<%=request.getContextPath()%>/user/views/order"
                                         >
                                           <h6 class="fw-bold <%=isCurrent.equals("order")?"isCurrent":""%>">Đơn đặt chỗ</h6>
                                         </a>
@@ -281,7 +281,7 @@
                                       <li class="mb-1">
                                         <a
                                           class="d-inline-flex align-items-center rounded"
-                                          href="/projectWeb_war/user/views/SavedCart"
+                                          href="<%=request.getContextPath()%>/user/views/SavedCart"
                                         >
                                           <h6 class="fw-bold <%=isCurrent.equals("saved")?"isCurrent":""%>">Yêu thích đã lưu</h6>
                                         </a>

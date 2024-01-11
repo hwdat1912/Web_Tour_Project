@@ -234,7 +234,7 @@ public class BookingDAO {
 
             float finalTongtien = tongtien -(tongtien*value);
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("update BOOKING " +
+                    handle.createUpdate("update booking " +
                                     "set TOUR_ID =?, USER_ID= ?,HoTen= ?,Email=?,Phone=?, DiaChi=? , SOLUONG_VENGUOILON =?,SOLUONG_VETREEM =? ,SOLUONG=? ,TRANGTHAI= ? ,NgayTao = ?, TongTien =? , Description=? " +
                                     "where BOOKING_ID =?")
 
@@ -262,7 +262,7 @@ public class BookingDAO {
     }
     public void updateBookingStatus(){
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from BOOKING " +
+                handle.createUpdate("delete from booking " +
                         "where DATEDIFF(CURRENT_DATE,NgayTao) >= 60 and TRANGTHAI = ?").bind(0,-1).execute()
         );
 //        JDBIConnector.get().withHandle(handle ->

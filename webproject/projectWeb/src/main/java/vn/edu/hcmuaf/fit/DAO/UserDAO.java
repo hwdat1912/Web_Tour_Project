@@ -101,9 +101,9 @@ cập nhật bởi Bùi Thanh Đảm
     }
 
     public boolean uploadProfileImage(Map<String,String> map){
-        int row = JDBIConnector.get().withHandle(handle -> handle.createUpdate("update USER " +
+        int row = JDBIConnector.get().withHandle(handle -> handle.createUpdate("update user " +
                 "set ImageURL = ? " +
-                "where User.USER_ID = ? ")
+                "where user.USER_ID = ? ")
                 .bind(0,map.get("ImageUpload"))
                 .bind(1,map.get("userId")).execute()
         );

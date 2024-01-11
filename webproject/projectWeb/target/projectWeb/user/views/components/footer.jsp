@@ -41,12 +41,12 @@
                     <div class="footer-widget">
                         <h4 class="footer-widget-title">Quick Link</h4>
                         <ul class="footer-links">
-                            <li><a href="/projectWeb_war/user/views/aboutUs">Về chúng tôi</a></li>
-                            <li><a href="/projectWeb_war/user/views/tour">Các Tour du lịch</a></li>
-                            <li><a href="/projectWeb_war/user/views/destination">Điểm đến</a></li>
-                            <li><a href="/projectWeb_war/user/views/guide">Hướng dẫn viên</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/aboutUs">Về chúng tôi</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/tour">Các Tour du lịch</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/destination">Điểm đến</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/guide">Hướng dẫn viên</a></li>
 
-                            <li><a href="/projectWeb_war/user/views/blog">Tin tức</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/blog">Tin tức</a></li>
                         </ul>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-lg-4  order-lg-2 order-1">
                     <div class="footer-logo text-center">
-                        <a href="/projectWeb_war/user/views/home"><img src="../assets/images/logo-w.png" alt=""></a>
+                        <a href="<%=request.getContextPath()%>/user/views/home"><img src="../assets/images/logo-w.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 order-lg-3 order-2">
