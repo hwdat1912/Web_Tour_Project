@@ -47,13 +47,19 @@ public class CreateKey extends HttpServlet {
             response.setHeader("Content-disposition", "attachment; filename="+fileNameOut);
             response.setContentLength(data.length);
 
+            System.out.println(rsaService.exportPublicKey());
+
+            keyService.insertKey(user.getUser_Id(),rsaService.exportPublicKey(),KeyService.ENABLE);
+
+            System.out.println("Ok");
+
 
             OutputStream outStream = new BufferedOutputStream(response.getOutputStream());
 
             request.setAttribute("success","Thành Công");
             outStream.write(data);
             outStream.flush();
-            keyService.insertKey(user.getUser_Id(),rsaService.exportPublicKey(),KeyService.ENABLE);
+
             outStream.close();
 //            response.setHeader("Refresh", "0");
 
