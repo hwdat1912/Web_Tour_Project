@@ -60,8 +60,8 @@
                   </select>
                 </div>
                 <div class="form-group col-md-3">
-                        <label for="exampleSelect1" class="control-label"> Chức vụ</label>
-                        <select class="form-control" id="exampleSelect1">
+                        <label for="exampleSelect12" class="control-label"> Chức vụ</label>
+                        <select class="form-control" id="exampleSelect12">
                           <option>-- Chọn chức vụ --</option>
                           <option>Bán hàng</option>
                           <option>Tư vấn</option>
@@ -91,8 +91,8 @@
                             <input class="form-control" type="text" >
                           </div>
                   <div class="form-group col-md-3">
-                      <label for="exampleSelect1" class="control-label">Trạng thái</label>
-                      <select class="form-control" id="exampleSelect1">
+                      <label for="exampleSelect13" class="control-label">Trạng thái</label>
+                      <select class="form-control" id="exampleSelect13">
                         <option>-- Chọn trạng thái --</option>
                         <option>Đã nhận tiền</option>
                         <option>Chưa nhận tiền</option>

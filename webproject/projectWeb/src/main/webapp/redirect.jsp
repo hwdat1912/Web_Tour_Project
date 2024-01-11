@@ -68,7 +68,7 @@
 <div class="background" >
 	<div class="inner" >
         <div class="inner-item">
-            <a href="/projectWeb_war/admin/Index">
+            <a href="<%=request.getContextPath()%>/admin/Index">
                 <div class="circle">
                     <i class="fa-solid fa-user"></i>
                   <span>Đến trang quản trị</span>
@@ -77,7 +77,7 @@
             
         </div>
         <div class="inner-item">
-            <a href="/projectWeb_war/user/views/home">
+            <a href="<%=request.getContextPath()%>/user/views/home">
                 <div class="circle">
                     <i class="fa-solid fa-plane"></i>
                     <span>Đến trang khách</span>

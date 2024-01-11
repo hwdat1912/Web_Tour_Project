@@ -29,14 +29,17 @@ public class order extends HttpServlet {
             boolean b = BookingService.getInstance().cancelBooking(cancel,user.getUser_Id());
 
         }
-
+        System.out.println("Vao order");
         List<Booking> listBooking = BookingService.getInstance().getListBookingByUserId(user.getUser_Id());
+        System.out.println("Da qua list");
+
         Map<String,Integer> verfiyOrder = new HashMap<>();
         VerifyService verifyService = VerifyService.getInstance();
 
         int status;
         for (Booking booking:listBooking
              ) {
+            System.out.println("Vao for");
             if (VerifyService.getInstance().getKeyIdByBookingId(booking.getBOOKING_ID()) != null){
                 String dirUrl = File.separator + "booking";
                 String absolutePath = request.getServletContext().getRealPath(dirUrl);

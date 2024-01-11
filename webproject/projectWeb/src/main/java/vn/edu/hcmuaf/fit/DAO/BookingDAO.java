@@ -303,6 +303,6 @@ public class BookingDAO {
 
 
     public static void main(String[] args) {
-
+        System.out.println(BookingDAO.getInstance().getListBookingByUserId("01"));
     }
 }
