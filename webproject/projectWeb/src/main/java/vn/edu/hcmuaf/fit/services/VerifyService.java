@@ -21,6 +21,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.spec.X509EncodedKeySpec;
+import java.sql.Date;
 import java.util.Base64;
 
 public class VerifyService {
@@ -54,13 +55,14 @@ public class VerifyService {
 ////            print.println(booking.getTongTien());
             String descreption =read.readLine().trim();
             System.out.println(bookindID +"-" +tourID +"-" + userID +"-" + hoTen +"-" +email +"-" +phone+"-" +diachi+"-" +
-                    slVeNguoiLon +"-" +slVeTreEm +"-" +descreption);
+                    slVeNguoiLon +"-" +slVeTreEm +"-" +descreption +"" +ngayTao);
 
             return  (bookindID.equals(booking.getBOOKING_ID()) && tourID.equals(booking.getTOUR_ID()) &&
                     userID.equals(booking.getUSER_ID()) && hoTen.equals(booking.getHoTen().trim())
                     && email.equals(booking.getEmail().trim()) && phone.equals(booking.getPhone().trim())
                     && diachi.equals(booking.getDiaChi().trim()) && (slVeNguoiLon ==booking.getSOLUONG_VENGUOILON())
                     && (slVeTreEm == booking.getSOLUONG_VETREEM() && descreption.equals(booking.getDescription().trim()))
+                    && (Date.valueOf(ngayTao).equals(booking.getNgayTao()))
                     );
 
 

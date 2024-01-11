@@ -82,6 +82,7 @@ public class CRUDBookingTableData extends HttpServlet {
             if (b){
 
 //               System.out.println("Write:"+ WriteBookingSevice.getInstance().writeBooking(tc,request));
+                WriteBookingSevice.getInstance().writeBooking(tc,request);
                 System.out.println("ghi thành công");
                 response.sendRedirect(request.getContextPath()+"/admin/BookingTableData");
             }else {
