@@ -86,7 +86,7 @@
           <span style="font-size: 1rem;color: red"><%=error==null?"":error%></span>
           <div class="tile">
 <%--            enctype="multipart/form-data"--%>
-            <form  method="post" action="/projectWeb_war/admin/CRUDBlogData" enctype="multipart/form-data">
+            <form  method="post" action="<%=request.getContextPath()%>/admin/CRUDBlogData" enctype="multipart/form-data">
             <h3 class="tile-title"><%=blog==null?"Thêm Blog":"Sửa Blog"%></h3>
             <div class="tile-body">
                 <div class="row">
@@ -158,7 +158,7 @@
                 </div>
           </div>
           <button class="btn btn-save" type="submit">Lưu lại</button>
-          <a class="btn btn-cancel" href="/projectWeb_war/admin/BlogTableData">Hủy bỏ</a>
+          <a class="btn btn-cancel" href="<%=request.getContextPath()%>/admin/BlogTableData">Hủy bỏ</a>
 
             </form>
           </div>
