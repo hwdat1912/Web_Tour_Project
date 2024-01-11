@@ -40,7 +40,7 @@
             <div class="col-md-11">
 
                 <label>Bạn Đang Tìm Kiếm Điều Gì?</label>
-                <form action="/projectWeb_war/user/views/tour" method="post">
+                <form action="<%=request.getContextPath()%>/user/views/tour" method="post">
 
                     <input type="text" name="search" placeholder="Tìm Kiếm Địa điểm, Vé du lịch , Hạng mục...">
 
@@ -69,7 +69,7 @@
         </div>
         <div class="row row-cols-lg-3 row-cols-2 gy-5 mt-3">
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Phiêu lưu">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Phiêu lưu">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate1.svg" alt="">
                     </div>
@@ -77,7 +77,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Du lịch">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate2.svg" alt="">
                     </div>
@@ -85,7 +85,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch đôi">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Du lịch đôi">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate3.svg" alt="">
                     </div>
@@ -93,7 +93,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Du lịch đơn thân">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Du lịch đơn thân">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate4.svg" alt="">
                     </div>
@@ -101,7 +101,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Tuần trăng mật">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Tuần trăng mật">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate5.svg" alt="">
                     </div>
@@ -109,7 +109,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Bãi biển">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Bãi biển">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate6.svg" alt="">
                     </div>
@@ -117,7 +117,7 @@
                 </a>
             </div>
             <div class="col">
-                <a class="category-box" href="/projectWeb_war/user/views/categorySearch?searchCategory=Thám hiểm núi">
+                <a class="category-box" href="<%=request.getContextPath()%>/user/views/categorySearch?searchCategory=Thám hiểm núi">
                     <div class="cate-icon mx-auto">
                         <img src="./assets/images/icons/cate7.svg" alt="">
                     </div>
@@ -135,7 +135,7 @@
             <div class="row">
                 <div class="col-xxl-2 col-xl-2 col-lg-12 col-md-12 col-sm-12 col-xs-12 align-items-center d-xl-flex d-lg-block">
                     <div class="nav-logo d-flex justify-content-between align-items-center">
-                        <a href="/projectWeb_war/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
+                        <a href="<%=request.getContextPath()%>/user/views/home"><img src="./assets/images/logo-w.png" alt="logo"></a>
                         <div class="mobile-menu d-flex ">
                             <div class="d-flex align-items-center">
                                 <div class="nav-right-icons d-xl-none d-flex align-items-center ">
@@ -166,21 +166,21 @@
                         </div>
                         <ul >
                             <li>
-                                <a href="/projectWeb_war/user/views/home">Trang Chủ</a>
+                                <a href="<%=request.getContextPath()%>/user/views/home">Trang Chủ</a>
                             </li>
-                            <li><a href="/projectWeb_war/user/views/aboutUs">Về Chúng Tôi</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/aboutUs">Về Chúng Tôi</a></li>
                             <li >
-                                <a href="/projectWeb_war/user/views/destination">Điểm Đến</a>
+                                <a href="<%=request.getContextPath()%>/user/views/destination">Điểm Đến</a>
 
                             </li>
                             <li >
-                                <a href="/projectWeb_war/user/views/tour" >Du Lịch</a>
+                                <a href="<%=request.getContextPath()%>/user/views/tour" >Du Lịch</a>
                             </li>
                             <li >
-                                <a href="/projectWeb_war/user/views/blog">Tin tức</a>
+                                <a href="<%=request.getContextPath()%>/user/views/blog">Tin tức</a>
 
                             </li>
-                            <li><a href="/projectWeb_war/user/views/guide">Hướng Dẫn Viên</a></li>
+                            <li><a href="<%=request.getContextPath()%>/user/views/guide">Hướng Dẫn Viên</a></li>
 
                         </ul>
                         <div class="inner-contact-options d-xl-none">

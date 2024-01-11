@@ -19,7 +19,7 @@ public class BlogDAO {
 
     public List<Blog> getListBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join user on user.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -29,7 +29,7 @@ public class BlogDAO {
     }
     public List<Blog> getListRecentBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join user on user.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -52,7 +52,7 @@ public class BlogDAO {
 
         String finalTextSearchquery = textSearchquery;
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1 "+
+                handle.createQuery("select user.FullName ,blog.* from blog inner join user on user.user_id = blog.user_id where user.USER_Role >=1 "+
                                 finalTextSearchquery + finalQuery)
                         .mapToBean(Blog.class)
                         .stream()
@@ -63,7 +63,7 @@ public class BlogDAO {
 
     public List<Blog> getListRandomBlog(){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join user on user.user_id = blog.user_id where user.USER_Role >=1")
                         .mapToBean(Blog.class)
                         .stream()
                         .collect(Collectors.toList())
@@ -78,7 +78,7 @@ public class BlogDAO {
     }
     public Blog getBlogDetail(String blog_id){
         List<Blog> list = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select user.FullName ,blog.* from blog inner join USER on USER.user_id = blog.user_id where user.USER_Role >=1 and blog.BLOG_ID = ?")
+                handle.createQuery("select user.FullName ,blog.* from blog inner join user on user.user_id = blog.user_id where user.USER_Role >=1 and blog.BLOG_ID = ?")
                         .bind(0,blog_id)
                         .mapToBean(Blog.class)
                         .stream()
@@ -102,7 +102,7 @@ public class BlogDAO {
         Random random = new Random();
         String id ="Blog"+ (random.nextInt(9999000));
         int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("insert into BLOG values (?,?,?,?,?,?,?,?)")
+                handle -> handle.createUpdate("insert into blog values (?,?,?,?,?,?,?,?)")
                         .bind(0,id)
                         .bind(1,map.get("blogUserId"))
                         .bind(2,map.get("blogDiaDiem"))
@@ -120,7 +120,7 @@ public class BlogDAO {
     }
     public boolean deleteBlog(String id){
         int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("delete from BLOG where BLOG_ID = ?")
+                handle -> handle.createUpdate("delete from blog where BLOG_ID = ?")
                         .bind(0,id)
                         .execute()
         );
@@ -133,7 +133,7 @@ public class BlogDAO {
         String id = map.get("blogID");
     if (map.get("ImageUpload")==null){
         row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("update BLOG " +
+                handle -> handle.createUpdate("update blog " +
                                 "set  USER_ID=?,DiaDiem_ID=?,BLOG_TITLE=?,Description=?,NgayVietBai=?,blog_category=? " +
                                 "where BLOG_ID =?")
 
@@ -148,7 +148,7 @@ public class BlogDAO {
         );
     }else{
         row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("update BLOG " +
+                handle -> handle.createUpdate("update blog " +
                                 "set  USER_ID=?,DiaDiem_ID=?,BLOG_TITLE=?,Description=?,NgayVietBai=?,ImageURL=?,blog_category=? " +
                                 "where BLOG_ID =?")
 

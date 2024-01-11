@@ -25,7 +25,7 @@ public class DestinationDAO {
      */
     public Destination getOneDestination(String Des_id){
         List<Destination> des = JDBIConnector.get().withHandle(h ->
-                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON DiaDiem.DiaDiem_ID=tour.DiaDiem_ID WHERE DIADIEM.DiaDiem_ID  = ? \n" +
+                h.createQuery("SELECT diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL, count(diadiem.DiaDiem_ID)as soluong FROM diadiem INNER JOIN tour ON diadiem.DiaDiem_ID=tour.DiaDiem_ID WHERE diadiem.DiaDiem_ID  = ? \n" +
                                 "GROUP BY diadiem.DiaDiem_ID,TenDiaDiem,diadiem.ImageURL ")
                         .bind(0, Des_id)
                         .mapToBean(Destination.class)

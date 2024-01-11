@@ -1,12 +1,9 @@
 package vn.edu.hcmuaf.fit.DAO;
 
 
-import vn.edu.hcmuaf.fit.bean.Booking;
-import vn.edu.hcmuaf.fit.bean.Tour;
-import vn.edu.hcmuaf.fit.bean.TourDetail;
-import vn.edu.hcmuaf.fit.bean.Voucher;
+import vn.edu.hcmuaf.fit.bean.*;
 import vn.edu.hcmuaf.fit.db.JDBIConnector;
-import vn.edu.hcmuaf.fit.services.BookingService;
+import vn.edu.hcmuaf.fit.services.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -176,7 +173,7 @@ public class TourDAO {
                                 "ImageURL," +
                                 "TOUR_CATEGORY," +
                                 "tour_type.GiaVe" +
-                                " from Tour " +
+                                " from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
                                 "and tour.TrangThai =1 and " +
@@ -216,7 +213,7 @@ public class TourDAO {
                                 "ImageURL," +
                                 "TOUR_CATEGORY," +
                                 "tour_type.GiaVe" +
-                                " from Tour " +
+                                " from tour " +
                                 "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
                                 "where tour_type.Type =1 " +
                                 "and tour.TrangThai =1  " +
@@ -299,10 +296,10 @@ public class TourDAO {
                                     "tour_type.GiaVe " +
                                     "from tour " +
                                     "INNER JOIN tour_type on tour.TOUR_ID = tour_type.TOUR_ID " +
-                                    "inner join TOUR_VOUCHER on TOUR_VOUCHER.TOUR_ID = tour.TOUR_ID" +
+                                    "inner join tour_voucher on tour_voucher.TOUR_ID = tour.TOUR_ID" +
                                     " where tour_type.Type =1 " +
                                     "and tour.TrangThai =0 " +
-                                    "and TOUR_VOUCHER.VOUCHER_ID = ?")
+                                    "and tour_voucher.VOUCHER_ID = ?")
                             .bind(0,v.getVOUCHER_ID())
                             .mapToBean(Tour.class)
                             .stream()
@@ -379,8 +376,23 @@ public class TourDAO {
 //            System.out.println(i + map.get(i).toString());
 
         List<Tour> list = TourDAO.getInstance().getAllTour();
+        List<Tour> popularTourList = TourService.getInstance().getListPopularTour();
+        List<Destination> desList = DestinationService.getInstance().getDestination();
+
+        List<Tour> incomTourList = TourService.getInstance().getListIncomingTour();
+        Map<Integer,List<Tour>> voucherTourList = TourService.getInstance().getMapVoucherTour();
+        List<User> guideList = UserService.getInstance().getListGuide();
+        List<Blog> blogList = BlogService.getInstance().getListRecentBlog();
 
        System.out.println(list);
+        System.out.println(popularTourList);
+        System.out.println(desList);
+
+
+        System.out.println(incomTourList);
+        System.out.println(voucherTourList);
+        System.out.println(guideList);
+        System.out.println(blogList);
     }
 
 }

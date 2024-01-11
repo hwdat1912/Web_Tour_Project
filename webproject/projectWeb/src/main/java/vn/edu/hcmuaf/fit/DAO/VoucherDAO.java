@@ -49,7 +49,7 @@ public class VoucherDAO {
         Date currentDate = Date.valueOf(LocalDate.now());
         String sd = currentDate.toString();
         JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("update VOUCHER " +
+                handle -> handle.createUpdate("update voucher " +
                                 "set TRANGTHAI  = ?  " +
                                 "where NgayKetThuc  < ? ")
                         .bind(0,0)
@@ -64,7 +64,7 @@ public class VoucherDAO {
         Random random = new Random();
         String id ="Voucher"+ (random.nextInt(500));
         int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("insert into VOUCHER values (?,?,?,?,?)")
+                handle -> handle.createUpdate("insert into voucher values (?,?,?,?,?)")
                         .bind(0,id)
                         .bind(1,Integer.parseInt(value))
                         .bind(2,ngayBD)
@@ -81,7 +81,7 @@ public class VoucherDAO {
     public boolean updateVoucher(String id,String ngayBD, String ngayKT , String value ){
 
         int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("update VOUCHER " +
+                handle -> handle.createUpdate("update voucher " +
                                 "set VOUCHER_VALUE  =? ,NgayBatDau  =? ,NgayKetThuc   =?  " +
                                 "where VOUCHER_ID  =?")
                         .bind(0,Integer.parseInt(value))
@@ -97,11 +97,13 @@ public class VoucherDAO {
     }
     public boolean deleteVoucher(String id){
         int row =  JDBIConnector.get().withHandle(
-                handle -> handle.createUpdate("delete from VOUCHER where VOUCHER_ID  = ?")
+                handle -> handle.createUpdate("delete from voucher where VOUCHER_ID  = ?")
                         .bind(0,id)
                         .execute()
         );
         if (row != 1) return false;
         return true;
     }
+
+
 }
