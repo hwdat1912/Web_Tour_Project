@@ -18,7 +18,7 @@ public class CommentDAO {
 
     public List<Comment> getListComment(String blog_id){
         List<Comment> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select user.FullName ,user.ImageURL ,BLOG_COMMENT.*  from BLOG_COMMENT inner join User on User.USER_ID =BLOG_COMMENT.USER_ID where BLOG_COMMENT.BLOG_ID   = ?")
+                h.createQuery("select user.FullName ,user.ImageURL ,blog_comment.*  from blog_comment inner join user on user.USER_ID =blog_comment.USER_ID where blog_comment.BLOG_ID   = ?")
                         .bind(0, blog_id)
                         .mapToBean(Comment.class)
                         .stream()
@@ -30,7 +30,7 @@ public class CommentDAO {
 
     public boolean createComment(String BLOG_ID ,String user_id,String comment,String ngayTao,int star){
         Object o = JDBIConnector.get().withHandle(h ->
-                h.createUpdate("insert into BLOG_COMMENT values (?,?,?,?,?)")
+                h.createUpdate("insert into blog_comment values (?,?,?,?,?)")
                         .bind(0,BLOG_ID )
                         .bind(1,user_id)
                         .bind(2,comment)

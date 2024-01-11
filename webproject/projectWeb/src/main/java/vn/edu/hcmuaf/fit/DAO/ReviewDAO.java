@@ -20,7 +20,7 @@ public class ReviewDAO {
 
     public List<Review> getListReview(String tour_id){
         List<Review> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select REVIEW.TOUR_ID,User.USER_ID ,user.FullName ,user.ImageURL ,REVIEW.Comment , REVIEW.NgayTao ,REVIEW.Category,REVIEW.Stars  from REVIEW inner join User on User.USER_ID =REVIEW.USER_ID where REVIEW.TOUR_ID  = ?")
+                h.createQuery("select review.TOUR_ID,user.USER_ID ,user.FullName ,user.ImageURL ,review.Comment , review.NgayTao ,review.Category,review.Stars  from review inner join user on user.USER_ID =review.USER_ID where review.TOUR_ID  = ?")
                         .bind(0, tour_id)
                         .mapToBean(Review.class)
                         .stream()
@@ -33,7 +33,7 @@ public class ReviewDAO {
 
     public boolean createReview(String tour_id,String user_id,String comment,String ngayTao,String category,int star){
        Object o = JDBIConnector.get().withHandle(h ->
-                h.createUpdate("insert into REVIEW values (?,?,?,?,?,?)")
+                h.createUpdate("insert into review values (?,?,?,?,?,?)")
                         .bind(0,tour_id)
                         .bind(1,user_id)
                         .bind(2,comment)

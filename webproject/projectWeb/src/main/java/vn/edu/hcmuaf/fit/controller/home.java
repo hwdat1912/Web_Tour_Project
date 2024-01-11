@@ -27,6 +27,10 @@ public class home extends HttpServlet {
         List<User> guideList = UserService.getInstance().getListGuide();
         List<Blog> blogList = BlogService.getInstance().getListRecentBlog();
 
+        System.out.println(popularTourList);
+        System.out.println(desList);
+        System.out.println(incomTourList);
+
 
         request.setAttribute("popularTourList",popularTourList);
         request.setAttribute("desList",desList);

@@ -32,7 +32,7 @@ public class TourDetailDAO {
 
     public List<TourDetailDays> getListDay(String tour_id){
         List<TourDetailDays> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select * from TOUR_DETAIL_PER_DAY where TOUR_DETAIL_PER_DAY.TOUR_ID  = ?")
+                h.createQuery("select * from tour_detail_per_day where tour_detail_per_day.TOUR_ID  = ?")
                         .bind(0, tour_id)
                         .mapToBean(TourDetailDays.class)
                         .stream()
@@ -43,7 +43,7 @@ public class TourDetailDAO {
     }
     public List<TourDetailImages> getListImage(String tour_id){
         List<TourDetailImages> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select * from TOUR_DETAIL_IMAGE where TOUR_DETAIL_IMAGE.TOUR_ID  = ?")
+                h.createQuery("select * from tour_detail_image where tour_detail_image.TOUR_ID  = ?")
                         .bind(0, tour_id)
                         .mapToBean(TourDetailImages.class)
                         .stream()
@@ -54,7 +54,7 @@ public class TourDetailDAO {
     }
     public List<TourDetailType> getListType(String tour_id){
         List<TourDetailType> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select * from TOUR_TYPE where TOUR_TYPE.TOUR_ID  = ?")
+                h.createQuery("select * from tour_type where tour_type.TOUR_ID  = ?")
                         .bind(0, tour_id)
                         .mapToBean(TourDetailType.class)
                         .stream()
@@ -66,7 +66,7 @@ public class TourDetailDAO {
 
     public List<TourGuide> getListGuide(String tour_id){
         List<TourGuide> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select TOUR_GUIDE.*,user.FullName ,user.email ,user.phone ,user.ImageURL from TOUR_GUIDE inner join User on User.USER_ID =TOUR_GUIDE.USER_ID where TOUR_GUIDE.TOUR_ID  = ? and user.USER_Role =1")
+                h.createQuery("select tour_guide.*,user.FullName ,user.email ,user.phone ,user.ImageURL from tour_guide inner join user on user.USER_ID =tour_guide.USER_ID where tour_guide.TOUR_ID  = ? and user.USER_Role =1")
                         .bind(0, tour_id)
                         .mapToBean(TourGuide.class)
                         .stream()
@@ -79,7 +79,7 @@ public class TourDetailDAO {
     public List<Voucher> getListVoucher(String tour_id){
         VoucherDAO.getInstance().updateStatusVoucher();
         List<Voucher> list = JDBIConnector.get().withHandle(h ->
-                h.createQuery("select VOUCHER.* from VOUCHER inner join TOUR_VOUCHER on TOUR_VOUCHER.VOUCHER_ID =VOUCHER.VOUCHER_ID where TOUR_VOUCHER.TOUR_ID  = ? and VOUCHER.TRANGTHAI = 1")
+                h.createQuery("select voucher.* from voucher inner join tour_voucher on tour_voucher.VOUCHER_ID =voucher.VOUCHER_ID where tour_voucher.TOUR_ID  = ? and voucher.TRANGTHAI = 1")
                         .bind(0, tour_id)
                         .mapToBean(Voucher.class)
                         .stream()
@@ -91,7 +91,7 @@ public class TourDetailDAO {
 
     public boolean likeTour(String user_id,String tourId){
         List<TourDetail> td = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                handle.createQuery("select tour.* from like_tour inner join tour on tour.TOUR_ID = like_tour.TOUR_ID where like_tour.TOUR_ID =? and like_tour.USER_ID = ?")
                         .bind(0,tourId)
                         .bind(1,user_id)
                         .mapToBean(TourDetail.class)
@@ -102,7 +102,7 @@ public class TourDetailDAO {
 
          JDBIConnector.get().withHandle(handle ->
 
-                handle.createUpdate("insert into LIKE_TOUR values (?,?)")
+                handle.createUpdate("insert into like_tour values (?,?)")
                         .bind(0,tourId)
                         .bind(1,user_id)
                         .execute()
@@ -115,7 +115,7 @@ public class TourDetailDAO {
 
         JDBIConnector.get().withHandle(handle ->
 
-                handle.createUpdate("delete from LIKE_TOUR where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                handle.createUpdate("delete from like_tour where like_tour.TOUR_ID =? and like_tour.USER_ID = ?")
                         .bind(0,tourId)
                         .bind(1,user_id)
                         .execute()
@@ -126,7 +126,7 @@ public class TourDetailDAO {
 
     public List<TourDetail> getListLikedTour(String user_id){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.USER_ID = ?")
+                handle.createQuery("select tour.* from like_tour inner join tour on tour.TOUR_ID = like_tour.TOUR_ID where like_tour.USER_ID = ?")
                         .bind(0,user_id)
                         .mapToBean(TourDetail.class)
                         .stream()
@@ -137,7 +137,7 @@ public class TourDetailDAO {
 
     public boolean getLikedTourDetail(String user_id,String tourId){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select tour.* from LIKE_TOUR inner join tour on tour.TOUR_ID = LIKE_TOUR.TOUR_ID where LIKE_TOUR.TOUR_ID =? and LIKE_TOUR.USER_ID = ?")
+                handle.createQuery("select tour.* from like_tour inner join tour on tour.TOUR_ID = like_tour.TOUR_ID where like_tour.TOUR_ID =? and like_tour.USER_ID = ?")
                         .bind(0,tourId)
                         .bind(1,user_id)
                         .mapToBean(TourDetail.class)
@@ -161,7 +161,7 @@ public class TourDetailDAO {
 
     public List<TourDetail> getListTourGuideCalendar(String guideId){
         List<TourDetail> llt = JDBIConnector.get().withHandle(handle ->
-                handle.createQuery("select tour.* from tour inner join TOUR_GUIDE on TOUR_GUIDE.TOUR_ID = tour.TOUR_ID where NgayKhoiHanh > CURRENT_DATE and TOUR_GUIDE.USER_ID = ?")
+                handle.createQuery("select tour.* from tour inner join tour_guide on tour_guide.TOUR_ID = tour.TOUR_ID where NgayKhoiHanh > CURRENT_DATE and tour_guide.USER_ID = ?")
                         .bind(0,guideId)
                         .mapToBean(TourDetail.class)
                         .stream()
@@ -273,7 +273,7 @@ public class TourDetailDAO {
 
     public boolean createTourDetail(Map<String,String > map , String id){
       int row =  JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("insert into Tour values(?,?,?,?,?,?,?,?,?,?,?,?,?)")
+                handle.createUpdate("insert into tour values(?,?,?,?,?,?,?,?,?,?,?,?,?)")
                         .bind(0,id)
                         .bind(1,map.get("tourDetailName"))
                         .bind(2,map.get("tourDetailDiaDiem"))
@@ -297,7 +297,7 @@ public class TourDetailDAO {
         int row = 0;
         if (map.get("ImageUpload")==null){
             row = JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("update Tour" +
+                    handle.createUpdate("update tour" +
                                     " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,Description=?,TOUR_CATEGORY=? " +
                                     "where TOUR_ID= ?")
 
@@ -319,7 +319,7 @@ public class TourDetailDAO {
             );
         }else {
             row = JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("update Tour" +
+                    handle.createUpdate("update tour" +
                                     " set TourName=?,DiaDiem_ID=?,TrangThai=?,NgayTao=?,NgayKhoiHanh=?,NgayKetThuc=?,NoiKhoiHanh=?,SoLuong=?,PhuongTienDiChuyen=?,ImageURL=?,Description=?,TOUR_CATEGORY=? " +
                                     "where TOUR_ID= ?")
 
@@ -345,25 +345,25 @@ public class TourDetailDAO {
 
     public boolean deleteTourDetailAll(String id){
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_GUIDE where TOUR_ID =?")
+                handle.createUpdate("delete from tour_guide where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_TYPE where TOUR_ID =?")
+                handle.createUpdate("delete from tour_type where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_DETAIL_PER_DAY where TOUR_ID =?")
+                handle.createUpdate("delete from tour_detail_per_day where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_VOUCHER where TOUR_ID =?")
+                handle.createUpdate("delete from tour_voucher where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
@@ -373,31 +373,31 @@ public class TourDetailDAO {
 
     public boolean deleteTour(String id){
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR where TOUR_ID =?")
+                handle.createUpdate("delete from tour where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_GUIDE where TOUR_ID =?")
+                handle.createUpdate("delete from tour_guide where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_TYPE where TOUR_ID =?")
+                handle.createUpdate("delete from tour_type where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_DETAIL_PER_DAY where TOUR_ID =?")
+                handle.createUpdate("delete from tour_detail_per_day where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
         );
         JDBIConnector.get().withHandle(handle ->
-                handle.createUpdate("delete from TOUR_VOUCHER where TOUR_ID =?")
+                handle.createUpdate("delete from tour_voucher where TOUR_ID =?")
                         .bind(0, id)
 
                         .execute()
@@ -411,7 +411,7 @@ public class TourDetailDAO {
 
 
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("insert into TOUR_GUIDE values(?,?)")
+                    handle.createUpdate("insert into tour_guide values(?,?)")
                             .bind(0, id)
                             .bind(1, st)
                             .execute()
@@ -426,7 +426,7 @@ public class TourDetailDAO {
 
 
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("insert into TOUR_TYPE values(?,?,?)")
+                    handle.createUpdate("insert into tour_type values(?,?,?)")
                             .bind(0, id)
                             .bind(1,Integer.parseInt(st[1]) )
                             .bind(2,Float.parseFloat(st[2] ))
@@ -442,7 +442,7 @@ public class TourDetailDAO {
 
 
             JDBIConnector.get().withHandle(handle ->
-                    handle.createUpdate("insert into TOUR_DETAIL_PER_DAY values(?,?,?,?)")
+                    handle.createUpdate("insert into tour_detail_per_day values(?,?,?,?)")
                             .bind(0, id)
                             .bind(1,st[1])
                             .bind(2,Integer.parseInt(st[0]))
@@ -458,7 +458,7 @@ public class TourDetailDAO {
 
 if (!voucherid.equals("none")) {
     JDBIConnector.get().withHandle(handle ->
-            handle.createUpdate("insert into TOUR_VOUCHER values(?,?)")
+            handle.createUpdate("insert into tour_voucher values(?,?)")
                     .bind(0, id)
                     .bind(1, voucherid)
 
